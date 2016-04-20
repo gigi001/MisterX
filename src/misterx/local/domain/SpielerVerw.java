@@ -14,7 +14,6 @@ public class SpielerVerw {
 		this.mitspieler = new Vector<Spieler>();
 	}
 	
-<<<<<<< HEAD
 
 	public Spieler spielerHinzufuegen(String name) {
 		// pr�fen, ob Spieler mit Name schon vorhanden
@@ -30,10 +29,8 @@ public class SpielerVerw {
 		// pr�fen, ob Spieler mit Name schon vorhanden
 		
 	}
-=======
 	public void spielerHinzufuegen(Spieler neuerSpieler) throws SpielerExistiertBereitsException {
 		// pruefen, ob Spieler mit Name schon vorhanden
->>>>>>> refs/remotes/origin/Chris-workspace
 		// --> SpielerExistiertBereitsException werfen
 		if (mitspieler.contains(neuerSpieler)){
 			throw new SpielerExistiertBereitsException(neuerSpieler);
