@@ -1,5 +1,6 @@
 package misterx.local.domain;
 
+import misterx.local.domain.exceptions.SpielerExistiertBereitsException;
 import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
 
@@ -14,5 +15,9 @@ public class MisterXSpiel {
 	
 	public void spielerHinzufügen(Spieler neuerspieler) throws SpielerExistiertBereitsException { 
 		 spielerVW.spielerHinzufügen(neuerspieler);
+	}
+
+	public Station getStationByIndex(int index){
+		return sv.getStationByIndex(index);
 	}
 }

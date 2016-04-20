@@ -1,4 +1,4 @@
-package misterx.local.domain;
+package misterx.local.domain.exceptions;
 
 import misterx.local.valueobjekts.Spieler;
 

@@ -3,6 +3,7 @@ package misterx.local.domain;
 import java.util.List;
 import java.util.Vector;
 
+import misterx.local.domain.exceptions.SpielerExistiertBereitsException;
 import misterx.local.valueobjekts.Spieler;
 
 public class SpielerVerw {
@@ -23,6 +24,7 @@ public class SpielerVerw {
 		mitspieler.add(neuerSpieler);	
 	}
 	
+	// -> in Spiellogik verschieben
 	public void chipsAbziehen(String typ, int spielernummer){
 		
 		switch (typ){
