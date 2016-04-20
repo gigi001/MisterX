@@ -43,10 +43,17 @@ public class MisterXClientCUI {
 					break;
 		case "2": 	System.out.println("Name von MisterX eingeben:");
 <<<<<<< HEAD
+<<<<<<< HEAD
 					String nameX = reader.readLine();	
 =======
 					name = reader.readLine();	
 >>>>>>> master
+=======
+					name = reader.readLine();	
+=======
+					String nameX = reader.readLine();	
+>>>>>>> refs/remotes/origin/YagmurWorkspace
+>>>>>>> origin/master
 					try{	
 						spiel.spielerHinzufuegen(nameX);
 						System.out.println("Neuer Spieler mit Name " 
@@ -68,7 +75,7 @@ public class MisterXClientCUI {
 		// wenn 2: spiel.misterXFestlegen(name);
 		// wenn 3: Spielfeld feld = spiel.spielfeldErzeugen()
 		//			feld ausgeben in CUI
-		// 			neues Men� anzeigen: was kann Spieler tun?
+		// 			neues Men� anzeigen: was kann Spieler tun? hallo
 	}
 	
 	public void aktionAusfuehren() {
