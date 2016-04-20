@@ -14,21 +14,6 @@ public class SpielerVerw {
 		this.mitspieler = new Vector<Spieler>();
 	}
 	
-
-	public Spieler spielerHinzufuegen(String name) {
-		// pr�fen, ob Spieler mit Name schon vorhanden
-		
-	}
-
-	public void spielerHinzufuegen(Spieler neuerSpieler ) throws SpielerExistiertBereitsException {
-		// pr�fen, ob Spieler mit Name schon vorhanden
-
-		
-	}
-	public void spielerHinzufuegen(Spieler neuerSpieler ) throws SpielerExistiertBereitsException {
-		// pr�fen, ob Spieler mit Name schon vorhanden
-		
-	}
 	public void spielerHinzufuegen(Spieler neuerSpieler) throws SpielerExistiertBereitsException {
 		// pruefen, ob Spieler mit Name schon vorhanden
 		// --> SpielerExistiertBereitsException werfen
