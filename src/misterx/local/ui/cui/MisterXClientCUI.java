@@ -59,6 +59,7 @@ public class MisterXClientCUI {
 		
 		}
 		//hallo
+		//test
 		// Fallunterscheidung / switch
 		// wenn 1: spiel.spielerHinzuf�gen(name);
 		// wenn 2: spiel.misterXFestlegen(name);
