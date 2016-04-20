@@ -18,11 +18,20 @@ public class StadtVerw {
 		Station gStrasse= new Station ("LindenStr");
 		Station hStrasse= new Station ("LöhStr");
 		
+		
 		meineStationen.add(eStrasse);
 		meineStationen.add(dStrasse);
+		meineStationen.add(aStrasse);
+		meineStationen.add(bStrasse);
+		
+		
 		meineStationen.add(new Station("Y-str" ));
 		eStrasse.addTaxiNachbar(dStrasse);
 		dStrasse.addTaxiNachbar(eStrasse);
+		dStrasse.addTaxiNachbar(aStrasse);
+		
+		
+		
 	}
 
 	public Station getStationByIndex(int index){
