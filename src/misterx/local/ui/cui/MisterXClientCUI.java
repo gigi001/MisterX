@@ -15,9 +15,15 @@ public class MisterXClientCUI {
 	private MisterXSpiel spiel = new MisterXSpiel();
 	
 	public void startMenue() throws IOException {
+<<<<<<< HEAD
 		System.out.println("Startmen�");
 		System.out.println("1 - Spieler hinzuf�gen");
 		System.out.println("2 - Mister X hinzuf�gen");
+=======
+		System.out.println("Startmenue");
+		System.out.println("1 - Spieler hinzufuegen");
+		System.out.println("2 - Mister X hinzufuegen");
+>>>>>>> refs/remotes/origin/Chris-workspace
 		System.out.println("3 - Spiel starten");
 		
 		// Aktion einlesen
@@ -31,13 +37,17 @@ public class MisterXClientCUI {
 					String name = reader.readLine();
 					try{	
 					spiel.spielerHinzufuegen(new Spieler(name));
+<<<<<<< HEAD
 					System.out.println("Neuer Spieler mit Name " 
+=======
+					System.out.println("Neuer Spieler mit dem Namen " 
+>>>>>>> refs/remotes/origin/Chris-workspace
 							+ name + " wurde angelegt.");
 					}catch (SpielerExistiertBereitsException e){
-						System.out.println("Spieler mit Name  " 
-								+ name + " Existiert bereits.");	
-						
+						System.out.println("Spieler mit dem Namen " 
+								+ name + " existiert bereits.");							
 					}
+					startMenue();
 					
 					break;
 		case "2": 	System.out.println("Name von MisterX eingeben:");
@@ -45,6 +55,7 @@ public class MisterXClientCUI {
 					String nameX = reader.readLine();
 					name = reader.readLine();
 					try{	
+<<<<<<< HEAD
 						spiel.spielerHinzufuegen(nameX);
 						System.out.println("Neuer Spieler mit Name " 
 								+ nameX + " wurde angelegt.");
@@ -53,19 +64,37 @@ public class MisterXClientCUI {
 									+ nameX + " Existiert bereits.");	
 							
 						}
+=======
+					spiel.spielerHinzufuegen(new MisterX(name));
+					System.out.println("MisterX mit dem Namen " 
+							+ name + " wurde angelegt.");
+					}catch (SpielerExistiertBereitsException e){
+						System.out.println("Spieler mit Name  " 
+								+ name + " existiert bereits.");							
+					}
+					startMenue();
+>>>>>>> refs/remotes/origin/Chris-workspace
 						
 						break;
 		case "3":  //TODO
 			break;
 		
 		}
-		
+		//
 		// Fallunterscheidung / switch
+<<<<<<< HEAD
 		// wenn 1: spiel.spielerHinzuf�gen(name);
 		// wenn 2: spiel.misterXFestlegen(name);
 		// wenn 3: Spielfeld feld = spiel.spielfeldErzeugen()
 		//			feld ausgeben in CUI
 		// 			neues Men� anzeigen: was kann Spieler tun?
+=======
+		// wenn 1: spiel.spielerHinzufuegen(name);
+		// wenn 2: spiel.misterXFestlegen(name);
+		// wenn 3: Spielfeld feld = spiel.spielfeldErzeugen()
+		//			feld ausgeben in CUI
+		// 			neues Menue anzeigen: was kann Spieler tun?
+>>>>>>> refs/remotes/origin/Chris-workspace
 	}
 	
 	public void aktionAusfuehren() {
