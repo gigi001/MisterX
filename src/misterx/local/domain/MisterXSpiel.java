@@ -12,12 +12,14 @@ public class MisterXSpiel {
 		return sv.getStationByIndex(i);
 	}
 	
-<<<<<<< HEAD
+
 	public Spieler spielerHinzufuegen(String name) {
 		return spielerVW.spielerHinzufuegen(name);
-=======
-	public void spielerHinzufügen(Spieler neuerspieler) throws SpielerExistiertBereitsException { 
-		 spielerVW.spielerHinzufügen(neuerspieler);
->>>>>>> master
+		
+		}
+
+	public void spielerHinzufuegen(Spieler neuerspieler) throws SpielerExistiertBereitsException { 
+		 spielerVW.spielerHinzufuegen(neuerspieler);
+
 	}
 }
