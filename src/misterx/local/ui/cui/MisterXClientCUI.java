@@ -26,11 +26,14 @@ public class MisterXClientCUI {
 		String aktion = reader.readLine();
 		
 		
+		
+		
 		switch (aktion){
 		case "1" :	System.out.println("Name des Spielers eingeben:");
-					String name = reader.readLine();
+				     Spieler name = new Spieler (reader.readLine());
 					try{	
-					spiel.spielerHinzufügen(new Spieler(name));
+						spiel.spielerHinzufügen(name);
+						//spiel.spielerHinzufügen(new Spieler(name));
 					System.out.println("Neuer Spieler mit Name " 
 							+ name + " wurde angelegt.");
 					}catch (SpielerExistiertBereitsException e){
@@ -41,20 +44,22 @@ public class MisterXClientCUI {
 					
 					break;
 		case "2": 	System.out.println("Name von MisterX eingeben:");
-					String name = reader.readLine();	
+					MisterX nameX = new MisterX (reader.readLine());
+		
+		//String name = reader.readLine();	
 					try{	
-						spiel.spielerHinzufügen(new MisterX(name));
+						spiel.spielerHinzufügen(nameX);
 						System.out.println("Neuer Spieler mit Name " 
-								+ name + " wurde angelegt.");
+								+ nameX + " wurde angelegt.");
 						}catch (SpielerExistiertBereitsException e){
 							System.out.println("Spieler mit Name  " 
-									+ name + " Existiert bereits.");	
+									+ nameX + " Existiert bereits.");	
 							
 						}
 						
 						break;
-		case "3":  //TODO
-			break;
+		//case "3":  //TODO
+			//break;
 		
 		}
 		

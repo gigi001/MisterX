@@ -23,12 +23,19 @@ public class StadtVerw {
 		meineStationen.add(dStrasse);
 		meineStationen.add(aStrasse);
 		meineStationen.add(bStrasse);
+		meineStationen.add(cStrasse);
+		meineStationen.add(eStrasse);
+		meineStationen.add(fStrasse);
+		meineStationen.add(gStrasse);
+		meineStationen.add(hStrasse);
 		
 		
-		meineStationen.add(new Station("Y-str" ));
+	   meineStationen.add(new Station("Y-str" ));
 		eStrasse.addTaxiNachbar(dStrasse);
 		dStrasse.addTaxiNachbar(eStrasse);
 		dStrasse.addTaxiNachbar(aStrasse);
+		
+		
 		
 		
 		
