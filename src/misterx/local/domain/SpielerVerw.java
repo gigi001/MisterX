@@ -14,7 +14,7 @@ public class SpielerVerw {
 		this.mitspieler = new Vector<Spieler>();
 	}
 	
-	public void spielerHinzufuegen(Spieler neuerSpieler ) throws SpielerExistiertBereitsException {
+	public void spielerHinzufuegen(Spieler neuerSpieler) throws SpielerExistiertBereitsException {
 		// pruefen, ob Spieler mit Name schon vorhanden
 		// --> SpielerExistiertBereitsException werfen
 		if (mitspieler.contains(neuerSpieler)){

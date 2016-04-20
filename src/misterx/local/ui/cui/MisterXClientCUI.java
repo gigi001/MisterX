@@ -32,26 +32,26 @@ public class MisterXClientCUI {
 					name = reader.readLine();
 					try{	
 					spiel.spielerHinzufuegen(new Spieler(name));
-					System.out.println("Neuer Spieler mit Name " 
+					System.out.println("Neuer Spieler mit dem Namen " 
 							+ name + " wurde angelegt.");
 					}catch (SpielerExistiertBereitsException e){
-						System.out.println("Spieler mit Name  " 
-								+ name + " Existiert bereits.");	
-						
+						System.out.println("Spieler mit dem Namen " 
+								+ name + " existiert bereits.");							
 					}
+					startMenue();
 					
 					break;
 		case "2": 	System.out.println("Name von MisterX eingeben:");
 					name = reader.readLine();	
 					try{	
-						spiel.spielerHinzufuegen(new MisterX(name));
-						System.out.println("Neuer Spieler mit Name " 
-								+ name + " wurde angelegt.");
-						}catch (SpielerExistiertBereitsException e){
-							System.out.println("Spieler mit Name  " 
-									+ name + " Existiert bereits.");	
-							
-						}
+					spiel.spielerHinzufuegen(new MisterX(name));
+					System.out.println("MisterX mit dem Namen " 
+							+ name + " wurde angelegt.");
+					}catch (SpielerExistiertBereitsException e){
+						System.out.println("Spieler mit Name  " 
+								+ name + " existiert bereits.");							
+					}
+					startMenue();
 						
 						break;
 		case "3":  //TODO
