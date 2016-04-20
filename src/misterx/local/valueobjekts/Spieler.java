@@ -69,9 +69,3 @@ public class Spieler {
 	}
 }
 	
-	
-	
-	
-	
-	
-

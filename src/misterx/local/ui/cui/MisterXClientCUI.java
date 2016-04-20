@@ -83,9 +83,7 @@ public class MisterXClientCUI {
 
 	
 	}
-		
-		
-		
+				
 		
 		
 		
@@ -97,10 +95,6 @@ public class MisterXClientCUI {
 		// 			neues Menü anzeigen: was kann Spieler tun?
 		
 		
-		
-	
-	
-	
 	public void aktionAusfuehren() {
 		
 	}

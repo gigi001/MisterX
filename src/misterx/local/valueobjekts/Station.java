@@ -6,7 +6,7 @@ import java.util.Set;
 public class Station {
 	
 	private String name;
-	private String typ; // ggf. als Aufzählung / Enumeration
+	//private String typ; // ggf. als Aufzählung / Enumeration
 	private Set<Station> uBahnNachbarn = new HashSet<Station>();
 	private Set<Station> busNachbarn = new HashSet<Station>();
 	private Set<Station> taxiNachbarn = new HashSet<Station>();
