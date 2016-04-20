@@ -12,7 +12,7 @@ public class Spieler {
 	
 	public Spieler(String name) {
 		this.name = name;
-		guthaben.add(taxiChips,30);
+		guthaben.add(taxiChips,30);// frage kann ich mit ArrayList die werte ändern ? so das es bei jeden spielzug ein chip abgezogen wird
 		guthaben.add(busChips,40);
 		guthaben.add(bahnChips, 50);
 	}
@@ -52,8 +52,6 @@ public class Spieler {
 	}
 	
 	
-	
-	}
 	
 	
 	
