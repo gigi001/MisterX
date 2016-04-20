@@ -13,8 +13,8 @@ public class SpielerVerw {
 		this.mitspieler = new Vector<Spieler>();
 	}
 	
-	public Spieler spielerHinzufügen(String name) {
-		// prüfen, ob Spieler mit Name schon vorhanden
+	public Spieler spielerHinzufuegen(String name) {
+		// prï¿½fen, ob Spieler mit Name schon vorhanden
 		// --> SpielerExistiertBereitsException werfen
 		
 		Spieler neuerSpieler = new Spieler(name);
