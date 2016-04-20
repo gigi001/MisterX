@@ -95,8 +95,7 @@ public class MisterXClientCUI {
 		// wenn 3: Spielfeld feld = spiel.spielfeldErzeugen()
 		//			feld ausgeben in CUI
 		// 			neues Menü anzeigen: was kann Spieler tun?
-		//hi2
-		
+
 		
 	
 	
