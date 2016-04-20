@@ -6,7 +6,7 @@ import java.util.Set;
 public class Station {
 	
 	private String name;
-	private String typ; // ggf. als Aufzaehlung / Enumeration
+	private String typ; // ggf. als Aufz‰hlung / Enumeration
 	private Set<Station> uBahnNachbarn = new HashSet<Station>();
 	private Set<Station> busNachbarn = new HashSet<Station>();
 	private Set<Station> taxiNachbarn = new HashSet<Station>();
@@ -45,7 +45,7 @@ public class Station {
 	
 	@Override
 	public String toString(){
-		return "Diese Station heisst " + name;	
+		return "Diese Station heiﬂt " + name;	
 	}
 
 	public Set<Station> getBusNachbarn() {

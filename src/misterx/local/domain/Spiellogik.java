@@ -1,12 +1,12 @@
-package misterx.local.domain.exceptions;
+package misterx.local.domain;
 
-import misterx.local.valueobjekts.Spieler;
+public class Spiellogik {
 
-public class SpielerExistiertBereitsException extends Exception{
-	
-	public SpielerExistiertBereitsException(Spieler spieler){
-		super ("Spieler mit Name "+ spieler.getName()+ " existiert bereits ");
-		
-	}
-
+	/*
+	 * - Spielzyklus (wer ist dran?)
+	 * - von A nach B fahren (Spieler oder MisterX)
+	 * 	 - ggf. Zugriff auf SpielerVerwaltung, um Chips zu prüfen / reduzieren
+	 *   - prüfen, ob MisterX gefunden
+	 * - Wann zeigt sich MisterX
+	 */
 }

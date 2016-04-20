@@ -3,6 +3,7 @@ package misterx.local.domain;
 import java.util.List;
 import java.util.Vector;
 
+import misterx.local.domain.exceptions.SpielerExistiertBereitsException;
 import misterx.local.valueobjekts.Spieler;
 
 public class SpielerVerw {
@@ -14,8 +15,8 @@ public class SpielerVerw {
 		this.mitspieler = new Vector<Spieler>();
 	}
 	
-	public void spielerHinzufuegen(Spieler neuerSpieler) throws SpielerExistiertBereitsException {
-		// pruefen, ob Spieler mit Name schon vorhanden
+	public void spielerHinzufügen(Spieler neuerSpieler ) throws SpielerExistiertBereitsException {
+		// prüfen, ob Spieler mit Name schon vorhanden
 		// --> SpielerExistiertBereitsException werfen
 		if (mitspieler.contains(neuerSpieler)){
 			throw new SpielerExistiertBereitsException(neuerSpieler);
@@ -23,6 +24,7 @@ public class SpielerVerw {
 		mitspieler.add(neuerSpieler);	
 	}
 	
+	// -> in Spiellogik verschieben
 	public void chipsAbziehen(String typ, int spielernummer){
 		
 		switch (typ){

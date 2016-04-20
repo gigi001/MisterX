@@ -8,6 +8,7 @@ public class Spieler {
 	private int taxiChips;
 	private int busChips;
 	private int bahnChips;
+	private Station standort;
     //private ArrayList <Integer> guthaben;
 	
 	public Spieler(String name) {
@@ -44,15 +45,26 @@ public class Spieler {
 	public int getBahnChips(){
 		return bahnChips;
 	}
-	
-	
-		
-		
-}
-	
-	
-	
-	
-	
-	
 
+	@Override
+	public boolean equals(Object obj) {
+		System.out.println("equals-Methode");
+		if (obj instanceof Spieler) {
+			Spieler andererSpieler = (Spieler) obj;
+			return (name.equals(andererSpieler.getName()));
+		}
+		return false;
+	}
+
+	public Station getStandort() {
+		return standort;
+	}
+
+	public void setStandort(Station standort) {
+		this.standort = standort;
+	}
+	
+	public String toString() {
+		return "Spieler " + name + " steht an Station " + standort.getName() + ".";
+	}
+}
