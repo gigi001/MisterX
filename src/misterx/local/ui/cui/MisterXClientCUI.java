@@ -25,11 +25,10 @@ public class MisterXClientCUI {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		String aktion = reader.readLine();
 		
-		String name;
 		
 		switch (aktion){
 		case "1" :	System.out.println("Name des Spielers eingeben:");
-					name = reader.readLine();
+					String name = reader.readLine();
 					try{	
 					spiel.spielerHinzufuegen(new Spieler(name));
 					System.out.println("Neuer Spieler mit Name " 
@@ -43,10 +42,14 @@ public class MisterXClientCUI {
 					break;
 		case "2": 	System.out.println("Name von MisterX eingeben:");
 <<<<<<< HEAD
+<<<<<<< HEAD
 					name = reader.readLine();	
 =======
 					String nameX = reader.readLine();	
 >>>>>>> refs/remotes/origin/YagmurWorkspace
+=======
+					String name = reader.readLine();	
+>>>>>>> parent of 4dc59a1... name
 					try{	
 						spiel.spielerHinzufuegen(nameX);
 						System.out.println("Neuer Spieler mit Name " 
