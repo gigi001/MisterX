@@ -30,7 +30,11 @@ public class MisterXClientCUI {
 		case "1" :	System.out.println("Name des Spielers eingeben:");
 					String name = reader.readLine();
 					try{	
+<<<<<<< HEAD
 					spiel.spielerHinzufuegen(new Spieler(name));
+=======
+					spiel.spielerHinzufügen(new Spieler(name));
+>>>>>>> master
 					System.out.println("Neuer Spieler mit Name " 
 							+ name + " wurde angelegt.");
 					}catch (SpielerExistiertBereitsException e){
@@ -43,7 +47,11 @@ public class MisterXClientCUI {
 		case "2": 	System.out.println("Name von MisterX eingeben:");
 					String name = reader.readLine();	
 					try{	
+<<<<<<< HEAD
 						spiel.spielerHinzufuegen(new MisterX(name));
+=======
+						spiel.spielerHinzufügen(new MisterX(name));
+>>>>>>> master
 						System.out.println("Neuer Spieler mit Name " 
 								+ name + " wurde angelegt.");
 						}catch (SpielerExistiertBereitsException e){
