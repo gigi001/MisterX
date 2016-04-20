@@ -15,9 +15,9 @@ public class MisterXClientCUI {
 	private MisterXSpiel spiel = new MisterXSpiel();
 	
 	public void startMenue() throws IOException {
-		System.out.println("Startmenü");
-		System.out.println("1 - Spieler hinzufügen");
-		System.out.println("2 - Mister X hinzufügen");
+		System.out.println("StartmenÃ¼");
+		System.out.println("1 - Spieler hinzufÃ¼gen");
+		System.out.println("2 - Mister X hinzufÃ¼gen");
 		System.out.println("3 - Spiel starten");
 		
 		// Aktion einlesen
@@ -31,7 +31,7 @@ public class MisterXClientCUI {
 		case "1" :	System.out.println("Name des Spielers eingeben:");
 					name = reader.readLine();
 					try{	
-					spiel.spielerHinzufügen(new Spieler(name));
+					spiel.spielerHinzufuegen(new Spieler(name));
 					System.out.println("Neuer Spieler mit Name " 
 							+ name + " wurde angelegt.");
 					}catch (SpielerExistiertBereitsException e){
@@ -42,14 +42,18 @@ public class MisterXClientCUI {
 					
 					break;
 		case "2": 	System.out.println("Name von MisterX eingeben:");
+<<<<<<< HEAD
+					String nameX = reader.readLine();	
+=======
 					name = reader.readLine();	
+>>>>>>> master
 					try{	
-						spiel.spielerHinzufügen(new MisterX(name));
+						spiel.spielerHinzufuegen(nameX);
 						System.out.println("Neuer Spieler mit Name " 
-								+ name + " wurde angelegt.");
+								+ nameX + " wurde angelegt.");
 						}catch (SpielerExistiertBereitsException e){
 							System.out.println("Spieler mit Name  " 
-									+ name + " Existiert bereits.");	
+									+ nameX + " Existiert bereits.");	
 							
 						}
 						
@@ -60,11 +64,11 @@ public class MisterXClientCUI {
 		}
 		
 		// Fallunterscheidung / switch
-		// wenn 1: spiel.spielerHinzufügen(name);
+		// wenn 1: spiel.spielerHinzufï¿½gen(name);
 		// wenn 2: spiel.misterXFestlegen(name);
 		// wenn 3: Spielfeld feld = spiel.spielfeldErzeugen()
 		//			feld ausgeben in CUI
-		// 			neues Menü anzeigen: was kann Spieler tun?
+		// 			neues Menï¿½ anzeigen: was kann Spieler tun?
 	}
 	
 	public void aktionAusfuehren() {
