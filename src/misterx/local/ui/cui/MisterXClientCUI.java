@@ -68,7 +68,7 @@ public class MisterXClientCUI {
 		// wenn 2: spiel.misterXFestlegen(name);
 		// wenn 3: Spielfeld feld = spiel.spielfeldErzeugen()
 		//			feld ausgeben in CUI
-		// 			neues Men� anzeigen: was kann Spieler tun?
+		// 			neues Men� anzeigen: was kann Spieler tun? hallo
 	}
 	
 	public void aktionAusfuehren() {
