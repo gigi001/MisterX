@@ -1,6 +1,6 @@
 package misterx.local.ui.cui;
-
-import java.io.BufferedReader;
+//hi
+import java.io.BufferedReader; 
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -25,10 +25,11 @@ public class MisterXClientCUI {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		String aktion = reader.readLine();
 		
+		String name;
 		
 		switch (aktion){
 		case "1" :	System.out.println("Name des Spielers eingeben:");
-					String name = reader.readLine();
+					name = reader.readLine();
 					try{	
 					spiel.spielerHinzufügen(new Spieler(name));
 					System.out.println("Neuer Spieler mit Name " 
@@ -41,7 +42,7 @@ public class MisterXClientCUI {
 					
 					break;
 		case "2": 	System.out.println("Name von MisterX eingeben:");
-					String name = reader.readLine();	
+					name = reader.readLine();	
 					try{	
 						spiel.spielerHinzufügen(new MisterX(name));
 						System.out.println("Neuer Spieler mit Name " 
