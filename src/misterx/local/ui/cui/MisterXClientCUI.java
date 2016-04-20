@@ -15,9 +15,9 @@ public class MisterXClientCUI {
 	private MisterXSpiel spiel = new MisterXSpiel();
 	
 	public void startMenue() throws IOException {
-		System.out.println("Startmenü");
-		System.out.println("1 - Spieler hinzufügen");
-		System.out.println("2 - Mister X hinzufügen");
+		System.out.println("Startmenue");
+		System.out.println("1 - Spieler hinzufuegen");
+		System.out.println("2 - Mister X hinzufuegen");
 		System.out.println("3 - Spiel starten");
 		
 		// Aktion einlesen
@@ -31,7 +31,7 @@ public class MisterXClientCUI {
 		case "1" :	System.out.println("Name des Spielers eingeben:");
 					name = reader.readLine();
 					try{	
-					spiel.spielerHinzufügen(new Spieler(name));
+					spiel.spielerHinzufuegen(new Spieler(name));
 					System.out.println("Neuer Spieler mit Name " 
 							+ name + " wurde angelegt.");
 					}catch (SpielerExistiertBereitsException e){
@@ -44,7 +44,7 @@ public class MisterXClientCUI {
 		case "2": 	System.out.println("Name von MisterX eingeben:");
 					name = reader.readLine();	
 					try{	
-						spiel.spielerHinzufügen(new MisterX(name));
+						spiel.spielerHinzufuegen(new MisterX(name));
 						System.out.println("Neuer Spieler mit Name " 
 								+ name + " wurde angelegt.");
 						}catch (SpielerExistiertBereitsException e){
@@ -60,11 +60,11 @@ public class MisterXClientCUI {
 		}
 		
 		// Fallunterscheidung / switch
-		// wenn 1: spiel.spielerHinzufügen(name);
+		// wenn 1: spiel.spielerHinzufuegen(name);
 		// wenn 2: spiel.misterXFestlegen(name);
 		// wenn 3: Spielfeld feld = spiel.spielfeldErzeugen()
 		//			feld ausgeben in CUI
-		// 			neues Menü anzeigen: was kann Spieler tun?
+		// 			neues Menue anzeigen: was kann Spieler tun?
 	}
 	
 	public void aktionAusfuehren() {
