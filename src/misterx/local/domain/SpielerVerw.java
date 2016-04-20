@@ -18,8 +18,8 @@ public class SpielerVerw {
 	public Spieler spielerHinzufuegen(String name) {
 		// prï¿½fen, ob Spieler mit Name schon vorhanden
 =======
-	public void spielerHinzufügen(Spieler neuerSpieler ) throws SpielerExistiertBereitsException {
-		// prüfen, ob Spieler mit Name schon vorhanden
+	public void spielerHinzufuegen(Spieler neuerSpieler ) throws SpielerExistiertBereitsException {
+		// prï¿½fen, ob Spieler mit Name schon vorhanden
 >>>>>>> master
 		// --> SpielerExistiertBereitsException werfen
 		if (mitspieler.contains(neuerSpieler)){

@@ -12,7 +12,7 @@ public class MisterXSpiel {
 		return sv.getStationByIndex(i);
 	}
 	
-	public void spielerHinzufügen(Spieler neuerspieler) throws SpielerExistiertBereitsException { 
-		 spielerVW.spielerHinzufügen(neuerspieler);
+	public Spieler spielerHinzufuegen(String name) {
+		return spielerVW.spielerHinzufuegen(name);
 	}
 }
