@@ -119,3 +119,5 @@ local.properties
 hs_err_pid*
 
 *.class
+*.class
+bin/misterx/local/ui/cui/MisterXClientCUI.class
