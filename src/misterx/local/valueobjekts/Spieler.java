@@ -68,3 +68,4 @@ public class Spieler {
 		return "Spieler " + name + " steht an Station " + standort.getName() + ".";
 	}
 }
+	

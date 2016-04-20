@@ -83,56 +83,18 @@ public class MisterXClientCUI {
 
 	
 	}
-		
-		
-		
-		
-		
-		switch (aktion){
-		case "1" :	System.out.println("Name des Spielers eingeben:");
-				     Spieler name = new Spieler (reader.readLine());
-					try{	
-						spiel.spielerHinzufügen(name);
-						//spiel.spielerHinzufügen(new Spieler(name));
-					System.out.println("Neuer Spieler mit Name " 
-							+ name + " wurde angelegt.");
-					}catch (SpielerExistiertBereitsException e){
-						System.out.println("Spieler mit Name  " 
-								+ name + " Existiert bereits.");	
-						
-					}
-					
-					break;
-		case "2": 	System.out.println("Name von MisterX eingeben:");
-					MisterX nameX = new MisterX (reader.readLine());
-		
-		//String name = reader.readLine();	
-					try{	
-						spiel.spielerHinzufügen(nameX);
-						System.out.println("Neuer Spieler mit Name " 
-								+ nameX + " wurde angelegt.");
-						}catch (SpielerExistiertBereitsException e){
-							System.out.println("Spieler mit Name  " 
-									+ nameX + " Existiert bereits.");	
-							
-						}
-						
-						break;
-		//case "3":  //TODO
-			//break;
-
 				
+		
+		
+		
 		// Fallunterscheidung / switch
 		// wenn 1: spiel.spielerHinzufügen(name);
 		// wenn 2: spiel.misterXFestlegen(name);
 		// wenn 3: Spielfeld feld = spiel.spielfeldErzeugen()
 		//			feld ausgeben in CUI
 		// 			neues Menü anzeigen: was kann Spieler tun?
-
 		
-	
-	
-	
+		
 	public void aktionAusfuehren() {
 		
 	}
