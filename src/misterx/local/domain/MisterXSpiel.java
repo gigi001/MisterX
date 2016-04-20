@@ -12,7 +12,6 @@ public class MisterXSpiel {
 		return sv.getStationByIndex(i);
 	}
 	
-<<<<<<< HEAD
 
 	public Spieler spielerHinzufuegen(String name) {
 		return spielerVW.spielerHinzufuegen(name);
@@ -21,10 +20,6 @@ public class MisterXSpiel {
 
 	public void spielerHinzufuegen(Spieler neuerspieler) throws SpielerExistiertBereitsException { 
 		 spielerVW.spielerHinzufuegen(neuerspieler);
-
-=======
-	public void spielerHinzufuegen(Spieler neuerspieler) throws SpielerExistiertBereitsException { 
-		 spielerVW.spielerHinzufuegen(neuerspieler);
->>>>>>> refs/remotes/origin/Chris-workspace
 	}
+
 }

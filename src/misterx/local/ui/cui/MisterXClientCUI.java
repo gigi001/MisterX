@@ -15,9 +15,6 @@ public class MisterXClientCUI {
 	private MisterXSpiel spiel = new MisterXSpiel();
 	
 	public void startMenue() throws IOException {
-		System.out.println("Startmen�");
-		System.out.println("1 - Spieler hinzuf�gen");
-		System.out.println("2 - Mister X hinzuf�gen");
 		System.out.println("Startmenue");
 		System.out.println("1 - Spieler hinzufuegen");
 		System.out.println("2 - Mister X hinzufuegen");
@@ -28,13 +25,13 @@ public class MisterXClientCUI {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		String aktion = reader.readLine();
 		
+		String name;
 		
 		switch (aktion){
 		case "1" :	System.out.println("Name des Spielers eingeben:");
-					String name = reader.readLine();
+					name = reader.readLine();
 					try{	
 					spiel.spielerHinzufuegen(new Spieler(name));
-					System.out.println("Neuer Spieler mit Name " 
 					System.out.println("Neuer Spieler mit dem Namen " 
 							+ name + " wurde angelegt.");
 					}catch (SpielerExistiertBereitsException e){
@@ -45,18 +42,8 @@ public class MisterXClientCUI {
 					
 					break;
 		case "2": 	System.out.println("Name von MisterX eingeben:");
-					name = reader.readLine();
-					String nameX = reader.readLine();
-					name = reader.readLine();
+					name = reader.readLine();	
 					try{	
-						spiel.spielerHinzufuegen(nameX);
-						System.out.println("Neuer Spieler mit Name " 
-								+ nameX + " wurde angelegt.");
-						}catch (SpielerExistiertBereitsException e){
-							System.out.println("Spieler mit Name  " 
-									+ nameX + " Existiert bereits.");	
-							
-						}
 					spiel.spielerHinzufuegen(new MisterX(name));
 					System.out.println("MisterX mit dem Namen " 
 							+ name + " wurde angelegt.");
