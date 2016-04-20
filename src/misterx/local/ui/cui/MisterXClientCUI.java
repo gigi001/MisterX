@@ -41,15 +41,9 @@ public class MisterXClientCUI {
 					
 					break;
 		case "2": 	System.out.println("Name von MisterX eingeben:");
-<<<<<<< HEAD
-<<<<<<< HEAD
-					name = reader.readLine();	
-=======
-					String nameX = reader.readLine();	
->>>>>>> refs/remotes/origin/YagmurWorkspace
-=======
-					String name = reader.readLine();	
->>>>>>> parent of 4dc59a1... name
+					name = reader.readLine();
+					String nameX = reader.readLine();
+					name = reader.readLine();
 					try{	
 						spiel.spielerHinzufuegen(nameX);
 						System.out.println("Neuer Spieler mit Name " 
