@@ -42,24 +42,27 @@ public class MisterXClientCUI {
 					
 					break;
 		case "2": 	System.out.println("Name von MisterX eingeben:");
-<<<<<<< HEAD
-					String nameX = reader.readLine();	
-=======
+
+						
+
 					name = reader.readLine();	
->>>>>>> master
+
 					try{	
-						spiel.spielerHinzufuegen(nameX);
+						spiel.spielerHinzufuegen(new MisterX(name));
 						System.out.println("Neuer Spieler mit Name " 
-								+ nameX + " wurde angelegt.");
-						}catch (SpielerExistiertBereitsException e){
+								+ name
+								+ " wurde angelegt.");
+						}
+					
+					catch (SpielerExistiertBereitsException e){
 							System.out.println("Spieler mit Name  " 
-									+ nameX + " Existiert bereits.");	
+									+ name + " Existiert bereits.");	
 							
 						}
 						
 						break;
-		case "3":  //TODO
-			break;
+		//case "3":  //TODO
+			//break;
 		
 		}
 		

@@ -16,6 +16,7 @@ public class SpielerVerw {
 	
 
 	public Spieler spielerHinzufuegen(String name) {
+		return null;
 		// pr�fen, ob Spieler mit Name schon vorhanden
 		
 	}
@@ -24,11 +25,7 @@ public class SpielerVerw {
 		// pr�fen, ob Spieler mit Name schon vorhanden
 
 		
-	}
-	public void spielerHinzufuegen(Spieler neuerSpieler ) throws SpielerExistiertBereitsException {
-		// pr�fen, ob Spieler mit Name schon vorhanden
-		
-	}
+
 		// --> SpielerExistiertBereitsException werfen
 		if (mitspieler.contains(neuerSpieler)){
 			throw new SpielerExistiertBereitsException(neuerSpieler);
