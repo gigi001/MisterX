@@ -15,9 +15,9 @@ public class MisterXClientCUI {
 	private MisterXSpiel spiel = new MisterXSpiel();
 	
 	public void startMenue() throws IOException {
-		System.out.println("Startmen�");
-		System.out.println("1 - Spieler hinzuf�gen");
-		System.out.println("2 - Mister X hinzuf�gen");
+		System.out.println("Startmenü");
+		System.out.println("1 - Spieler hinzufügen");
+		System.out.println("2 - Mister X hinzufügen");
 		System.out.println("3 - Spiel starten");
 		
 		// Aktion einlesen
