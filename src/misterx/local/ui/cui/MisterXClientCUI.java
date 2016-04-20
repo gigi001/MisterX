@@ -87,8 +87,6 @@ public class MisterXClientCUI {
 		
 		
 		
-<<<<<<< HEAD
-		
 		
 		switch (aktion){
 		case "1" :	System.out.println("Name des Spielers eingeben:");
@@ -122,10 +120,8 @@ public class MisterXClientCUI {
 						break;
 		//case "3":  //TODO
 			//break;
-=======
->>>>>>> origin/master
-		
-		
+
+				
 		// Fallunterscheidung / switch
 		// wenn 1: spiel.spielerHinzufügen(name);
 		// wenn 2: spiel.misterXFestlegen(name);
