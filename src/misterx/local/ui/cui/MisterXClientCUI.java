@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import misterx.local.domain.MisterXSpiel;
+import misterx.local.domain.SpielerExistiertBereitsException;
+import misterx.local.valueobjekts.MisterX;
 import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
 
@@ -23,13 +25,39 @@ public class MisterXClientCUI {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		String aktion = reader.readLine();
 		
-		if (aktion.equals("1")) {
-			System.out.println("Name des Spielers eingeben:");
-			String name = reader.readLine();
-			Spieler meinBrandneuerSpieler = spiel.spielerHinzufügen(name);
-			System.out.println("Neuer Spieler mit Name " 
-					+ meinBrandneuerSpieler.getName() + " wurde angelegt.");
+		
+		switch (aktion){
+		case "1" :	System.out.println("Name des Spielers eingeben:");
+					String name = reader.readLine();
+					try{	
+					spiel.spielerHinzufügen(new Spieler(name));
+					System.out.println("Neuer Spieler mit Name " 
+							+ name + " wurde angelegt.");
+					}catch (SpielerExistiertBereitsException e){
+						System.out.println("Spieler mit Name  " 
+								+ name + " Existiert bereits.");	
+						
+					}
+					
+					break;
+		case "2": 	System.out.println("Name von MisterX eingeben:");
+					String name = reader.readLine();	
+					try{	
+						spiel.spielerHinzufügen(new MisterX(name));
+						System.out.println("Neuer Spieler mit Name " 
+								+ name + " wurde angelegt.");
+						}catch (SpielerExistiertBereitsException e){
+							System.out.println("Spieler mit Name  " 
+									+ name + " Existiert bereits.");	
+							
+						}
+						
+						break;
+		case "3":  //TODO
+			break;
+		
 		}
+		
 		// Fallunterscheidung / switch
 		// wenn 1: spiel.spielerHinzufügen(name);
 		// wenn 2: spiel.misterXFestlegen(name);
