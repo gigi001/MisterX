@@ -23,6 +23,8 @@ public class StadtVerw {
 		meineStationen.add(new Station("Y-str" ));
 		eStrasse.addTaxiNachbar(dStrasse);
 		dStrasse.addTaxiNachbar(eStrasse);
+		dStrasse.addTaxiNachbar(aStrasse);
+		
 	}
 
 	public Station getStationByIndex(int index){
