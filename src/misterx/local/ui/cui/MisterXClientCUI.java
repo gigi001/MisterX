@@ -58,8 +58,17 @@ public class MisterXClientCUI {
 			break;
 		
 		}
+<<<<<<< HEAD
 		//test
+=======
+		//hallo
+>>>>>>> refs/remotes/origin/master
 		// Fallunterscheidung / switch
+		// wenn 1: spiel.spielerHinzuf�gen(name);
+		// wenn 2: spiel.misterXFestlegen(name);
+		// wenn 3: Spielfeld feld = spiel.spielfeldErzeugen()
+		//			feld ausgeben in CUI
+		// 			neues Men� anzeigen: was kann Spieler tun?
 		// wenn 1: spiel.spielerHinzufuegen(name);
 		// wenn 2: spiel.misterXFestlegen(name);
 		// wenn 3: Spielfeld feld = spiel.spielfeldErzeugen()
