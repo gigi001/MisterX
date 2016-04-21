@@ -1,6 +1,6 @@
 package misterx.local.valueobjekts;
 
-import java.util.ArrayList;
+
 
 public class Spieler {
 

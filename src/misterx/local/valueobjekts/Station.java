@@ -7,7 +7,7 @@ public class Station {
 	
 	private String name;
 	//private String typ; // ggf. als Aufz‰hlung / Enumeration
-	private Set<Station> uBahnNachbarn = new HashSet<Station>();
+	private Set<Station> bahnNachbarn = new HashSet<Station>();
 	private Set<Station> busNachbarn = new HashSet<Station>();
 	private Set<Station> taxiNachbarn = new HashSet<Station>();
 	
@@ -23,13 +23,30 @@ public class Station {
 		taxiNachbarn.add(taxiNachbar);
 	}
 	
-	public Set<Station> getNachbarn() {
-		return uBahnNachbarn;
+	public Set<Station> getBahnNachbarn() {
+		return bahnNachbarn;
 	}
 
-	public void setNachbarn(Set<Station> nachbarn) {
-		this.uBahnNachbarn = nachbarn;
+	public void setBahnNachbarn(Set<Station> bahnNachbarn) {
+		this.bahnNachbarn = bahnNachbarn;
 	}
+	public void addBahnNachbarn(Station bahnNachbar) {
+		bahnNachbarn.add(bahnNachbar);
+	}
+	
+	
+	public Set<Station> getBusNachbarn() {
+		return busNachbarn;
+	}
+
+	public void setBusNachbarn(Set<Station> busNachbarn) {
+		this.busNachbarn = busNachbarn;
+	}
+	
+	public void addBusNachbar(Station busNachbar) {
+		busNachbarn.add(busNachbar);
+	}
+	
 
 	public Station(String name){
 		this.name=name;
@@ -48,12 +65,6 @@ public class Station {
 		return "Diese Station heiﬂt " + name;	
 	}
 
-	public Set<Station> getBusNachbarn() {
-		return busNachbarn;
-	}
-
-	public void setBusNachbarn(Set<Station> busNachbarn) {
-		this.busNachbarn = busNachbarn;
-	}
+	
 	
 }
