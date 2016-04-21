@@ -15,6 +15,20 @@ public class SpielerVerw {
 		this.mitspieler = new Vector<Spieler>();
 	}
 	
+
+	
+	public List<Spieler> getMitspieler() {
+		return mitspieler;
+	}
+
+
+
+	public void setMitspieler(List<Spieler> mitspieler) {
+		this.mitspieler = mitspieler;
+	}
+
+
+
 	public void spielerHinzufügen(Spieler neuerSpieler ) throws SpielerExistiertBereitsException {
 		// prüfen, ob Spieler mit Name schon vorhanden
 		// --> SpielerExistiertBereitsException werfen

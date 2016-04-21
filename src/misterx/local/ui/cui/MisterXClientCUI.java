@@ -31,14 +31,22 @@ public class MisterXClientCUI {
 			aktion = reader.readLine();
 
 
-
+			int zahl= 0;
 			String name;
 
 			switch (aktion){
 			case "1" :	
 				System.out.println("Name des Spielers eingeben:");
 				name = reader.readLine();
-				System.out.println("Nummer der Startstation:");
+				for (int i= 0; i<5; i++){
+					
+					Station strasse = spiel.getStationByIndex(i);
+					System.out.println("Nr:  " + zahl+ "   " + spiel.getStationByIndex(i));
+					zahl++;
+					
+					
+				}
+				System.out.println("Wähle eine Nummer der Startstation:");
 				String stationsnr = reader.readLine();
 			try{	
 				Station station = spiel.getStationByIndex(Integer.parseInt(stationsnr));
@@ -52,29 +60,41 @@ public class MisterXClientCUI {
 			}catch (SpielerExistiertBereitsException e){
 				System.out.println("Spieler mit Name  " 
 						+ name + " Existiert bereits.");
-
-
 			}
-
 			break;
-			case "2": 	System.out.println("Name von MisterX eingeben:");
-			name = reader.readLine();	
+			case "2": 
+				System.out.println("Name von MisterX eingeben:");
+				name = reader.readLine();
+			for (int i= 0; i<5; i++){
+				
+				Station strasse = spiel.getStationByIndex(i);
+				System.out.println("Nr:  " + zahl+ "   " + spiel.getStationByIndex(i));
+				zahl++;
+			}
+			System.out.println("Wähle eine Nummer der Startstation:");
+			String stationsnr1 = reader.readLine();		
 			try{	
+				Station station = spiel.getStationByIndex(Integer.parseInt(stationsnr1));
+				System.out.println(station);
+				Spieler neuerSpieler = new Spieler(name);
+				neuerSpieler.setStandort(station);
 				spiel.spielerHinzufügen(new MisterX(name));
 				System.out.println("Neuer Spieler mit Name " 
 						+ name + " wurde angelegt.");
+				System.out.println(neuerSpieler);
+				
 			}catch (SpielerExistiertBereitsException e){
 				System.out.println("Spieler mit Name  " 
 						+ name + " Existiert bereits.");	
-
 			}
-
 			break;
-			case "3":  
-				for (int j = 0; j < 3; j++) {
+			case "3":
+				for (int j = 0; j < 5; j++) {
 					Station strasse = spiel.test(j);
+					System.out.println(spiel.toString());
 					System.out.println(strasse.getName());
-					System.out.println("Nachbarn: " + strasse.getTaxiNachbarn());
+					System.out.println(spiel.getStationByIndex(j));
+					System.out.println("Nachbarn: " + strasse.getTaxiNachbarn()+" " + strasse.getBahnNachbarn()+" " + strasse.getBusNachbarn());
 				}
 				break;
 			}
@@ -83,9 +103,7 @@ public class MisterXClientCUI {
 
 	
 	}
-		
-		
-		
+				
 		
 		
 		
@@ -95,11 +113,8 @@ public class MisterXClientCUI {
 		// wenn 3: Spielfeld feld = spiel.spielfeldErzeugen()
 		//			feld ausgeben in CUI
 		// 			neues Menü anzeigen: was kann Spieler tun?
-
 		
-	
-	
-	
+		
 	public void aktionAusfuehren() {
 		
 	}

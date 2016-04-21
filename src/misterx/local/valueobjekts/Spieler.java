@@ -1,6 +1,6 @@
 package misterx.local.valueobjekts;
 
-import java.util.ArrayList;
+
 
 public class Spieler {
 
@@ -68,3 +68,4 @@ public class Spieler {
 		return "Spieler " + name + " steht an Station " + standort.getName() + ".";
 	}
 }
+	
