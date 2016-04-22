@@ -11,6 +11,7 @@ public class Station {
 	private Set<Station> busNachbarn = new HashSet<Station>();
 	private Set<Station> taxiNachbarn = new HashSet<Station>();
 	
+	
 	public Set<Station> getTaxiNachbarn() {
 		return taxiNachbarn;
 	}
@@ -23,6 +24,7 @@ public class Station {
 		taxiNachbarn.add(taxiNachbar);
 	}
 	
+	
 	public Set<Station> getBahnNachbarn() {
 		return bahnNachbarn;
 	}
@@ -30,6 +32,7 @@ public class Station {
 	public void setBahnNachbarn(Set<Station> bahnNachbarn) {
 		this.bahnNachbarn = bahnNachbarn;
 	}
+	
 	public void addBahnNachbarn(Station bahnNachbar) {
 		bahnNachbarn.add(bahnNachbar);
 	}
@@ -62,7 +65,7 @@ public class Station {
 	
 	@Override
 	public String toString(){
-		return "Diese Station heiﬂt " + name;	
+		return "Station: " + name;	
 	}
 
 	

@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import misterx.local.domain.exceptions.SpielerExistiertBereitsException;
 import misterx.local.valueobjekts.Spieler;
+import misterx.local.valueobjekts.Station;
 
 public class SpielerVerw {
 
@@ -15,6 +16,16 @@ public class SpielerVerw {
 		this.mitspieler = new Vector<Spieler>();
 	}
 	
+
+	public Spieler getSpielerByIndex(int index){
+		Spieler spieler = mitspieler.get(index);
+		return spieler;
+	}
+	
+	
+	public int getSize(){
+		return mitspieler.size();
+	}
 
 	
 	public List<Spieler> getMitspieler() {
