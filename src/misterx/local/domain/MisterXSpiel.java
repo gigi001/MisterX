@@ -23,6 +23,7 @@ public class MisterXSpiel {
 		return spielerVW.getSpielerByIndex(index);
 	}
 	
+	
 	public int getLength(){
 		return spielerVW.getSize();
 	}

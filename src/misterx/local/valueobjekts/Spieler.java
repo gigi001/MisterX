@@ -4,11 +4,11 @@ package misterx.local.valueobjekts;
 
 public class Spieler {
 
-	private String name;
-	private int taxiChips;
-	private int busChips;
-	private int bahnChips;
-	private Station standort;
+	protected String name;
+	protected int taxiChips;
+	protected int busChips;
+	protected int bahnChips;
+	protected Station standort;
     //private ArrayList <Integer> guthaben;
 	
 	public Spieler(String name) {
