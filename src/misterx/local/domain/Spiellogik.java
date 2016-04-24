@@ -1,7 +1,10 @@
 package misterx.local.domain;
 
+
 public class Spiellogik {
 
+
+	
 	/*
 	 * - Spielzyklus (wer ist dran?)
 	 * - von A nach B fahren (Spieler oder MisterX)
