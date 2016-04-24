@@ -16,6 +16,7 @@ import misterx.local.valueobjekts.Station;
 public class MisterXClientCUI {
 
 	private MisterXSpiel spiel = new MisterXSpiel();
+	public int xnr;
 	
 	public void startMenue() throws IOException {
 	
@@ -41,7 +42,7 @@ public class MisterXClientCUI {
 				System.out.println("Name des Spielers eingeben:");
 				name = reader.readLine();
 				for (int i= 0; i<5; i++){					
-					Station strasse = spiel.getStationByIndex(i);
+					//Station strasse = spiel.getStationByIndex(i);
 					System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
 				}
 				
@@ -66,10 +67,10 @@ public class MisterXClientCUI {
 				break;
 				
 			case "2": 
-				System.out.println("Name von MisterX eingeben:");
+				System.out.println("Name von Mister X eingeben:");
 				name = reader.readLine();
 				for (int i= 0; i<5; i++){				
-					Station strasse = spiel.getStationByIndex(i);
+					//Station strasse = spiel.getStationByIndex(i);
 					System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
 				}
 				
@@ -79,13 +80,14 @@ public class MisterXClientCUI {
 				try{	
 					Station station = spiel.getStationByIndex(Integer.parseInt(stationsnr1)-1);
 					//System.out.println(station);
-					Spieler neuerSpieler = new Spieler(name);
+					Spieler neuerSpieler = new MisterX(name);
 					neuerSpieler.setStandort(station);
-					spiel.spielerHinzufügen(new MisterX(name));
-					System.out.println("MisterX mit dem Namen " 
+					spiel.spielerHinzufügen(neuerSpieler);
+					System.out.println("Mister X mit dem Namen " 
 						+ name + " wurde angelegt.");
 					//System.out.println(neuerSpieler); //geheim
-					System.out.println("Station von MisterX ist geheim!");
+					System.out.println("Station von Mister X ist geheim!");
+					xnr=spiel.getLength()-1;
 				
 				}catch (SpielerExistiertBereitsException e){
 				System.out.println("Spieler mit dem Namen " 
@@ -128,9 +130,17 @@ public class MisterXClientCUI {
 	
 	private Spiellogik logik = new Spiellogik();
 	int zaehler;
+	public int runde=0;
+	public int gewonnen=0;
 		
 	public void aktionAusfuehren() throws IOException {
 		
+		Spieler misterx = spiel.getSpielerByIndex(xnr);
+		runde++;
+		System.out.println("Runde " + runde);
+		if(runde == 3 || runde == 8 || runde == 13 || runde == 18 || runde == 24){
+			System.out.println("Mister X ist bei der " + misterx.getStandort());
+		}
 		for (int i= 0; i<spiel.getLength(); i++){
 			zaehler=1;
 			Spieler spieler = spiel.getSpielerByIndex(i);
@@ -140,7 +150,6 @@ public class MisterXClientCUI {
 			while (posIterator.hasNext()) {
 				System.out.println(posIterator.next());
 			}
-			
 			//System.out.println(spiel.getSpieler());
 			System.out.println(spieler.getName() + " besitzt: " + spieler.getTaxiChips() + " Taxichips, " 
 			+ spieler.getBusChips() + " Buschips und " + spieler.getBahnChips() + " U-Bahnchips.");
@@ -197,6 +206,9 @@ public class MisterXClientCUI {
 					if(l+1==Integer.parseInt(stationsausw)){
 						spieler.setStandort(nachbTaxiIterator.next());
 						spieler.setTaxiChips(spieler.getTaxiChips()-1);
+						if(spieler.getName()!=misterx.getName()){
+							misterx.setTaxiChips(misterx.getTaxiChips()+1);
+						}
 					}else{
 						nachbTaxiIterator.next();
 					}
@@ -205,6 +217,9 @@ public class MisterXClientCUI {
 					if(l+1==Integer.parseInt(stationsausw)){
 						spieler.setStandort(nachbBusIterator.next());
 						spieler.setBusChips(spieler.getBusChips()-1);
+						if(spieler.getName()!=misterx.getName()){
+							misterx.setBusChips(misterx.getBusChips()+1);
+						}
 					}else{
 						nachbBusIterator.next();
 					}
@@ -213,6 +228,9 @@ public class MisterXClientCUI {
 					if(l+1==Integer.parseInt(stationsausw)){
 						spieler.setStandort(nachbBahnIterator.next());
 						spieler.setBahnChips(spieler.getBahnChips()-1);
+						if(spieler.getName()!=misterx.getName()){
+							misterx.setBahnChips(misterx.getBahnChips()+1);
+						}
 					}else{
 						nachbBahnIterator.next();
 					}
@@ -221,9 +239,28 @@ public class MisterXClientCUI {
 			
 			System.out.println("Du stehst nun an der " + spieler.getStandort());
 			System.out.println();
-						
+				
+			misterx = spiel.getSpielerByIndex(xnr);		
+			if(spieler.getStandort() == misterx.getStandort() && spieler.getName()!= misterx.getName()){
+				System.out.println("----- Mister X wurde gefunden! -----");
+				gewonnen=1;
+				i=spiel.getLength()-1;
+			}
+			
+			if(runde == 25){
+				gewonnen=2;
+				System.out.println("----- Mister X ist entkommen! -----");
+			}
+			/*
+			for(int m=0;m<spiel.getLength();m++){
+				Spieler spielerkontrolle = spiel.getSpielerByIndex(m);
+				System.out.println(spielerkontrolle.getStandort());
+			}
+				*/
 		}
-		aktionAusfuehren();
+		if(gewonnen==0){
+			aktionAusfuehren();
+		}
 	}
 	
 	
