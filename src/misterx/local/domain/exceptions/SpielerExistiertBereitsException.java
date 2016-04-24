@@ -6,7 +6,7 @@ import misterx.local.valueobjekts.Spieler;
 public class SpielerExistiertBereitsException extends Exception{
 	
 	public  SpielerExistiertBereitsException(Spieler spieler){
-		super ("Spieler mit Name "+ spieler.getName()+ " existiert bereits ");
+		super ("Spieler mit dem Namen "+ spieler.getName()+ " existiert bereits ");
 		
 	}
 

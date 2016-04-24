@@ -4,18 +4,18 @@ package misterx.local.valueobjekts;
 
 public class Spieler {
 
-	private String name;
-	private int taxiChips;
-	private int busChips;
-	private int bahnChips;
-	private Station standort;
+	protected String name;
+	protected int taxiChips;
+	protected int busChips;
+	protected int bahnChips;
+	protected Station standort;
     //private ArrayList <Integer> guthaben;
 	
 	public Spieler(String name) {
 		this.name = name;
-		taxiChips=30;
-		busChips=40;
-		bahnChips=50;
+		taxiChips=10;
+		busChips=8;
+		bahnChips=4;
 	}
 
 	public void setTaxiChips(int taxiChips) {
@@ -48,7 +48,7 @@ public class Spieler {
 
 	@Override
 	public boolean equals(Object obj) {
-		System.out.println("equals-Methode");
+		//System.out.println("equals-Methode");
 		if (obj instanceof Spieler) {
 			Spieler andererSpieler = (Spieler) obj;
 			return (name.equals(andererSpieler.getName()));
@@ -65,7 +65,7 @@ public class Spieler {
 	}
 	
 	public String toString() {
-		return "Spieler " + name + " steht an Station " + standort.getName() + ".";
+		return "Spieler " + name + " steht an der Station " + standort.getName() + ".";
 	}
 }
 	
