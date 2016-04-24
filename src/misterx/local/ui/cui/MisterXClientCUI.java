@@ -242,14 +242,14 @@ public class MisterXClientCUI {
 				
 			misterx = spiel.getSpielerByIndex(xnr);		
 			if(spieler.getStandort() == misterx.getStandort() && spieler.getName()!= misterx.getName()){
-				System.out.println("----- MisterX wurde gefunden! -----");
+				System.out.println("----- Mister X wurde gefunden! -----");
 				gewonnen=1;
 				i=spiel.getLength()-1;
 			}
 			
 			if(runde == 25){
 				gewonnen=2;
-				System.out.println("----- MisterX ist entkommen! -----");
+				System.out.println("----- Mister X ist entkommen! -----");
 			}
 			/*
 			for(int m=0;m<spiel.getLength();m++){
