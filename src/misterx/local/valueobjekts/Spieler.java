@@ -4,18 +4,31 @@ package misterx.local.valueobjekts;
 
 public class Spieler {
 
+<<<<<<< HEAD
+	private String name;
+	private int taxiChips;
+	private int busChips;
+	private int bahnChips;
+=======
 	protected String name;
 	protected int taxiChips;
 	protected int busChips;
 	protected int bahnChips;
 	protected Station standort;
+>>>>>>> origin/master
     //private ArrayList <Integer> guthaben;
 	
 	public Spieler(String name) {
 		this.name = name;
+<<<<<<< HEAD
+		taxiChips=30;
+		busChips=40;
+		bahnChips=50;
+=======
 		taxiChips=10;
 		busChips=8;
 		bahnChips=4;
+>>>>>>> origin/master
 	}
 
 	public void setTaxiChips(int taxiChips) {
