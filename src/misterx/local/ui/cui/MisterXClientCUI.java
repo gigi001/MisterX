@@ -134,94 +134,97 @@ public class MisterXClientCUI {
 		Spieler misterx = spiel.getSpielerByIndex(xnr);
 		spiel.getNaechsteRunde();
 		System.out.println("Runde " + spiel.getRunde());
+		if(spiel.getLetzterXZug() != null){
+			System.out.println("Letztes Verkehrsmittel von MisterX: " + spiel.getLetzterXZug());
+		}
 		
 		if(spiel.getZeigen()){
 			System.out.println("Mister X ist bei der " + misterx.getStandort());
 		}
 		for (int i= 0; i<spiel.getLength(); i++){
-			zaehler=1;
-			Spieler spieler = spiel.getSpielerByIndex(i);
-			System.out.println(spieler.getName() + " ist an der Reihe");
-			
-			Iterator<Spieler> posIterator = spiel.getSpieler().iterator();
-			while (posIterator.hasNext()) {
-				System.out.println(posIterator.next());
-			}
-
-			System.out.println(spieler.getName() + " besitzt: " + spieler.getTaxiChips() + " Taxichips, " 
-			+ spieler.getBusChips() + " Buschips und " + spieler.getBahnChips() + " U-Bahnchips.");
-			System.out.println("Deine Zugmöglichkeiten sind:");
-			
-			Iterator<Station> nachbIterator = spieler.getStandort().getTaxiNachbarn().iterator();
-			if(spieler.getTaxiChips()>0){
-				if(nachbIterator.hasNext()){
-					System.out.println("Taxi:");
-				}
-				while (nachbIterator.hasNext()) {
-					System.out.print((zaehler++) + " " + nachbIterator.next() + "   ");
-				}
-				System.out.println();
-			}
-			
-			nachbIterator = spieler.getStandort().getBusNachbarn().iterator();
-			if(spieler.getBusChips()>0){
-				if(nachbIterator.hasNext()){
-					System.out.println("Bus:");
-				}
-				while (nachbIterator.hasNext()) {
-					System.out.print((zaehler++) + " " + nachbIterator.next() + "   ");
-				}
-			System.out.println();
-			}
-			
-			nachbIterator = spieler.getStandort().getBahnNachbarn().iterator();
-			if(spieler.getBahnChips()>0){
-				if(nachbIterator.hasNext()){
-					System.out.println("Bahn:");
-				}
-				while (nachbIterator.hasNext()) {
-					System.out.print((zaehler++) + " " + nachbIterator.next() + "   ");
-				}
-				System.out.println();
-			}
-			
-			if(spieler.getTaxiChips()==0 && spieler.getBusChips()==0 && spieler.getBahnChips()==0){
-				System.out.println("Spiel zuende!");
-			}
-			
-			System.out.println("Zu welcher Station möchtest du fahren?");
-			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-			String stationsausw = reader.readLine();
-			
-			//nachbIterator = spieler.getStandort().getBahnNachbarn().iterator();
-			Iterator<Station> nachbTaxiIterator = spieler.getStandort().getTaxiNachbarn().iterator();
-			Iterator<Station> nachbBusIterator = spieler.getStandort().getBusNachbarn().iterator();
-			Iterator<Station> nachbBahnIterator = spieler.getStandort().getBahnNachbarn().iterator();
-			for(int l=0;l<(Integer.parseInt(stationsausw));l++){
-								
-				if (nachbTaxiIterator.hasNext()) {
-					spiel.taxiFahren(nachbTaxiIterator, stationsausw, spieler, misterx, l);
-				}else if (nachbBusIterator.hasNext()) {
-					spiel.busFahren(nachbBusIterator, stationsausw, spieler, misterx, l);					
-				}else if (nachbBahnIterator.hasNext()) {
-					spiel.bahnFahren(nachbBahnIterator, stationsausw, spieler, misterx, l);
-				}
-			}
-			
-			System.out.println("Du stehst nun an der " + spieler.getStandort());
-			System.out.println();
+			if(spiel.getGewonnen() == 0){
+				zaehler=1;
+				Spieler spieler = spiel.getSpielerByIndex(i);
+				System.out.println(spieler.getName() + " ist an der Reihe");
 				
-			misterx = spiel.getSpielerByIndex(xnr);
-			if(spiel.getXWin(spieler, misterx) == 2){
-				System.out.println("----- Mister X wurde gefunden! -----");
-				i=spiel.getLength()-1;
+				Iterator<Spieler> posIterator = spiel.getSpieler().iterator();
+				while (posIterator.hasNext()) {
+					System.out.println(posIterator.next());
+				}
+	
+				System.out.println(spieler.getName() + " besitzt: " + spieler.getTaxiChips() + " Taxichips, " 
+				+ spieler.getBusChips() + " Buschips und " + spieler.getBahnChips() + " U-Bahnchips.");
+				System.out.println("Deine Zugmöglichkeiten sind:");
+				
+				Iterator<Station> nachbIterator = spieler.getStandort().getTaxiNachbarn().iterator();
+				if(spieler.getTaxiChips()>0){
+					if(nachbIterator.hasNext()){
+						System.out.println("Taxi:");
+						while (nachbIterator.hasNext()) {
+							System.out.print((zaehler++) + " " + nachbIterator.next() + "   ");
+						}
+						System.out.println();
+					}
+				}
+				
+				nachbIterator = spieler.getStandort().getBusNachbarn().iterator();
+				if(spieler.getBusChips()>0){
+					if(nachbIterator.hasNext()){
+						System.out.println("Bus:");
+						while (nachbIterator.hasNext()) {
+							System.out.print((zaehler++) + " " + nachbIterator.next() + "   ");
+						}
+						System.out.println();
+					}
+				}
+				
+				nachbIterator = spieler.getStandort().getBahnNachbarn().iterator();
+				if(spieler.getBahnChips()>0){
+					if(nachbIterator.hasNext()){
+						System.out.println("Bahn:");
+						while (nachbIterator.hasNext()) {
+							System.out.print((zaehler++) + " " + nachbIterator.next() + "   ");
+						}
+						System.out.println();
+					}
+				}
+				
+				if(spieler.getTaxiChips()==0 && spieler.getBusChips()==0 && spieler.getBahnChips()==0){
+					System.out.println("Spiel zuende!");
+				}
+				
+				System.out.println("Zu welcher Station möchtest du fahren?");
+				BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+				String stationsausw = reader.readLine();
+				
+				//nachbIterator = spieler.getStandort().getBahnNachbarn().iterator();
+				Iterator<Station> nachbTaxiIterator = spieler.getStandort().getTaxiNachbarn().iterator();
+				Iterator<Station> nachbBusIterator = spieler.getStandort().getBusNachbarn().iterator();
+				Iterator<Station> nachbBahnIterator = spieler.getStandort().getBahnNachbarn().iterator();
+				for(int l=0;l<(Integer.parseInt(stationsausw));l++){
+									
+					if (nachbTaxiIterator.hasNext()) {
+						spiel.taxiFahren(nachbTaxiIterator, stationsausw, spieler, misterx, l);
+					}else if (nachbBusIterator.hasNext()) {
+						spiel.busFahren(nachbBusIterator, stationsausw, spieler, misterx, l);					
+					}else if (nachbBahnIterator.hasNext()) {
+						spiel.bahnFahren(nachbBahnIterator, stationsausw, spieler, misterx, l);
+					}
+				}
+				
+				System.out.println("Du stehst nun an der " + spieler.getStandort());
+				System.out.println();
+					
+				misterx = spiel.getSpielerByIndex(xnr);
+				if(spiel.getXWin(spiel.getSpieler(), misterx) == 2){
+					System.out.println("----- Mister X wurde gefunden! -----");
+				}
+				
+				if(spiel.getXWin(spiel.getSpieler(), misterx) == 1){
+					System.out.println("----- Mister X ist entkommen! -----");
+				}
+	
 			}
-			
-			if(spiel.getXWin(spieler, misterx) == 1){
-				System.out.println("----- Mister X ist entkommen! -----");
-				i=spiel.getLength()-1;
-			}
-
 		}
 		if(spiel.getGewonnen()==0){
 			aktionAusfuehren();
