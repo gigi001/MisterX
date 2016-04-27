@@ -4,10 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
 
 import misterx.local.domain.MisterXSpiel;
-import misterx.local.domain.Spiellogik;
 import misterx.local.domain.exceptions.SpielerExistiertBereitsException;
 import misterx.local.valueobjekts.MisterX;
 import misterx.local.valueobjekts.Spieler;
@@ -16,7 +15,9 @@ import misterx.local.valueobjekts.Station;
 public class MisterXClientCUI {
 
 	private MisterXSpiel spiel = new MisterXSpiel();
-	public int xnr;
+	private int xnr = -1;
+	private Spieler ausg;
+	private Spieler spieler;
 	
 	public void startMenue() throws IOException {
 	
@@ -67,48 +68,65 @@ public class MisterXClientCUI {
 				break;
 				
 			case "2": 
-				System.out.println("Name von Mister X eingeben:");
-				name = reader.readLine();
-				for (int i= 0; i<5; i++){				
-					//Station strasse = spiel.getStationByIndex(i);
-					System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
-				}
-				
-				System.out.println("Wähle die Nummer der Startstation:");
-				String stationsnr1 = reader.readLine();	
-				
-				try{	
-					Station station = spiel.getStationByIndex(Integer.parseInt(stationsnr1)-1);
-					//System.out.println(station);
-					Spieler neuerSpieler = new MisterX(name);
-					neuerSpieler.setStandort(station);
-					spiel.spielerHinzufügen(neuerSpieler);
-					System.out.println("Mister X mit dem Namen " 
-						+ name + " wurde angelegt.");
-					//System.out.println(neuerSpieler); //geheim
-					System.out.println("Station von Mister X ist geheim!");
-					xnr=spiel.getLength()-1;
-				
-				}catch (SpielerExistiertBereitsException e){
-				System.out.println("Spieler mit dem Namen " 
-						+ name + " existiert bereits.");	
+				if(xnr == -1){
+					System.out.println("Name von Mister X eingeben:");
+					name = reader.readLine();
+					for (int i= 0; i<5; i++){				
+						//Station strasse = spiel.getStationByIndex(i);
+						System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
+					}
+					
+					System.out.println("Wähle die Nummer der Startstation:");
+					String stationsnr1 = reader.readLine();	
+					
+					try{	
+						Station station = spiel.getStationByIndex(Integer.parseInt(stationsnr1)-1);
+						//System.out.println(station);
+						Spieler neuerSpieler = new MisterX(name);
+						neuerSpieler.setStandort(station);
+						spiel.spielerHinzufügen(neuerSpieler);
+						System.out.println("Mister X mit dem Namen " 
+							+ name + " wurde angelegt.");
+						//System.out.println(neuerSpieler); //geheim
+						System.out.println("Station von Mister X ist geheim!");
+						xnr=spiel.getLength()-1;
+					
+					}catch (SpielerExistiertBereitsException e){
+					System.out.println("Spieler mit dem Namen " 
+							+ name + " existiert bereits.");	
+					}
+				}else{
+					System.out.println("Mister X existiert bereits!");
 				}
 				System.out.println();
 				break;
 				
 			case "3":
-				for (int j = 0; j < 5; j++) {
-					Station strasse = spiel.getStationByIndex(j);
+				if(xnr != -1 && spiel.getLength() > 1){
+					for (int j = 0; j < 5; j++) {
+						Station strasse = spiel.getStationByIndex(j);
+						System.out.println();
+						//System.out.println(spiel.toString());
+						System.out.println(strasse.getName());
+						//System.out.println(spiel.getStationByIndex(j));
+						System.out.println("Taxinachbarn: " + strasse.getTaxiNachbarn()+", Bahnnachbarn: " + strasse.getBahnNachbarn()+", Busnachbarn: " + strasse.getBusNachbarn());
+					}
+				}else{
+					if(spiel.getLength() == 0 && xnr == -1){
+						System.out.println("Bitte ein Spieler hinzufügen!");
+					}
+					if(spiel.getLength() <= 1 && xnr != -1){
+						System.out.println("Bitte ein Spieler hinzufügen!");
+					}
+					if(xnr == -1){
+						System.out.println("Bitte ein Mister X hinzufügen!");
+					}
 					System.out.println();
-					//System.out.println(spiel.toString());
-					System.out.println(strasse.getName());
-					//System.out.println(spiel.getStationByIndex(j));
-					System.out.println("Taxinachbarn: " + strasse.getTaxiNachbarn()+", Bahnnachbarn: " + strasse.getBahnNachbarn()+", Busnachbarn: " + strasse.getBusNachbarn());
 				}
 				break;
 			}
 
-		} while (!aktion.equals("3"));
+		} while (!aktion.equals("3") || xnr == -1 || spiel.getLength() < 2);
 		System.out.println();
 		System.out.println("Spiel wurde gestartet!");
 		System.out.println();
@@ -130,26 +148,59 @@ public class MisterXClientCUI {
 	int zaehler;
 		
 	public void aktionAusfuehren() throws IOException {
+//		List<Spieler> spieler = spiel.getSpieler();
+//		Spieler misterx = spieler.get(xnr);
 		
 		Spieler misterx = spiel.getSpielerByIndex(xnr);
 		spiel.getNaechsteRunde();
 		System.out.println("Runde " + spiel.getRunde());
-		if(spiel.getLetzterXZug() != null){
-			System.out.println("Letztes Verkehrsmittel von MisterX: " + spiel.getLetzterXZug());
-		}
-		
-		if(spiel.getZeigen()){
-			System.out.println("Mister X ist bei der " + misterx.getStandort());
-		}
+/*
+		int index = -1;
+		do {
+			index = (index+1) % spiel.getLength();
+			Spieler aktSpieler = spiel.getSpielerByIndex(i);
+			// aktSpieler macht Aktion
+			// Ergebnis der Aktion ausgeben
+			// - wenn aktSpieler = MisterX, dann Zusatzinfo ausgeben
+		} while (spiel.getGewonnen() == 0);
+*/		
 		for (int i= 0; i<spiel.getLength(); i++){
+//		for (int i= 0; i<spieler.size(); i++){
 			if(spiel.getGewonnen() == 0){
+				
+				
+				if(xnr+1 < spiel.getLength()){
+					if(i == xnr+1){
+						if(spiel.getLetzterXZug() != null){
+							System.out.println("Letztes Verkehrsmittel von Mister X: " + spiel.getLetzterXZug());
+						}		
+						if(spiel.getZeigen()){
+							System.out.println("Mister X ist bei der " + misterx.getStandort());
+						}
+					}
+				}else{
+					if(i == 0){
+						if(spiel.getLetzterXZug() != null){
+							System.out.println("Letztes Verkehrsmittel von Mister X: " + spiel.getLetzterXZug());
+						}		
+						if(spiel.getZeigen()){
+							System.out.println("Mister X ist bei der " + misterx.getStandort());
+						}
+					}
+				}
+				
 				zaehler=1;
-				Spieler spieler = spiel.getSpielerByIndex(i);
+				spieler = spiel.getSpielerByIndex(i);
 				System.out.println(spieler.getName() + " ist an der Reihe");
 				
 				Iterator<Spieler> posIterator = spiel.getSpieler().iterator();
 				while (posIterator.hasNext()) {
-					System.out.println(posIterator.next());
+					ausg = posIterator.next();
+					if(ausg == spiel.getSpielerByIndex(xnr)){
+						System.out.println(ausg + " (im Spiel nicht zu sehen)");
+					}else{
+						System.out.println(ausg);
+					}
 				}
 	
 				System.out.println(spieler.getName() + " besitzt: " + spieler.getTaxiChips() + " Taxichips, " 
