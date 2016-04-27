@@ -48,7 +48,7 @@ public class MisterXSpiel {
 		return logik.getGewonnen();
 	}
 	
-	public int getXWin(Spieler spieler, Spieler misterx) {
+	public int getXWin(List<Spieler> spieler, Spieler misterx) {
 		return logik.getXWin(spieler, misterx);
 	}
 	
@@ -81,6 +81,11 @@ public class MisterXSpiel {
 	
 	public void bahnFahren(Iterator<Station> nachbBahnIterator, String stationsausw, Spieler spieler, Spieler misterx, int l) {
 		logik.bahnFahren(nachbBahnIterator, stationsausw, spieler, misterx, l);
+	}
+	
+	
+	public String getLetzterXZug() {
+		return logik.getLetzterXZug();
 	}
 	
 	

@@ -1,6 +1,7 @@
 package misterx.local.domain;
 
 import java.util.Iterator;
+import java.util.List;
 
 import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
@@ -10,6 +11,7 @@ public class Spiellogik {
 	private int runde = 0;
 	private int gewonnen = 0;
 	private boolean zeigen = false;
+	private String letzterXZug = null;
 	
 
 	public int getRunde() {
@@ -26,15 +28,17 @@ public class Spiellogik {
 		return gewonnen;
 	}
 
-	public int getXWin(Spieler spieler, Spieler misterx) {
-		if(getRunde()>23){
-			return gewonnen = 1;
-		}else if(spieler.getStandort() == misterx.getStandort() && spieler.getName()!= misterx.getName()){
-			return gewonnen = 2;
-		}else{
-			return gewonnen = 0;
+	public int getXWin(List<Spieler> spieler, Spieler misterx) {
+		for(int i=0; i<spieler.size();i++){
+			if(getRunde()>23){
+				return gewonnen = 1;
+			}else if(spieler.get(i).getStandort() == misterx.getStandort() && spieler.get(i).getName() != misterx.getName()){
+				return gewonnen = 2;
+			}
 		}
+		return gewonnen = 0;
 	}
+	
 	
 	public boolean getZeigen() {
 		if(getRunde() == 3 || getRunde() == 8 || getRunde() == 13 || getRunde() == 18 || getRunde() == 24){
@@ -50,6 +54,8 @@ public class Spiellogik {
 		spieler.setTaxiChips(spieler.getTaxiChips()-1);
 		if(spieler.getName()!=misterx.getName()){
 			misterx.setTaxiChips(misterx.getTaxiChips()+1);
+		}else{
+			setLetzterXZug("Taxi");
 		}
 	}
 	
@@ -57,6 +63,8 @@ public class Spiellogik {
 		spieler.setBusChips(spieler.getTaxiChips()-1);
 		if(spieler.getName()!=misterx.getName()){
 			misterx.setBusChips(misterx.getBusChips()+1);
+		}else{
+			setLetzterXZug("Bus");
 		}
 	}
 
@@ -64,6 +72,8 @@ public class Spiellogik {
 		spieler.setBahnChips(spieler.getBahnChips()-1);
 		if(spieler.getName()!=misterx.getName()){
 			misterx.setBahnChips(misterx.getBahnChips()+1);
+		}else{
+			setLetzterXZug("Bahn");
 		}
 	}
 	
@@ -93,6 +103,15 @@ public class Spiellogik {
 		}else{
 			nachbBahnIterator.next();
 		}
+	}
+	
+	
+	public String getLetzterXZug() {
+		return letzterXZug;
+	}
+	
+	public void setLetzterXZug(String letzterXZug){
+		this.letzterXZug = letzterXZug;
 	}
 	
 	

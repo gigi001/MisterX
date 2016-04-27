@@ -49,6 +49,9 @@ public class SpielerVerw {
 		mitspieler.add(neuerSpieler);	
 	}
 		
-	
+	public void ladeSpieler() {
+		// Zugriff auf PersistenceManager
+		// Spieler -> mitspieler
+	}
 	
 }
