@@ -3,6 +3,7 @@ package misterx.local.domain;
 import java.util.Iterator;
 import java.util.List;
 
+import misterx.local.domain.exceptions.ChipsBestandException;
 import misterx.local.domain.exceptions.SpielerExistiertBereitsException;
 import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
@@ -58,28 +59,28 @@ public class MisterXSpiel {
 	}
 
 	
-	public void taxiAbziehen(Spieler spieler, Spieler misterx){
+	public void taxiAbziehen(Spieler spieler, Spieler misterx) throws ChipsBestandException{
 		logik.taxiAbziehen(spieler, misterx);
 	}
 	
-	public void busAbziehen(Spieler spieler, Spieler misterx){
+	public void busAbziehen(Spieler spieler, Spieler misterx) throws ChipsBestandException{
 		logik.busAbziehen(spieler, misterx);
 	}
 	
-	public void bahnAbziehen(Spieler spieler, Spieler misterx){
+	public void bahnAbziehen(Spieler spieler, Spieler misterx) throws ChipsBestandException{
 		logik.bahnAbziehen(spieler, misterx);
 	}
 	
 	
-	public void taxiFahren(Iterator<Station> nachbTaxiIterator, String stationsausw, Spieler spieler, Spieler misterx, int l) {
+	public void taxiFahren(Iterator<Station> nachbTaxiIterator, String stationsausw, Spieler spieler, Spieler misterx, int l) throws ChipsBestandException {
 		logik.taxiFahren(nachbTaxiIterator, stationsausw, spieler, misterx, l);
 	}
 	
-	public void busFahren(Iterator<Station> nachbBusIterator, String stationsausw, Spieler spieler, Spieler misterx, int l) {
+	public void busFahren(Iterator<Station> nachbBusIterator, String stationsausw, Spieler spieler, Spieler misterx, int l) throws ChipsBestandException {
 		logik.busFahren(nachbBusIterator, stationsausw, spieler, misterx, l);
 	}
 	
-	public void bahnFahren(Iterator<Station> nachbBahnIterator, String stationsausw, Spieler spieler, Spieler misterx, int l) {
+	public void bahnFahren(Iterator<Station> nachbBahnIterator, String stationsausw, Spieler spieler, Spieler misterx, int l) throws ChipsBestandException {
 		logik.bahnFahren(nachbBahnIterator, stationsausw, spieler, misterx, l);
 	}
 	

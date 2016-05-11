@@ -3,6 +3,7 @@ package misterx.local.domain;
 import java.util.Iterator;
 import java.util.List;
 
+import misterx.local.domain.exceptions.ChipsBestandException;
 import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
 
@@ -50,8 +51,12 @@ public class Spiellogik {
 		return zeigen;
 	}
 
-	public void taxiAbziehen(Spieler spieler, Spieler misterx) {
+	public void taxiAbziehen(Spieler spieler, Spieler misterx)throws ChipsBestandException {
+		if (spieler.getTaxiChips() == 0){
+			throw new ChipsBestandException("Taxi");
+		}else{
 		spieler.setTaxiChips(spieler.getTaxiChips()-1);
+		}
 		if(spieler.getName()!=misterx.getName()){
 			misterx.setTaxiChips(misterx.getTaxiChips()+1);
 		}else{
@@ -59,8 +64,12 @@ public class Spiellogik {
 		}
 	}
 	
-	public void busAbziehen(Spieler spieler, Spieler misterx) {
-		spieler.setBusChips(spieler.getTaxiChips()-1);
+	public void busAbziehen(Spieler spieler, Spieler misterx) throws ChipsBestandException {
+		if (spieler.getBusChips() == 0){
+			throw new ChipsBestandException("Bus");
+		}else{
+			spieler.setBusChips(spieler.getBusChips()-1);
+		}
 		if(spieler.getName()!=misterx.getName()){
 			misterx.setBusChips(misterx.getBusChips()+1);
 		}else{
@@ -68,8 +77,12 @@ public class Spiellogik {
 		}
 	}
 
-	public void bahnAbziehen(Spieler spieler, Spieler misterx) {
+	public void bahnAbziehen(Spieler spieler, Spieler misterx) throws ChipsBestandException  {
+		if (spieler.getBahnChips() == 0){
+			throw new ChipsBestandException("Bahn");
+		}else{
 		spieler.setBahnChips(spieler.getBahnChips()-1);
+		}
 		if(spieler.getName()!=misterx.getName()){
 			misterx.setBahnChips(misterx.getBahnChips()+1);
 		}else{
@@ -78,7 +91,7 @@ public class Spiellogik {
 	}
 	
 	
-	public void taxiFahren(Iterator<Station> nachbTaxiIterator, String stationsausw, Spieler spieler, Spieler misterx, int l) {
+	public void taxiFahren(Iterator<Station> nachbTaxiIterator, String stationsausw, Spieler spieler, Spieler misterx, int l)throws ChipsBestandException  {
 		if(l+1==Integer.parseInt(stationsausw)){
 			spieler.setStandort(nachbTaxiIterator.next());
 			taxiAbziehen(spieler, misterx);
@@ -86,8 +99,8 @@ public class Spiellogik {
 			nachbTaxiIterator.next();
 		}
 	}
-	
-	public void busFahren(Iterator<Station> nachbBusIterator, String stationsausw, Spieler spieler, Spieler misterx, int l) {
+//	 TODO  station exception 
+	public void busFahren(Iterator<Station> nachbBusIterator, String stationsausw, Spieler spieler, Spieler misterx, int l) throws ChipsBestandException {
 		if(l+1==Integer.parseInt(stationsausw)){
 			spieler.setStandort(nachbBusIterator.next());
 			busAbziehen(spieler, misterx);
@@ -96,7 +109,7 @@ public class Spiellogik {
 		}
 	}
 	
-	public void bahnFahren(Iterator<Station> nachbBahnIterator, String stationsausw, Spieler spieler, Spieler misterx, int l) {
+	public void bahnFahren(Iterator<Station> nachbBahnIterator, String stationsausw, Spieler spieler, Spieler misterx, int l) throws ChipsBestandException {
 		if(l+1==Integer.parseInt(stationsausw)){
 			spieler.setStandort(nachbBahnIterator.next());
 			bahnAbziehen(spieler, misterx);

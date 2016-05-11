@@ -13,9 +13,9 @@ public class Spieler {
 	
 	public Spieler(String name) {
 		this.name = name;
-		taxiChips=10;
-		busChips=8;
-		bahnChips=4;
+		taxiChips=3;
+		busChips=2;
+		bahnChips=3;
 	}
 
 	public void setTaxiChips(int taxiChips) {
