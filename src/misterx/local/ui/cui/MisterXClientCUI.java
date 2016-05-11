@@ -7,9 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import misterx.local.domain.MisterXSpiel;
-import misterx.local.domain.exceptions.ChipsBestandException;
 import misterx.local.domain.exceptions.SpielerExistiertBereitsException;
-
 import misterx.local.valueobjekts.MisterX;
 import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
@@ -20,11 +18,8 @@ public class MisterXClientCUI {
 	private int xnr = -1;
 	private Spieler ausg;
 	private Spieler spieler;
-<<<<<<< HEAD
-=======
 	private String sonderchips = "1";
 	
->>>>>>> refs/remotes/origin/master
 	public void startMenue() throws IOException {
 	
 		String aktion = "";
@@ -48,13 +43,6 @@ public class MisterXClientCUI {
 			case "1" :	
 				System.out.println("Name des Spielers eingeben:");
 				name = reader.readLine();
-<<<<<<< HEAD
-				 while(!isAlpha(name)) {
-		                System.err.println("Es dürfen keine Zahlen sowie !, /, _, ?, € Zeichen enthalten sein!");
-		                System.out.println("Geben sie namen des Spieler ein: ");
-		                name= reader.readLine();
-		            }
-=======
 				//->
 				while(!isAlpha(name)) {
 	                System.out.println("Es dürfen keine Zahlen sowie die Zeichen !, /, _, ?, € enthalten sein!");
@@ -63,7 +51,6 @@ public class MisterXClientCUI {
 				}
 				//<-
 				
->>>>>>> refs/remotes/origin/master
 				for (int i= 0; i<5; i++){					
 					//Station strasse = spiel.getStationByIndex(i);
 					System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
@@ -80,27 +67,19 @@ public class MisterXClientCUI {
 					neuerSpieler.setStandort(station);
 					spiel.spielerHinzufügen(neuerSpieler);
 					System.out.println("Neuer Spieler mit dem Namen " 
-					+ name + " wurde angelegt.");
+						+ name + " wurde angelegt.");
 					System.out.println(neuerSpieler);
-					}catch (SpielerExistiertBereitsException e){
+				}catch (SpielerExistiertBereitsException e){
 					System.out.println("Spieler mit dem Namen " 
-					+ name + " existiert bereits.");
-					}
-					System.out.println();
+						+ name + " existiert bereits.");
+				}
+				System.out.println();
 				break;
 				
 			case "2": 
-			
-					if(xnr == -1){
+				if(xnr == -1){
 					System.out.println("Name von Mister X eingeben:");
 					name = reader.readLine();
-<<<<<<< HEAD
-					while(!isAlpha(name)) {
-			        System.err.println("Es dürfen keine Zahlen sowie !, /, _, ?, € Zeichen enthalten sein!");
-			        System.out.println("Geben sie namen des Spieler ein: ");
-			        name= reader.readLine();
-			        }
-=======
 					//->
 					while(!isAlpha(name)) {
 		                System.out.println("Es dürfen keine Zahlen sowie die Zeichen !, /, _, ?, € enthalten sein!");
@@ -108,10 +87,9 @@ public class MisterXClientCUI {
 		                name= reader.readLine();
 					}
 					//<-					
->>>>>>> refs/remotes/origin/master
 					for (int i= 0; i<5; i++){				
-					//Station strasse = spiel.getStationByIndex(i);
-					System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
+						//Station strasse = spiel.getStationByIndex(i);
+						System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
 					}
 					
 					System.out.println("Wähle die Nummer der Startstation:");
@@ -184,24 +162,18 @@ public class MisterXClientCUI {
 	
 	int zaehler;
 		
-	public void aktionAusfuehren() throws IOException, ChipsBestandException {
+	public void aktionAusfuehren() throws IOException {
 //		List<Spieler> spieler = spiel.getSpieler();
 //		Spieler misterx = spieler.get(xnr);
 		
 		Spieler misterx = spiel.getSpielerByIndex(xnr);
-		
+
 		int i = -1;
-<<<<<<< HEAD
-		
-			i = (i+1) % spiel.getLength();
-			spieler = spiel.getSpielerByIndex(i);
-=======
 		do {
 			if(Integer.parseInt(sonderchips) != 3 && Integer.parseInt(sonderchips) != 4){
 				i = (i+1) % spiel.getLength();
 				spieler = spiel.getSpielerByIndex(i);
 			}
->>>>>>> refs/remotes/origin/master
 			// aktSpieler macht Aktion
 			// Ergebnis der Aktion ausgeben
 			// - wenn aktSpieler = MisterX, dann Zusatzinfo ausgeben
@@ -210,13 +182,9 @@ public class MisterXClientCUI {
 		//for (int i= 0; i<spiel.getLength(); i++){
 //		for (int i= 0; i<spieler.size(); i++){
 			//if(spiel.getGewonnen() == 0){
-<<<<<<< HEAD
-			do {
-=======
 				
 			sonderchips = "1";
 			
->>>>>>> refs/remotes/origin/master
 			if(i == 0){
 				spiel.getNaechsteRunde();
 				System.out.println("Runde " + spiel.getRunde());
@@ -242,11 +210,6 @@ public class MisterXClientCUI {
 				}
 			}
 			
-<<<<<<< HEAD
-			zaehler=1;
-			
-=======
->>>>>>> refs/remotes/origin/master
 			//spieler = spiel.getSpielerByIndex(i);
 			System.out.println(spieler.getName() + " ist an der Reihe");
 			
@@ -309,7 +272,6 @@ public class MisterXClientCUI {
 			}
 			
 			System.out.println("Zu welcher Station möchtest du fahren?");
-			
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 			String stationsausw = reader.readLine();
 			
@@ -330,35 +292,13 @@ public class MisterXClientCUI {
 			for(int l=0;l<(Integer.parseInt(stationsausw));l++){
 								
 				if (nachbTaxiIterator.hasNext()) {
-<<<<<<< HEAD
-					try{
-						spiel.taxiFahren(nachbTaxiIterator, stationsausw, spieler, misterx, l);
-					}catch (ChipsBestandException c){
-						System.err.println(c.getMessage());
-					}
-				}else if (nachbBusIterator.hasNext()) {
-					try{
-					spiel.busFahren(nachbBusIterator, stationsausw, spieler, misterx, l); 
-					}catch (ChipsBestandException c){
-						System.err.println(c.getMessage());
-					}
-					
-				}else if (nachbBahnIterator.hasNext()) {
-					try{
-					spiel.bahnFahren(nachbBahnIterator, stationsausw, spieler, misterx, l);
-					}catch (ChipsBestandException c){
-						System.err.println(c.getMessage());
-					}
-=======
 					spiel.taxiFahren(nachbTaxiIterator, stationsausw, spieler, misterx, l, sonderchips);
 				}else if (nachbBusIterator.hasNext()) {
 					spiel.busFahren(nachbBusIterator, stationsausw, spieler, misterx, l, sonderchips);					
 				}else if (nachbBahnIterator.hasNext()) {
 					spiel.bahnFahren(nachbBahnIterator, stationsausw, spieler, misterx, l, sonderchips);
->>>>>>> refs/remotes/origin/master
 				}
 			}
-			
 			
 			System.out.println("Du stehst nun an der " + spieler.getStandort());
 			System.out.println();
@@ -409,41 +349,12 @@ public class MisterXClientCUI {
 	
 	
 	
-	// Exception Methode für String  readline überpruft ob  es auch wirklich buchstaben sind 
-	public boolean isAlpha(String text) {
-        for (char c : text.toCharArray()) {
-
-            // a - z
-            if (c >= 'a' && c <= 'z')
-                continue;
-
-            // A - Z
-            if (c >= 'A' && c <= 'Z')
-                continue;
-
-            // ö, ü, ä, ß
-            if (c == 'ö' || c == 'ß' || c == 'ä' || c == 'ü')
-                continue;
-
-            return false;
-        }
-        return true;
-    }
-	
-
-
-
-
-	
-	
-	
-	
-	public static void main(String[] args) throws ChipsBestandException {
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		MisterXClientCUI cui = new MisterXClientCUI();
 		try {
 			cui.startMenue();
-		} catch (IOException e ) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
