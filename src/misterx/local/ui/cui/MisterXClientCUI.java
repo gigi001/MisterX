@@ -160,7 +160,6 @@ public class MisterXClientCUI {
 		
 
 	
-	
 	int zaehler;
 		
 	public void aktionAusfuehren() throws IOException {
@@ -321,7 +320,8 @@ public class MisterXClientCUI {
 		} while (spiel.getGewonnen() == 0);
 	}
 	
-	
+
+
 	
 	
 	public boolean isAlpha(String text) {
