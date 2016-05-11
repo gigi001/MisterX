@@ -43,6 +43,14 @@ public class MisterXClientCUI {
 			case "1" :	
 				System.out.println("Name des Spielers eingeben:");
 				name = reader.readLine();
+				//->
+				while(!isAlpha(name)) {
+	                System.out.println("Es dürfen keine Zahlen sowie die Zeichen !, /, _, ?, € enthalten sein!");
+	                System.out.println("Name des Spielers eingeben:");
+	                name= reader.readLine();
+				}
+				//<-
+				
 				for (int i= 0; i<5; i++){					
 					//Station strasse = spiel.getStationByIndex(i);
 					System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
@@ -72,6 +80,13 @@ public class MisterXClientCUI {
 				if(xnr == -1){
 					System.out.println("Name von Mister X eingeben:");
 					name = reader.readLine();
+					//->
+					while(!isAlpha(name)) {
+		                System.out.println("Es dürfen keine Zahlen sowie die Zeichen !, /, _, ?, € enthalten sein!");
+		                System.out.println("Name von Mister X eingeben:");
+		                name= reader.readLine();
+					}
+					//<-					
 					for (int i= 0; i<5; i++){				
 						//Station strasse = spiel.getStationByIndex(i);
 						System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
@@ -305,6 +320,33 @@ public class MisterXClientCUI {
 
 		} while (spiel.getGewonnen() == 0);
 	}
+	
+	
+	
+	
+	public boolean isAlpha(String text) {
+        for (char c : text.toCharArray()) {
+
+            // a - z
+            if (c >= 'a' && c <= 'z')
+                continue;
+
+            // A - Z
+            if (c >= 'A' && c <= 'Z')
+                continue;
+
+            // ö, ü, ä, ß
+            if (c == 'ö' || c == 'ß' || c == 'ä' || c == 'ü')
+                continue;
+            
+
+            return false;
+        }
+        return true;
+    }
+
+	
+	
 	
 	
 	public static void main(String[] args) {
