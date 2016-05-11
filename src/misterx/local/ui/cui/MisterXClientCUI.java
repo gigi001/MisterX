@@ -22,6 +22,16 @@ public class MisterXClientCUI {
 	
 	public void startMenue() throws IOException {
 	
+		System.out.println("1 Neues Spiel");
+		System.out.println("2 Spiel laden");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		String laden = reader.readLine();
+		
+		if(laden == "2"){
+			
+		}
+		
+		
 		String aktion = "";
 		
 		do {
@@ -33,7 +43,7 @@ public class MisterXClientCUI {
 
 			// Aktion einlesen
 			System.out.println("Bitte Aktion eingeben.");
-			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			//BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 			aktion = reader.readLine();
 
 
@@ -43,13 +53,11 @@ public class MisterXClientCUI {
 			case "1" :	
 				System.out.println("Name des Spielers eingeben:");
 				name = reader.readLine();
-				//->
 				while(!isAlpha(name)) {
 	                System.out.println("Es dürfen keine Zahlen sowie die Zeichen !, /, _, ?, € enthalten sein!");
 	                System.out.println("Name des Spielers eingeben:");
 	                name= reader.readLine();
 				}
-				//<-
 				
 				for (int i= 0; i<5; i++){					
 					//Station strasse = spiel.getStationByIndex(i);
@@ -80,13 +88,11 @@ public class MisterXClientCUI {
 				if(xnr == -1){
 					System.out.println("Name von Mister X eingeben:");
 					name = reader.readLine();
-					//->
 					while(!isAlpha(name)) {
 		                System.out.println("Es dürfen keine Zahlen sowie die Zeichen !, /, _, ?, € enthalten sein!");
 		                System.out.println("Name von Mister X eingeben:");
 		                name= reader.readLine();
-					}
-					//<-					
+					}					
 					for (int i= 0; i<5; i++){				
 						//Station strasse = spiel.getStationByIndex(i);
 						System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
@@ -188,6 +194,22 @@ public class MisterXClientCUI {
 			if(i == 0){
 				spiel.getNaechsteRunde();
 				System.out.println("Runde " + spiel.getRunde());
+				
+				System.out.println("Spiel Speichern? (y/n)");
+				BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+				String speichern = reader.readLine();
+				while(!isAlpha(speichern)) {
+					System.out.println("Bitte 'y' für yes oder 'n' für no eingeben!");
+	                speichern = reader.readLine();	                
+				}
+				speichern="y";
+				if(speichern == "y"){
+					spiel.speicher("TEST");
+					System.out.println("");
+					System.out.println("Spiel wurde gepeichert!");
+					System.out.println("");
+				}
+				
 			}
 			
 			if(xnr+1 < spiel.getLength()){
@@ -280,9 +302,6 @@ public class MisterXClientCUI {
 				System.out.println("Möchtest du Sonderchips benutzen?");
 				System.out.println("1 keine; 2 Black Ticket; 3 Doppelchip; 4 Black Ticket und Doppelchip");
 				sonderchips = reader.readLine();
-				//switch(sonderchips){
-				//case "3": 
-				//}
 			}
 			
 			//nachbIterator = spieler.getStandort().getBahnNachbarn().iterator();
