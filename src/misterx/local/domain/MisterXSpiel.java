@@ -72,6 +72,7 @@ public class MisterXSpiel {
 	}
 	
 	
+<<<<<<< HEAD
 	public void taxiFahren(Iterator<Station> nachbTaxiIterator, String stationsausw, Spieler spieler, Spieler misterx, int l) throws ChipsBestandException {
 		logik.taxiFahren(nachbTaxiIterator, stationsausw, spieler, misterx, l);
 	}
@@ -82,6 +83,18 @@ public class MisterXSpiel {
 	
 	public void bahnFahren(Iterator<Station> nachbBahnIterator, String stationsausw, Spieler spieler, Spieler misterx, int l) throws ChipsBestandException {
 		logik.bahnFahren(nachbBahnIterator, stationsausw, spieler, misterx, l);
+=======
+	public void taxiFahren(Iterator<Station> nachbTaxiIterator, String stationsausw, Spieler spieler, Spieler misterx, int l, String sonderchips) {
+		logik.taxiFahren(nachbTaxiIterator, stationsausw, spieler, misterx, l, Integer.parseInt(sonderchips));
+	}
+	
+	public void busFahren(Iterator<Station> nachbBusIterator, String stationsausw, Spieler spieler, Spieler misterx, int l, String sonderchips) {
+		logik.busFahren(nachbBusIterator, stationsausw, spieler, misterx, l, Integer.parseInt(sonderchips));
+	}
+	
+	public void bahnFahren(Iterator<Station> nachbBahnIterator, String stationsausw, Spieler spieler, Spieler misterx, int l, String sonderchips) {
+		logik.bahnFahren(nachbBahnIterator, stationsausw, spieler, misterx, l, Integer.parseInt(sonderchips));
+>>>>>>> refs/remotes/origin/master
 	}
 	
 	

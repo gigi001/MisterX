@@ -90,29 +90,77 @@ public class Spiellogik {
 		}
 	}
 	
+	public void blackAbziehen(Spieler misterx) {
+		misterx.setBlackTickets(misterx.getBlackTickets()-1);
+		setLetzterXZug("Black Ticket");
+	}
 	
+	public void doppelAbziehen(Spieler misterx) {
+		misterx.setDoubleChips(misterx.getDoubleChips()-1);
+		getNaechsteRunde();
+	}
+	
+	
+<<<<<<< HEAD
 	public void taxiFahren(Iterator<Station> nachbTaxiIterator, String stationsausw, Spieler spieler, Spieler misterx, int l)throws ChipsBestandException  {
+=======
+	public void taxiFahren(Iterator<Station> nachbTaxiIterator, String stationsausw, Spieler spieler, Spieler misterx, int l, int sonderchips) {
+>>>>>>> refs/remotes/origin/master
 		if(l+1==Integer.parseInt(stationsausw)){
 			spieler.setStandort(nachbTaxiIterator.next());
-			taxiAbziehen(spieler, misterx);
+			System.out.println(sonderchips);
+			if(sonderchips == 2 || sonderchips == 4){
+				blackAbziehen(misterx);
+			}
+			if(sonderchips == 3 || sonderchips == 4){
+				doppelAbziehen(misterx);
+			}
+			if(sonderchips == 1 || sonderchips == 3){
+				taxiAbziehen(spieler, misterx);
+			}
 		}else{
 			nachbTaxiIterator.next();
 		}
 	}
+<<<<<<< HEAD
 //	 TODO  station exception 
 	public void busFahren(Iterator<Station> nachbBusIterator, String stationsausw, Spieler spieler, Spieler misterx, int l) throws ChipsBestandException {
+=======
+	
+	public void busFahren(Iterator<Station> nachbBusIterator, String stationsausw, Spieler spieler, Spieler misterx, int l, int sonderchips) {
+>>>>>>> refs/remotes/origin/master
 		if(l+1==Integer.parseInt(stationsausw)){
 			spieler.setStandort(nachbBusIterator.next());
-			busAbziehen(spieler, misterx);
+			if(sonderchips == 2 || sonderchips == 4){
+				blackAbziehen(misterx);
+			}
+			if(sonderchips == 3 || sonderchips == 4){
+				doppelAbziehen(misterx);
+			}
+			if(sonderchips == 1 || sonderchips == 3){
+				busAbziehen(spieler, misterx);
+			}
 		}else{
 			nachbBusIterator.next();
 		}
 	}
 	
+<<<<<<< HEAD
 	public void bahnFahren(Iterator<Station> nachbBahnIterator, String stationsausw, Spieler spieler, Spieler misterx, int l) throws ChipsBestandException {
+=======
+	public void bahnFahren(Iterator<Station> nachbBahnIterator, String stationsausw, Spieler spieler, Spieler misterx, int l, int sonderchips) {
+>>>>>>> refs/remotes/origin/master
 		if(l+1==Integer.parseInt(stationsausw)){
 			spieler.setStandort(nachbBahnIterator.next());
-			bahnAbziehen(spieler, misterx);
+			if(sonderchips == 2 || sonderchips == 4){
+				blackAbziehen(misterx);
+			}
+			if(sonderchips == 3 || sonderchips == 4){
+				doppelAbziehen(misterx);
+			}
+			if(sonderchips == 1 || sonderchips == 3){
+				bahnAbziehen(spieler, misterx);
+			}
 		}else{
 			nachbBahnIterator.next();
 		}

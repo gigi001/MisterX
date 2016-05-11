@@ -8,6 +8,8 @@ public class Spieler {
 	protected int taxiChips;
 	protected int busChips;
 	protected int bahnChips;
+	protected int blackTickets;
+	protected int doubleChips;
 	protected Station standort;
     //private ArrayList <Integer> guthaben;
 	
@@ -46,6 +48,26 @@ public class Spieler {
 		return bahnChips;
 	}
 
+	
+	
+	public void setBlackTickets(int blackTickets){
+		this.blackTickets = blackTickets;
+	}
+	
+	public int getBlackTickets(){
+		return blackTickets;
+	}
+	
+	
+	public void setDoubleChips(int doubleChips){
+		this.doubleChips = doubleChips;
+	}
+	
+	public int getDoubleChips(){
+		return doubleChips;
+	}
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		//System.out.println("equals-Methode");
