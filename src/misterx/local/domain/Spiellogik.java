@@ -84,6 +84,7 @@ public class Spiellogik {
 	
 	public void doppelAbziehen(Spieler misterx) {
 		misterx.setDoubleChips(misterx.getDoubleChips()-1);
+		getNaechsteRunde();
 	}
 	
 	
