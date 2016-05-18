@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import misterx.local.domain.MisterXSpiel;
+import misterx.local.domain.exceptions.EingabeException;
 import misterx.local.domain.exceptions.SpielerExistiertBereitsException;
 import misterx.local.valueobjekts.MisterX;
 import misterx.local.valueobjekts.Spieler;
@@ -51,14 +52,24 @@ public class MisterXClientCUI {
 
 			switch (aktion){
 			case "1" :	
-				System.out.println("Name des Spielers eingeben:");
-				name = reader.readLine();
-				while(!isAlpha(name)) {
-	                System.out.println("Es dürfen keine Zahlen sowie die Zeichen !, /, _, ?, € enthalten sein!");
-	                System.out.println("Name des Spielers eingeben:");
-	                name= reader.readLine();
-				}
-				
+//				name = reader.readLine();
+//				//->
+//				while(!isAlpha(name)) {
+//	                System.out.println("Es dürfen keine Zahlen sowie die Zeichen !, /, _, ?, € enthalten sein!");
+//	                System.out.println("Name des Spielers eingeben:");
+//	                name= reader.readLine();
+//				}
+				boolean ok = false;
+				do {
+					System.out.println("Name des Spielers eingeben:");
+					name = reader.readLine();
+					try {
+						ok = isAlpha(name); 
+					} catch (EingabeException eex) {
+						System.err.println(eex.getMessage());
+					}
+				} while (!ok);
+				//<-
 				for (int i= 0; i<5; i++){					
 					//Station strasse = spiel.getStationByIndex(i);
 					System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
@@ -86,13 +97,25 @@ public class MisterXClientCUI {
 				
 			case "2": 
 				if(xnr == -1){
-					System.out.println("Name von Mister X eingeben:");
-					name = reader.readLine();
-					while(!isAlpha(name)) {
-		                System.out.println("Es dürfen keine Zahlen sowie die Zeichen !, /, _, ?, € enthalten sein!");
+//					System.out.println("Name von Mister X eingeben:");
+//					name = reader.readLine();
+//					//->
+//					while(!isAlpha(name)) {
+//		                System.out.println("Es dürfen keine Zahlen sowie die Zeichen !, /, _, ?, € enthalten sein!");
+//		                System.out.println("Name von Mister X eingeben:");
+//		                name= reader.readLine();
+//					}
+					ok = false;
+					do {
 		                System.out.println("Name von Mister X eingeben:");
-		                name= reader.readLine();
-					}					
+						name = reader.readLine();
+						try {
+							ok = isAlpha(name); 
+						} catch (EingabeException eex) {
+							System.err.println(eex.getMessage());
+						}
+					} while (!ok);
+
 					for (int i= 0; i<5; i++){				
 						//Station strasse = spiel.getStationByIndex(i);
 						System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
@@ -197,11 +220,18 @@ public class MisterXClientCUI {
 				
 				System.out.println("Spiel Speichern? (y/n)");
 				BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-				String speichern = reader.readLine();
-				while(!isAlpha(speichern)) {
-					System.out.println("Bitte 'y' für yes oder 'n' für no eingeben!");
-	                speichern = reader.readLine();	                
-				}
+				
+			
+				boolean ok = false;
+			
+	                System.out.println("Name von Mister X eingeben:");
+	                String speichern = reader.readLine();
+					try {
+						ok = isAlpha(speichern); 
+					} catch (EingabeException eex) {
+						System.err.println(eex.getMessage());
+					}
+				
 				speichern="y";
 				if(speichern == "y"){
 					spiel.speicher("TEST");
@@ -343,7 +373,7 @@ public class MisterXClientCUI {
 
 	
 	
-	public boolean isAlpha(String text) {
+	public boolean isAlpha(String text) throws EingabeException {
         for (char c : text.toCharArray()) {
 
             // a - z
@@ -358,8 +388,8 @@ public class MisterXClientCUI {
             if (c == 'ö' || c == 'ß' || c == 'ä' || c == 'ü')
                 continue;
             
-
-            return false;
+            throw new EingabeException(text);
+//            return false;
         }
         return true;
     }

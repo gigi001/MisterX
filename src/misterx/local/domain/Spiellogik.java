@@ -3,6 +3,7 @@ package misterx.local.domain;
 import java.util.Iterator;
 import java.util.List;
 
+import misterx.local.domain.exceptions.ChipsBestandException;
 import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
 
@@ -11,7 +12,7 @@ public class Spiellogik {
 	private int runde = 0;
 	private int gewonnen = 0;
 	private boolean zeigen = false;
-	private String letzterXZug = null;
+private String letzterXZug = null;
 	
 
 	public int getRunde() {

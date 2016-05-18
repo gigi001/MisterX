@@ -1,9 +1,13 @@
 package misterx.local.valueobjekts;
 
+import java.io.Serializable;
 
+public class Spieler implements Serializable{
 
-public class Spieler {
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6661255945396020335L;
 	protected String name;
 	protected int taxiChips;
 	protected int busChips;
@@ -15,9 +19,9 @@ public class Spieler {
 	
 	public Spieler(String name) {
 		this.name = name;
-		taxiChips=10;
-		busChips=8;
-		bahnChips=4;
+		taxiChips=3;
+		busChips=2;
+		bahnChips=3;
 	}
 
 	public void setTaxiChips(int taxiChips) {
