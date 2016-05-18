@@ -1,9 +1,15 @@
 package misterx.local.valueobjekts;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Station {
+public class Station  implements Serializable{
+	
+	/**
+	 * die ID zum speichern
+	 */
+	private static final long serialVersionUID = -6220434905319126013L;
 	
 	private String name;
 	//private String typ; // ggf. als Aufzählung / Enumeration

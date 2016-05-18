@@ -1,9 +1,13 @@
 package misterx.local.valueobjekts;
 
+import java.io.Serializable;
 
+public class Spieler implements Serializable{
 
-public class Spieler {
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6661255945396020335L;
 	protected String name;
 	protected int taxiChips;
 	protected int busChips;
