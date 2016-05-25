@@ -1,24 +1,42 @@
 package misterx.local.valueobjekts;
 
+import java.io.Serializable;
 
+public class Spieler implements Serializable{
 
-public class Spieler {
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6661255945396020335L;
 	protected String name;
 	protected int taxiChips;
 	protected int busChips;
 	protected int bahnChips;
-	protected int blackTickets;
-	protected int doubleChips;
+	
 	protected Station standort;
     //private ArrayList <Integer> guthaben;
 	
 	public Spieler(String name) {
 		this.name = name;
-		taxiChips=10;
-		busChips=8;
-		bahnChips=4;
+		taxiChips=3;
+		busChips=2;
+		bahnChips=3;
 	}
+	
+	public Spieler(String name, int taxiChips,int busChips, int bahnChips) {
+		this.name = name;
+		this.taxiChips=taxiChips;
+		this.busChips=busChips;
+		this.bahnChips=bahnChips;
+	}
+	public Spieler(String name, int taxiChips,int busChips, int bahnChips, Station station) {
+		this.name = name;
+		this.taxiChips=taxiChips;
+		this.busChips=busChips;
+		this.bahnChips=bahnChips;
+		this.standort = station;
+	}
+	
 
 	public void setTaxiChips(int taxiChips) {
 		this.taxiChips = taxiChips;
@@ -50,22 +68,6 @@ public class Spieler {
 
 	
 	
-	public void setBlackTickets(int blackTickets){
-		this.blackTickets = blackTickets;
-	}
-	
-	public int getBlackTickets(){
-		return blackTickets;
-	}
-	
-	
-	public void setDoubleChips(int doubleChips){
-		this.doubleChips = doubleChips;
-	}
-	
-	public int getDoubleChips(){
-		return doubleChips;
-	}
 	
 	
 	@Override

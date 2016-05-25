@@ -3,11 +3,11 @@ package misterx.local.domain;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
 
 import misterx.local.domain.exceptions.SpielerExistiertBereitsException;
 import misterx.local.persistence.FilePersistenceManager;
 import misterx.local.persistence.PersistenceManager;
+import misterx.local.valueobjekts.MisterX;
 import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
 
@@ -65,7 +65,7 @@ public class MisterXSpiel {
 	}
 
 	
-	public void taxiAbziehen(Spieler spieler, Spieler misterx){
+	public void taxiAbziehen(Spieler spieler, MisterX misterx){
 		logik.taxiAbziehen(spieler, misterx);
 	}
 	
@@ -78,8 +78,11 @@ public class MisterXSpiel {
 	}
 	
 	
-	public void taxiFahren(Iterator<Station> nachbTaxiIterator, String stationsausw, Spieler spieler, Spieler misterx, int l, String sonderchips) {
-		logik.taxiFahren(nachbTaxiIterator, stationsausw, spieler, misterx, l, Integer.parseInt(sonderchips));
+//	public void taxiFahren(Iterator<Station> nachbTaxiIterator, String stationsausw, Spieler spieler, Spieler misterx, int l, String sonderchips) {
+//		logik.taxiFahren(nachbTaxiIterator, stationsausw, spieler, misterx, l, Integer.parseInt(sonderchips));
+//	}
+	public void taxiFahren(Station station, Spieler spieler, MisterX misterx, String sonderchips) {
+		logik.taxiFahren(station, spieler, misterx, Integer.parseInt(sonderchips));
 	}
 	
 	public void busFahren(Iterator<Station> nachbBusIterator, String stationsausw, Spieler spieler, Spieler misterx, int l, String sonderchips) {
@@ -111,7 +114,7 @@ public class MisterXSpiel {
 		Spieler einSpieler;
 		do {
 			// Spieler-Objekt einlesen
-			einSpieler = pm.ladeSpieler();
+		einSpieler = pm.ladeSpieler(sv.meineStationen);
 			if (einSpieler != null) {
 				// Spieler in Liste einfügen
 				try {
@@ -129,4 +132,3 @@ public class MisterXSpiel {
 	
 	
 }
-

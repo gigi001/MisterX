@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import misterx.local.domain.MisterXSpiel;
+import misterx.local.domain.exceptions.EingabeException;
 import misterx.local.domain.exceptions.SpielerExistiertBereitsException;
 import misterx.local.valueobjekts.MisterX;
 import misterx.local.valueobjekts.Spieler;
@@ -19,12 +20,12 @@ public class MisterXClientCUI {
 	private Spieler ausg;
 	private Spieler spieler;
 	private String sonderchips = "1";
+	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	
 	public void startMenue() throws IOException {
 	
 		System.out.println("1 Neues Spiel");
 		System.out.println("2 Spiel laden");
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		String laden = reader.readLine();
 		
 		if(laden == "2"){
@@ -51,14 +52,24 @@ public class MisterXClientCUI {
 
 			switch (aktion){
 			case "1" :	
-				System.out.println("Name des Spielers eingeben:");
-				name = reader.readLine();
-				while(!isAlpha(name)) {
-	                System.out.println("Es dürfen keine Zahlen sowie die Zeichen !, /, _, ?, € enthalten sein!");
-	                System.out.println("Name des Spielers eingeben:");
-	                name= reader.readLine();
-				}
-				
+//				name = reader.readLine();
+//				//->
+//				while(!isAlpha(name)) {
+//	                System.out.println("Es dürfen keine Zahlen sowie die Zeichen !, /, _, ?, € enthalten sein!");
+//	                System.out.println("Name des Spielers eingeben:");
+//	                name= reader.readLine();
+//				}
+				boolean ok = false;
+				do {
+					System.out.println("Name des Spielers eingeben:");
+					name = reader.readLine();
+					try {
+						ok = isAlpha(name); 
+					} catch (EingabeException eex) {
+						System.err.println(eex.getMessage());
+					}
+				} while (!ok);
+				//<-
 				for (int i= 0; i<5; i++){					
 					//Station strasse = spiel.getStationByIndex(i);
 					System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
@@ -86,13 +97,25 @@ public class MisterXClientCUI {
 				
 			case "2": 
 				if(xnr == -1){
-					System.out.println("Name von Mister X eingeben:");
-					name = reader.readLine();
-					while(!isAlpha(name)) {
-		                System.out.println("Es dürfen keine Zahlen sowie die Zeichen !, /, _, ?, € enthalten sein!");
+//					System.out.println("Name von Mister X eingeben:");
+//					name = reader.readLine();
+//					//->
+//					while(!isAlpha(name)) {
+//		                System.out.println("Es dürfen keine Zahlen sowie die Zeichen !, /, _, ?, € enthalten sein!");
+//		                System.out.println("Name von Mister X eingeben:");
+//		                name= reader.readLine();
+//					}
+					ok = false;
+					do {
 		                System.out.println("Name von Mister X eingeben:");
-		                name= reader.readLine();
-					}					
+						name = reader.readLine();
+						try {
+							ok = isAlpha(name); 
+						} catch (EingabeException eex) {
+							System.err.println(eex.getMessage());
+						}
+					} while (!ok);
+
 					for (int i= 0; i<5; i++){				
 						//Station strasse = spiel.getStationByIndex(i);
 						System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
@@ -172,7 +195,7 @@ public class MisterXClientCUI {
 //		List<Spieler> spieler = spiel.getSpieler();
 //		Spieler misterx = spieler.get(xnr);
 		
-		Spieler misterx = spiel.getSpielerByIndex(xnr);
+		MisterX misterx = (MisterX) spiel.getSpielerByIndex(xnr);
 
 		int i = -1;
 		do {
@@ -196,20 +219,14 @@ public class MisterXClientCUI {
 				System.out.println("Runde " + spiel.getRunde());
 				
 				System.out.println("Spiel Speichern? (y/n)");
-				BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+//				BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 				String speichern = reader.readLine();
-				while(!isAlpha(speichern)) {
-					System.out.println("Bitte 'y' für yes oder 'n' für no eingeben!");
-	                speichern = reader.readLine();	                
-				}
-				speichern="y";
-				if(speichern == "y"){
-					spiel.speicher("TEST");
+				if(speichern.equals("y")){
+					spiel.speicher("TEST.txt");
 					System.out.println("");
 					System.out.println("Spiel wurde gepeichert!");
 					System.out.println("");
 				}
-				
 			}
 			
 			if(xnr+1 < spiel.getLength()){
@@ -249,7 +266,7 @@ public class MisterXClientCUI {
 			if(spieler.getName() == misterx.getName()){
 				System.out.println(spieler.getName() + " besitzt: " + spieler.getTaxiChips() + " Taxichips, " 
 						+ spieler.getBusChips() + " Buschips, " + spieler.getBahnChips() + " U-Bahnchips, " + 
-						spieler.getBlackTickets() + " Black Tickets und " + spieler.getDoubleChips() + " Doppelchips.");
+						((MisterX) spieler).getBlackTickets() + " Black Tickets und " + ((MisterX) spieler).getDoubleChips() + " Doppelchips.");
 			}else{
 				System.out.println(spieler.getName() + " besitzt: " + spieler.getTaxiChips() + " Taxichips, " 
 						+ spieler.getBusChips() + " Buschips und " + spieler.getBahnChips() + " U-Bahnchips.");
@@ -311,7 +328,11 @@ public class MisterXClientCUI {
 			for(int l=0;l<(Integer.parseInt(stationsausw));l++){
 								
 				if (nachbTaxiIterator.hasNext()) {
-					spiel.taxiFahren(nachbTaxiIterator, stationsausw, spieler, misterx, l, sonderchips);
+					Station station = nachbTaxiIterator.next();
+					if ((l+1) == Integer.parseInt(stationsausw)) {
+//						spiel.taxiFahren(nachbTaxiIterator, stationsausw, spieler, misterx, l, sonderchips);
+						spiel.taxiFahren(station, spieler, misterx, sonderchips);
+					}
 				}else if (nachbBusIterator.hasNext()) {
 					spiel.busFahren(nachbBusIterator, stationsausw, spieler, misterx, l, sonderchips);					
 				}else if (nachbBahnIterator.hasNext()) {
@@ -322,7 +343,7 @@ public class MisterXClientCUI {
 			System.out.println("Du stehst nun an der " + spieler.getStandort());
 			System.out.println();
 				
-			misterx = spiel.getSpielerByIndex(xnr);
+			misterx = (MisterX) spiel.getSpielerByIndex(xnr);
 			if(spiel.getXWin(spiel.getSpieler(), misterx) == 2){
 				System.out.println("----- Mister X wurde gefunden! -----");
 			}
@@ -343,7 +364,7 @@ public class MisterXClientCUI {
 
 	
 	
-	public boolean isAlpha(String text) {
+	public boolean isAlpha(String text) throws EingabeException {
         for (char c : text.toCharArray()) {
 
             // a - z
@@ -358,8 +379,8 @@ public class MisterXClientCUI {
             if (c == 'ö' || c == 'ß' || c == 'ä' || c == 'ü')
                 continue;
             
-
-            return false;
+            throw new EingabeException(text);
+//            return false;
         }
         return true;
     }

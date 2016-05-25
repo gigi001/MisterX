@@ -7,7 +7,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
+import misterx.local.valueobjekts.MisterX;
 import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
 
@@ -51,24 +53,90 @@ public class FilePersistenceManager implements PersistenceManager{
 	}
 
 	@Override
-	public Spieler ladeSpieler() throws IOException {
+	public Spieler ladeSpieler(List<Station> stationen) throws IOException {
 		
-		String titel = liesZeile();
-		if (titel == null) {
+		String sClass = liesZeile();
+		if (sClass == null) {
 			// keine Daten mehr vorhanden
 			return null;
 		}
 
 		String name = liesZeile();
+		if (name== null) {
+			// keine Daten mehr vorhanden
+			return null;
+		}
+		String standort = liesZeile();
+		if (standort == null) {
+			// keine Daten mehr vorhanden
+			return null;
+		}
 		
-		return new Spieler(name);
+		// TODO: Aus Standortname das richtige Stationsoobjekt ermitteln
+		// über Stationsliste iterieren und Namen vergleichen
+		
+		String blackTickets = "";
+		String doubleChips ="";
+		if(sClass.equals("MisterX")){
+			blackTickets= liesZeile();
+			if (blackTickets== null) {
+				// keine Daten mehr vorhanden
+				return null;
+			}
+			doubleChips= liesZeile();
+			if (doubleChips== null) {
+				// keine Daten mehr vorhanden
+				return null;
+			}
+		}
+		String bahnChips= liesZeile();
+		if (bahnChips== null) {
+			// keine Daten mehr vorhanden
+			return null;
+		}
+
+		
+		
+		
+		String busChips= liesZeile();
+		if (busChips== null) {
+			// keine Daten mehr vorhanden
+			return null;
+		}
+		String taxiChips= liesZeile();
+		if ( taxiChips== null) {
+			// keine Daten mehr vorhanden
+			return null;
+		}
+		
+		
+		if(sClass.equals("MisterX")){
+			return new MisterX(name,Integer.parseInt(blackTickets),Integer.parseInt(doubleChips),Integer.parseInt(taxiChips),Integer.parseInt(bahnChips),Integer.parseInt(busChips));
+		}
+		return new Spieler(name,Integer.parseInt(taxiChips),Integer.parseInt(bahnChips),Integer.parseInt(busChips));
 	}
 	
 
 	@Override
 	public boolean speichereSpieler(Spieler s) throws IOException{
-
+		String sClass = s.getClass().getName();
+		schreibeZeile(sClass);
 		schreibeZeile(s.getName());
+		schreibeZeile(s.getStandort().getName());
+		if (s instanceof MisterX){
+			schreibeZeile(((MisterX) s).getBlackTickets()+"");
+			schreibeZeile(((MisterX) s).getDoubleChips()+"");
+		}
+		
+		
+		
+		schreibeZeile(s.getBahnChips()+"");
+		
+		schreibeZeile(s.getBusChips()+"");
+		schreibeZeile(s.getTaxiChips()+"");
+		
+		
+		
 
 		return true;
 	}

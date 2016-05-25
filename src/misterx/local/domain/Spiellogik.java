@@ -3,6 +3,7 @@ package misterx.local.domain;
 import java.util.Iterator;
 import java.util.List;
 
+import misterx.local.valueobjekts.MisterX;
 import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
 
@@ -11,7 +12,7 @@ public class Spiellogik {
 	private int runde = 0;
 	private int gewonnen = 0;
 	private boolean zeigen = false;
-	private String letzterXZug = null;
+private String letzterXZug = null;
 	
 
 	public int getRunde() {
@@ -50,9 +51,9 @@ public class Spiellogik {
 		return zeigen;
 	}
 
-	public void taxiAbziehen(Spieler spieler, Spieler misterx) {
+	public void taxiAbziehen(Spieler spieler, MisterX misterx) {
 		spieler.setTaxiChips(spieler.getTaxiChips()-1);
-		if(spieler.getName()!=misterx.getName()){
+		if(spieler instanceof MisterX){
 			misterx.setTaxiChips(misterx.getTaxiChips()+1);
 		}else{
 			setLetzterXZug("Taxi");
@@ -77,23 +78,23 @@ public class Spiellogik {
 		}
 	}
 	
-	public void blackAbziehen(Spieler misterx) {
+	public void blackAbziehen(MisterX misterx) {
 		misterx.setBlackTickets(misterx.getBlackTickets()-1);
 		setLetzterXZug("Black Ticket");
 	}
 	
-	public void doppelAbziehen(Spieler misterx) {
+	public void doppelAbziehen(MisterX misterx) {
 		misterx.setDoubleChips(misterx.getDoubleChips()-1);
 		getNaechsteRunde();
 	}
 	
-	
+	/*
 	public void taxiFahren(Iterator<Station> nachbTaxiIterator, String stationsausw, Spieler spieler, Spieler misterx, int l, int sonderchips) {
 		if(l+1==Integer.parseInt(stationsausw)){
 			spieler.setStandort(nachbTaxiIterator.next());
 			System.out.println(sonderchips);
 			if(sonderchips == 2 || sonderchips == 4){
-				blackAbziehen(misterx);
+				blackAbziehen((MisterX) misterx);
 			}
 			if(sonderchips == 3 || sonderchips == 4){
 				doppelAbziehen(misterx);
@@ -104,16 +105,29 @@ public class Spiellogik {
 		}else{
 			nachbTaxiIterator.next();
 		}
+	} */
+	public void taxiFahren(Station station, Spieler spieler, MisterX misterx, int sonderchips) {
+			spieler.setStandort(station);
+			System.out.println(sonderchips);
+			if(sonderchips == 2 || sonderchips == 4){
+				blackAbziehen(misterx);
+			}
+			if(sonderchips == 3 || sonderchips == 4){
+				doppelAbziehen(misterx);
+			}
+			if(sonderchips == 1 || sonderchips == 3){
+				taxiAbziehen(spieler, misterx);
+			}
 	}
 	
 	public void busFahren(Iterator<Station> nachbBusIterator, String stationsausw, Spieler spieler, Spieler misterx, int l, int sonderchips) {
 		if(l+1==Integer.parseInt(stationsausw)){
 			spieler.setStandort(nachbBusIterator.next());
 			if(sonderchips == 2 || sonderchips == 4){
-				blackAbziehen(misterx);
+				blackAbziehen((MisterX) misterx);
 			}
 			if(sonderchips == 3 || sonderchips == 4){
-				doppelAbziehen(misterx);
+				doppelAbziehen((MisterX) misterx);
 			}
 			if(sonderchips == 1 || sonderchips == 3){
 				busAbziehen(spieler, misterx);
@@ -127,10 +141,10 @@ public class Spiellogik {
 		if(l+1==Integer.parseInt(stationsausw)){
 			spieler.setStandort(nachbBahnIterator.next());
 			if(sonderchips == 2 || sonderchips == 4){
-				blackAbziehen(misterx);
+				blackAbziehen((MisterX) misterx);
 			}
 			if(sonderchips == 3 || sonderchips == 4){
-				doppelAbziehen(misterx);
+				doppelAbziehen((MisterX) misterx);
 			}
 			if(sonderchips == 1 || sonderchips == 3){
 				bahnAbziehen(spieler, misterx);
