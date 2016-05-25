@@ -69,11 +69,11 @@ public class MisterXSpiel {
 		logik.taxiAbziehen(spieler, misterx);
 	}
 	
-	public void busAbziehen(Spieler spieler, Spieler misterx){
+	public void busAbziehen(Spieler spieler, MisterX misterx){
 		logik.busAbziehen(spieler, misterx);
 	}
 	
-	public void bahnAbziehen(Spieler spieler, Spieler misterx){
+	public void bahnAbziehen(Spieler spieler, MisterX misterx){
 		logik.bahnAbziehen(spieler, misterx);
 	}
 	
@@ -85,12 +85,12 @@ public class MisterXSpiel {
 		logik.taxiFahren(station, spieler, misterx, Integer.parseInt(sonderchips));
 	}
 	
-	public void busFahren(Iterator<Station> nachbBusIterator, String stationsausw, Spieler spieler, Spieler misterx, int l, String sonderchips) {
-		logik.busFahren(nachbBusIterator, stationsausw, spieler, misterx, l, Integer.parseInt(sonderchips));
+	public void busFahren(Station station, Spieler spieler, MisterX misterx, String sonderchips) {
+		logik.busFahren(station, spieler, misterx, Integer.parseInt(sonderchips));
 	}
 	
-	public void bahnFahren(Iterator<Station> nachbBahnIterator, String stationsausw, Spieler spieler, Spieler misterx, int l, String sonderchips) {
-		logik.bahnFahren(nachbBahnIterator, stationsausw, spieler, misterx, l, Integer.parseInt(sonderchips));
+	public void bahnFahren(Station station, Spieler spieler, MisterX misterx, String sonderchips) {
+		logik.bahnFahren(station, spieler, misterx, Integer.parseInt(sonderchips));
 	}
 	
 	
