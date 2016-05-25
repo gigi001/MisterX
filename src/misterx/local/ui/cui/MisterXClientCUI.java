@@ -334,9 +334,15 @@ public class MisterXClientCUI {
 						spiel.taxiFahren(station, spieler, misterx, sonderchips);
 					}
 				}else if (nachbBusIterator.hasNext()) {
-					spiel.busFahren(nachbBusIterator, stationsausw, spieler, misterx, l, sonderchips);					
+					Station station = nachbBusIterator.next();
+					if ((l+1) == Integer.parseInt(stationsausw)) {
+						spiel.busFahren(station, spieler, misterx, sonderchips);	
+					}
 				}else if (nachbBahnIterator.hasNext()) {
-					spiel.bahnFahren(nachbBahnIterator, stationsausw, spieler, misterx, l, sonderchips);
+					Station station = nachbBahnIterator.next();
+					if ((l+1) == Integer.parseInt(stationsausw)) {
+						spiel.bahnFahren(station, spieler, misterx, sonderchips);
+					}
 				}
 			}
 			
