@@ -18,6 +18,11 @@ public class Station  implements Serializable{
 	private Set<Station> taxiNachbarn = new HashSet<Station>();
 	
 	
+	
+	public Station(String name){
+		this.name=name;
+	}
+	
 	public Set<Station> getTaxiNachbarn() {
 		return taxiNachbarn;
 	}
@@ -57,9 +62,7 @@ public class Station  implements Serializable{
 	}
 	
 
-	public Station(String name){
-		this.name=name;
-	}
+
 	
 	public String getName(){
 		return name;

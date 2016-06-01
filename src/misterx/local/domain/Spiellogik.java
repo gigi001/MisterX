@@ -1,5 +1,6 @@
 package misterx.local.domain;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -7,8 +8,12 @@ import misterx.local.valueobjekts.MisterX;
 import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
 
-public class Spiellogik {
+public class Spiellogik implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1131496650454590556L;
 	private int runde = 0;
 	private int gewonnen = 0;
 	private boolean zeigen = false;

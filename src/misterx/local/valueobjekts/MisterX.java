@@ -16,8 +16,8 @@ public class MisterX extends Spieler  {
 		blackTickets = 5;
 		doubleChips = 2;
 	}
-	public MisterX(String name,int blackTickets, int doubleChips, int taxiChips, int bahnChips, int busChips) {
-		super(name,taxiChips,busChips, bahnChips);
+	public MisterX(String name,int blackTickets, int doubleChips, int taxiChips, int bahnChips, int busChips,Station standort) {
+		super(name,taxiChips,busChips, bahnChips,standort);
 		this.blackTickets = blackTickets;
 		this.doubleChips = doubleChips;
 	
