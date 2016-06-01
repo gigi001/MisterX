@@ -1,14 +1,17 @@
 package misterx.local.ui.cui;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 import misterx.local.domain.MisterXSpiel;
 import misterx.local.domain.exceptions.EingabeException;
 import misterx.local.domain.exceptions.SpielerExistiertBereitsException;
+import misterx.local.persistence.ObjectPersistenceManager;
 import misterx.local.valueobjekts.MisterX;
 import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
@@ -24,18 +27,27 @@ public class MisterXClientCUI {
 	
 	public void startMenue() throws IOException {
 	
+		
 		System.out.println("1 Neues Spiel");
 		System.out.println("2 Spiel laden");
-		String laden = reader.readLine();
-		
-		if(laden == "2"){
+		String x = reader.readLine();
+		int y = Integer.parseInt(x);
+		if(y == 2){
+			System.out.println("HALLO");
+			ObjectPersistenceManager ladeManager = new ObjectPersistenceManager();
+			spiel = ladeManager.ladeSpiel("test");
+			xnr=spiel.getXnr();
 			
-		}
-		
+			
+			
+			
+		}else{
+
 		
 		String aktion = "";
 		
 		do {
+
 
 			System.out.println("Startmenü");
 			System.out.println("1 - Spieler hinzufügen");
@@ -135,6 +147,7 @@ public class MisterXClientCUI {
 						//System.out.println(neuerSpieler); //geheim
 						System.out.println("Station von Mister X ist geheim!");
 						xnr=spiel.getLength()-1;
+						spiel.setXnr(xnr);
 					
 					}catch (SpielerExistiertBereitsException e){
 					System.out.println("Spieler mit dem Namen " 
@@ -172,6 +185,7 @@ public class MisterXClientCUI {
 			}
 
 		} while (!aktion.equals("3") || xnr == -1 || spiel.getLength() < 2);
+		}
 		System.out.println();
 		System.out.println("Spiel wurde gestartet!");
 		System.out.println();
@@ -198,6 +212,7 @@ public class MisterXClientCUI {
 		MisterX misterx = (MisterX) spiel.getSpielerByIndex(xnr);
 
 		int i = -1;
+		//TODO berechnung anhand von chips, welcher spieler dran ist
 		do {
 			if(Integer.parseInt(sonderchips) != 3 && Integer.parseInt(sonderchips) != 4){
 				i = (i+1) % spiel.getLength();
@@ -222,7 +237,9 @@ public class MisterXClientCUI {
 //				BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 				String speichern = reader.readLine();
 				if(speichern.equals("y")){
-					spiel.speicher("TEST.txt");
+					ObjectPersistenceManager objectPersistenceManager = new ObjectPersistenceManager();
+					objectPersistenceManager.speichereSpiel(spiel, "test");
+					
 					System.out.println("");
 					System.out.println("Spiel wurde gepeichert!");
 					System.out.println("");

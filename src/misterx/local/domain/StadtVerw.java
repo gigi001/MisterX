@@ -1,14 +1,19 @@
 package misterx.local.domain;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Vector;
 
 import misterx.local.valueobjekts.Station;
 
-public class StadtVerw {
+public class StadtVerw implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6562320566417874902L;
 	List<Station> meineStationen = new Vector<Station>();
 	
-	public StadtVerw() {
+	public StadtVerw()  {
 		Station str1 = new Station("Friedrichstr");
 		Station str2 = new Station("Mittelstraﬂe");
 		Station str3 = new Station("Unter den Linden");

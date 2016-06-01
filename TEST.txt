@@ -1,18 +1,12 @@
 misterx.local.valueobjekts.Spieler
-Anna
-Unter den Linden
-3
-2
-3
-misterx.local.valueobjekts.Spieler
-Ulf
-Stadtmitte
+anna
+Friedrichstr
 3
 2
 3
 misterx.local.valueobjekts.MisterX
-X
-Franz.Str
+
+Stadtmitte
 5
 2
 3

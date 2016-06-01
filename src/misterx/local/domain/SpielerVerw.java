@@ -1,5 +1,6 @@
 package misterx.local.domain;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Vector;
 
@@ -7,8 +8,12 @@ import misterx.local.domain.exceptions.SpielerExistiertBereitsException;
 import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
 
-public class SpielerVerw {
+public class SpielerVerw implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7612539570934242957L;
 	List<Spieler> mitspieler;
 	
 

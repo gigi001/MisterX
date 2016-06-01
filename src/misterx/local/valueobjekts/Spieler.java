@@ -23,12 +23,7 @@ public class Spieler implements Serializable{
 		bahnChips=3;
 	}
 	
-	public Spieler(String name, int taxiChips,int busChips, int bahnChips) {
-		this.name = name;
-		this.taxiChips=taxiChips;
-		this.busChips=busChips;
-		this.bahnChips=bahnChips;
-	}
+	
 	public Spieler(String name, int taxiChips,int busChips, int bahnChips, Station station) {
 		this.name = name;
 		this.taxiChips=taxiChips;
