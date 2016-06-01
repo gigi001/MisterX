@@ -390,7 +390,6 @@ public class MisterXClientCUI {
 
 
 	
-	
 	public boolean isAlpha(String text) throws EingabeException {
         for (char c : text.toCharArray()) {
 
