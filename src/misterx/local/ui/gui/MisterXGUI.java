@@ -8,7 +8,7 @@ public class MisterXGUI {
 	
 	
 	public void initialize(){
-		mainw.create();
+		//mainw.create();
 	}
 	
 	

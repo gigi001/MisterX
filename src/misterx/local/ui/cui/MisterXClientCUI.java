@@ -81,7 +81,7 @@ public class MisterXClientCUI {
 						System.err.println(eex.getMessage());
 					}
 				} while (!ok);
-				//<-
+
 				for (int i= 0; i<5; i++){					
 					//Station strasse = spiel.getStationByIndex(i);
 					System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
