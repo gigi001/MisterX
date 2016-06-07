@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -45,8 +46,10 @@ public class MainWindow {
 	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	private int farbe = 1;
 	private int i = -1;
+	private int ialt = 0;
+	private boolean XX = false;
 	
-	
+	private Station station;
 
 	
 	public MainWindow(){
@@ -125,6 +128,7 @@ public class MainWindow {
 		//JLabel punkte = new JLabel(new ImageIcon("images/punkte.png"));
 		JLabel spieler1 = new JLabel(new ImageIcon("images/Spieler1.png"));
 		JLabel spieler2 = new JLabel(new ImageIcon("images/Spieler2.png"));
+		JLabel spieler3 = new JLabel(new ImageIcon("images/Spieler3.png"));
 		
 		BufferedImage image = ImageIO.read(new File("images/punkte.png"));
 		//frame.setContentPane(l1);
@@ -250,19 +254,52 @@ public class MainWindow {
 		        if(farbe != 255){
 		        	System.out.println("Station: " + farbe);
 		        	stationFeld.setText(Integer.toString(farbe));
-		        	if(spiel.getLength() == 0){
-						bild.add(spieler1);
-				        layout1.putConstraint(SpringLayout.WEST, spieler1, a-10, SpringLayout.WEST, bild);
-				        layout1.putConstraint(SpringLayout.NORTH, spieler1, b-10, SpringLayout.NORTH, bild);
+		        	System.out.println(i);
+			        if(i==-1){
+			        	if(spiel.getLength() == 0){
+							bild.add(spieler1);
+					        layout1.putConstraint(SpringLayout.WEST, spieler1, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler1, b-10, SpringLayout.NORTH, bild);
+			        	}
+			        	if(spiel.getLength() == 1){
+			        		bild.add(spieler2);
+					        layout1.putConstraint(SpringLayout.WEST, spieler2, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler2, b-10, SpringLayout.NORTH, bild);
+			        	}
+			        	if(spiel.getLength() == 2){
+			        		bild.add(spieler3);
+					        layout1.putConstraint(SpringLayout.WEST, spieler3, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler3, b-10, SpringLayout.NORTH, bild);
+			        	}
+			        	
 		        	}else{
-		        		bild.add(spieler2);
-				        layout1.putConstraint(SpringLayout.WEST, spieler2, a-10, SpringLayout.WEST, bild);
-				        layout1.putConstraint(SpringLayout.NORTH, spieler2, b-10, SpringLayout.NORTH, bild);
-		        	
+		        		
+		        		if(ialt==0){
+		        			bild.remove(spieler1);
+		        			bild.add(spieler1);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler1, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler1, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(ialt==1){
+		        			bild.remove(spieler2);
+		        			bild.add(spieler2);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler2, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler2, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(ialt==2){
+		        			bild.remove(spieler3);
+		        			bild.add(spieler3);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler3, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler3, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		
 		        	}
+			        
+			        //taxizahl.setText(spieler.getTaxiChips());
+			        
 			        frame.pack();
 			        
-			        if(i != -1){
+			        if(XX){
 			        	aktionAusfuehren();
 			        }
 			        
@@ -325,7 +362,7 @@ public class MainWindow {
 
 				Integer stationsnr = farbe;
 				try{	
-					if(ok){
+					if(ok && stationFeld.getText() != "Karte klicken"){
 						Station station = spiel.getStationByIndex(stationsnr-1);
 						//System.out.println(station);
 						Spieler neuerSpieler = new Spieler(name);
@@ -365,7 +402,7 @@ public class MainWindow {
 				
 				String stationsnr = stationFeld.getText();
 				try{	
-					if(ok){
+					if(ok && stationFeld.getText() != "Karte klicken"){
 						Station station = spiel.getStationByIndex(Integer.parseInt(stationsnr)-1);
 						//System.out.println(station);
 						Spieler neuerSpieler = new MisterX(name);
@@ -420,8 +457,9 @@ public class MainWindow {
 				System.out.println("Spiel wurde gestartet!");
 				System.out.println();
 				
-				aktionAusfuehren();
-				
+				//aktionAusfuehren();
+				XX = true;
+				i = 1;
 			}
 		});
 		
@@ -430,12 +468,17 @@ public class MainWindow {
 	}
 	
 	
+	
+	
+	
 	public void aktionAusfuehren(){
 
 		MisterX misterx = (MisterX) spiel.getSpielerByIndex(xnr);
 		
 		
+		
 		if(Integer.parseInt(sonderchips) != 3 && Integer.parseInt(sonderchips) != 4){
+			ialt = i;
 			i = (i+1) % spiel.getLength();
 			spieler = spiel.getSpielerByIndex(i);
 		}
@@ -447,10 +490,10 @@ public class MainWindow {
 		//speichern
 		
 		
-		
-		spiel.getNaechsteRunde();
-		System.out.println("Runde " + spiel.getRunde());
-		
+		if(i==0){
+			spiel.getNaechsteRunde();
+			System.out.println("Runde " + spiel.getRunde());
+		}
 		
 		
 		
@@ -475,9 +518,6 @@ public class MainWindow {
 		}
 		
 		
-		if(spieler.getName() == misterx.getName()){
-			//chips.add(black);
-		}
 		
 		
 		System.out.println(spieler.getName() + " ist an der Reihe");
@@ -498,7 +538,81 @@ public class MainWindow {
 		}
 		
 		
-		//fahren
+		
+		
+		station = spiel.getStationByIndex(farbe-1);
+		spiel.taxiFahren(station, spieler, misterx, sonderchips);
+		
+		
+		
+		
+//		Iterator<Station> nachbIterator = spieler.getStandort().getTaxiNachbarn().iterator();
+//		if(spieler.getTaxiChips()>0){
+//			if(nachbIterator.hasNext()){
+//				while (nachbIterator.hasNext()) {
+//					zaehler++;
+//					if(nachbIterator.next().getName().equals((Integer.toString(farbe)))){
+//						nachbar = zaehler;
+//						System.out.println("erfolg");
+//						System.out.println(nachbar);
+//					}
+//				}
+//			}
+//		}
+//		
+//		System.out.println("test " +farbe + " "+ nachbar);
+//		
+//		
+////		nachbIterator = spieler.getStandort().getBusNachbarn().iterator();
+////		if(spieler.getBusChips()>0){
+////			if(nachbIterator.hasNext()){
+////				System.out.println("Bus:");
+////				while (nachbIterator.hasNext()) {
+////					System.out.print((zaehler++) + " " + nachbIterator.next() + "   ");
+////				}
+////				System.out.println();
+////			}
+////		}
+////		
+////		nachbIterator = spieler.getStandort().getBahnNachbarn().iterator();
+////		if(spieler.getBahnChips()>0){
+////			if(nachbIterator.hasNext()){
+////				System.out.println("U-Bahn:");
+////				while (nachbIterator.hasNext()) {
+////					System.out.print((zaehler++) + " " + nachbIterator.next() + "   ");
+////				}
+////				System.out.println();
+////			}
+////		}
+//		
+//		//fahren
+//		Iterator<Station> nachbTaxiIterator = spieler.getStandort().getTaxiNachbarn().iterator();
+//		Iterator<Station> nachbBusIterator = spieler.getStandort().getBusNachbarn().iterator();
+//		Iterator<Station> nachbBahnIterator = spieler.getStandort().getBahnNachbarn().iterator();
+//		for(int l=0;l<(nachbar);l++){
+//							
+//			if (nachbTaxiIterator.hasNext()) {
+//				Station station = nachbTaxiIterator.next();
+//				//System.out.println(station.getName());
+//				if ((l+1) == nachbar) {
+////					spiel.taxiFahren(nachbTaxiIterator, stationsausw, spieler, misterx, l, sonderchips);
+//					spiel.taxiFahren(station, spieler, misterx, sonderchips);
+//				}
+//			}else if (nachbBusIterator.hasNext()) {
+//				Station station = nachbBusIterator.next();
+//				if ((l+1) == nachbar) {
+//					spiel.busFahren(station, spieler, misterx, sonderchips);	
+//				}
+//			}else if (nachbBahnIterator.hasNext()) {
+//				Station station = nachbBahnIterator.next();
+//				if ((l+1) == nachbar) {
+//					spiel.bahnFahren(station, spieler, misterx, sonderchips);
+//				}
+//			}
+//		}
+		
+		System.out.println("Du stehst nun an der " + spieler.getStandort());
+		System.out.println();
 		
 		
 		
@@ -510,6 +624,9 @@ public class MainWindow {
 		if(spiel.getXWin(spiel.getSpieler(), misterx) == 1){
 			System.out.println("----- Mister X ist entkommen! -----");
 		}
+		
+		
+		
 		
 	}
 	
