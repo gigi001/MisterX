@@ -60,6 +60,7 @@ public class MisterXSpiel implements Serializable {
 		return logik.getGewonnen();
 	}
 	
+	
 	public int getXWin(List<Spieler> spieler, Spieler misterx) {
 		return logik.getXWin(spieler, misterx);
 	}

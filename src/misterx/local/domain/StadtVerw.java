@@ -240,8 +240,8 @@ public class StadtVerw implements Serializable{
 
 		s34.addTaxiNachbar(s21);
 		s34.addTaxiNachbar(s22);
-		s34.addTaxiNachbar(s33);
 		s34.addTaxiNachbar(s35);
+		s34.addTaxiNachbar(s46);
 		s34.addBusNachbar(s8);
 		s34.addBusNachbar(s46);
 
@@ -263,6 +263,7 @@ public class StadtVerw implements Serializable{
 		s44.addTaxiNachbar(s32);
 		s44.addTaxiNachbar(s45);
 		s44.addBusNachbar(s19);
+		s44.addBusNachbar(s20);
 		s44.addBusNachbar(s46);
 		s44.addBahnNachbar(s1);
 		s44.addBahnNachbar(s53);
