@@ -81,7 +81,7 @@ public class MisterXClientCUI {
 						System.err.println(eex.getMessage());
 					}
 				} while (!ok);
-				//<-
+
 				for (int i= 0; i<5; i++){					
 					//Station strasse = spiel.getStationByIndex(i);
 					System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
@@ -230,8 +230,8 @@ public class MisterXClientCUI {
 			sonderchips = "1";
 			
 			if(i == 0){
-				spiel.getNaechsteRunde();
-				System.out.println("Runde " + spiel.getRunde());
+				//spiel.getNaechsteRunde();
+				//System.out.println("Runde " + spiel.getRunde());
 				
 				System.out.println("Spiel Speichern? (y/n)");
 //				BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -244,6 +244,10 @@ public class MisterXClientCUI {
 					System.out.println("Spiel wurde gepeichert!");
 					System.out.println("");
 				}
+				
+				spiel.getNaechsteRunde();
+				System.out.println("Runde " + spiel.getRunde());
+				
 			}
 			
 			if(xnr+1 < spiel.getLength()){
@@ -385,7 +389,6 @@ public class MisterXClientCUI {
 	
 
 
-	
 	
 	public boolean isAlpha(String text) throws EingabeException {
         for (char c : text.toCharArray()) {

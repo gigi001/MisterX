@@ -17,7 +17,7 @@ public class Spiellogik implements Serializable {
 	private int runde = 0;
 	private int gewonnen = 0;
 	private boolean zeigen = false;
-private String letzterXZug = null;
+	private String letzterXZug = null;
 	
 
 	public int getRunde() {
@@ -33,10 +33,11 @@ private String letzterXZug = null;
 	public int getGewonnen() {
 		return gewonnen;
 	}
+	
 
 	public int getXWin(List<Spieler> spieler, Spieler misterx) {
 		for(int i=0; i<spieler.size();i++){
-			if(getRunde()>23){
+			if(getRunde()>23 || spieler.get(i).getTaxiChips() < 1){
 				return gewonnen = 1;
 			}else if(spieler.get(i).getStandort() == misterx.getStandort() && spieler.get(i).getName() != misterx.getName()){
 				return gewonnen = 2;
@@ -59,27 +60,27 @@ private String letzterXZug = null;
 	public void taxiAbziehen(Spieler spieler, MisterX misterx) {
 		spieler.setTaxiChips(spieler.getTaxiChips()-1);
 		if(spieler instanceof MisterX){
-			misterx.setTaxiChips(misterx.getTaxiChips()+1);
-		}else{
 			setLetzterXZug("Taxi");
+		}else{
+			misterx.setTaxiChips(misterx.getTaxiChips()+1);
 		}
 	}
 	
 	public void busAbziehen(Spieler spieler, MisterX misterx) {
 		spieler.setBusChips(spieler.getTaxiChips()-1);
 		if(spieler instanceof MisterX){
-			misterx.setBusChips(misterx.getBusChips()+1);
-		}else{
 			setLetzterXZug("Bus");
+		}else{
+			misterx.setBusChips(misterx.getBusChips()+1);
 		}
 	}
 
 	public void bahnAbziehen(Spieler spieler, MisterX misterx) {
 		spieler.setBahnChips(spieler.getBahnChips()-1);
 		if(spieler instanceof MisterX){
-			misterx.setBahnChips(misterx.getBahnChips()+1);
-		}else{
 			setLetzterXZug("Bahn");
+		}else{
+			misterx.setBahnChips(misterx.getBahnChips()+1);
 		}
 	}
 	
