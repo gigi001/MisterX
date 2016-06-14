@@ -67,7 +67,7 @@ public class Spiellogik implements Serializable {
 	}
 	
 	public void busAbziehen(Spieler spieler, MisterX misterx) {
-		spieler.setBusChips(spieler.getTaxiChips()-1);
+		spieler.setBusChips(spieler.getBusChips()-1);
 		if(spieler instanceof MisterX){
 			setLetzterXZug("Bus");
 		}else{

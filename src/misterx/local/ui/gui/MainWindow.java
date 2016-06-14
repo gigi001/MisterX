@@ -52,6 +52,7 @@ public class MainWindow {
 	private int i = -1;
 	private boolean XX = false;
 	private int verk;
+	private String[] kfz = new String[6];
 	
 	private Station station;
 
@@ -83,7 +84,13 @@ public class MainWindow {
 		menü.setBorder(BorderFactory.createTitledBorder("Menü"));
 		JPanel win = new JPanel(new MigLayout(""));
 		JPanel runde = new JPanel(new MigLayout(""));
-		JPanel lStation = new JPanel(new MigLayout(""));
+		JPanel lezug = new JPanel(new MigLayout(""));
+		lezug.setBorder(BorderFactory.createTitledBorder("Letzte Verkehrsmittel"));
+		JPanel lepos = new JPanel(new MigLayout(""));
+		lepos.setBorder(BorderFactory.createTitledBorder("Letzte Position"));
+		JPanel mrX = new JPanel(new MigLayout(""));
+		mrX.setBorder(BorderFactory.createTitledBorder("Mister X"));
+		
 		
 		JLabel namen = new JLabel("Name: ");
 		namen.setFont(f2);
@@ -97,10 +104,13 @@ public class MainWindow {
 		stationFeld.setFont(f2);
 		JLabel gewonnen = new JLabel("win");
 		gewonnen.setFont(f1);
-		JLabel rundenzahl = new JLabel("Runde:");
+		JLabel rundenzahl = new JLabel("los gehts!");
 		rundenzahl.setFont(f1);
-		JLabel lSt = new JLabel("l.Runde");
-		rundenzahl.setFont(f1);
+		JLabel zug = new JLabel("nicht gefahren");
+		zug.setFont(f1);
+		JLabel pos = new JLabel("10.Runde: 55");
+		pos.setFont(f1);
+		
 		
 		String path1 = "images/karte.jpg";
 		ImageIcon icon = new ImageIcon(path1);
@@ -133,7 +143,12 @@ public class MainWindow {
 		
 		runde.add(rundenzahl);
 		
-		lStation.add(lSt);
+		mrX.add(lepos, "wrap");
+		mrX.add(lezug, "growx");
+		
+		lezug.add(zug);
+		
+		lepos.add(pos); 
 		
 		
 		hinzufügen.add(namen);
@@ -182,6 +197,7 @@ public class MainWindow {
 
 		JPanel zweix = new JPanel(new MigLayout());
 		zweix.add(new JLabel(new ImageIcon("images/2x.png")));
+		
 		
 		JLabel taxizahl = new JLabel("0");
 		taxizahl.setFont(f1);
@@ -347,7 +363,47 @@ public class MainWindow {
 		        		}
 
 			        	aktionAusfuehren();
+			        	
+			        	if(spieler.getName() == misterx.getName()){
+			        	
+				        	for(int l=0; l<5; l++){
+				        		kfz[l]=kfz[l+1];
+				        	}
+				        	
+				        	if(spiel.getZeigen()){
+				        		kfz[5]=spiel.getLetzterXZug() + " zur " + misterx.getStandort();
+				        	}else{
+				        		kfz[5]=spiel.getLetzterXZug();
+				        	}
+				        	
+				        	int nul=-1;
+				        	for(int l=0; l<5; l++){
+				        		if(kfz[l] == null){
+				        			nul = l;
+				        		}
+				        	}
 
+				        	switch(nul){
+				        	case -1:zug.setText("<html>" + kfz[5]+"<br>"+kfz[4]+"<br>"+kfz[3]+"<br>"+kfz[2]+"<br>"+kfz[1]+"<br>"+kfz[0]+"</html>");
+				        	break;
+				        	case 0 :zug.setText("<html>" + kfz[5]+"<br>"+kfz[4]+"<br>"+kfz[3]+"<br>"+kfz[2]+"<br>"+kfz[1]+"</html>");
+				        	break;
+				        	case 1 :zug.setText("<html>" + kfz[5]+"<br>"+kfz[4]+"<br>"+kfz[3]+"<br>"+kfz[2]+"</html>");
+				        	break;
+				        	case 2 :zug.setText("<html>" + kfz[5]+"<br>"+kfz[4]+"<br>"+kfz[3]+"</html>");
+				        	break;
+				        	case 3 :zug.setText("<html>" + kfz[5]+"<br>"+kfz[4]+"</html>");
+				        	break;
+				        	case 4 :zug.setText("<html>" + kfz[5]+"</html>");
+				        	break;
+				        	}
+
+
+				        	if(spiel.getZeigen()){
+				        	pos.setText(spiel.getRunde()+".Runde: "+misterx.getStandort());
+				        	}
+			        	}
+			        	
 			        	weiter();
 						chips.setBorder(BorderFactory.createTitledBorder(spieler.getName()));
 						rundenzahl.setText("Runde: " + Integer.toString(spiel.getRunde()));
@@ -362,6 +418,7 @@ public class MainWindow {
 				        	chips.add(zweix);
 				        	blackzahl.setText((Integer.toString(((MisterX) spieler).getBlackTickets())));
 				        	zweixzahl.setText((Integer.toString(((MisterX) spieler).getDoubleChips())));
+				        	
 				        }else{
 				        	chips.remove(blackzahl);
 				        	chips.remove(black);
@@ -540,9 +597,17 @@ public class MainWindow {
 				layout1.putConstraint(SpringLayout.EAST, chips, -100, SpringLayout.EAST, bild);
 				layout1.putConstraint(SpringLayout.NORTH, chips, 50, SpringLayout.NORTH, bild);
 				bild.add(runde);
-				rundenzahl.setText("los gehts");
 				layout1.putConstraint(SpringLayout.EAST, runde, -100, SpringLayout.EAST, bild);
 				layout1.putConstraint(SpringLayout.NORTH, runde, 10, SpringLayout.NORTH, bild);
+//				bild.add(lepos);
+//				layout1.putConstraint(SpringLayout.EAST, lepos, -100, SpringLayout.EAST, bild);
+//				layout1.putConstraint(SpringLayout.SOUTH, lepos, -50, SpringLayout.SOUTH, bild);				
+//				bild.add(lezug);
+//				layout1.putConstraint(SpringLayout.EAST, lezug, -100, SpringLayout.EAST, bild);
+//				layout1.putConstraint(SpringLayout.SOUTH, lezug, -100, SpringLayout.SOUTH, bild);
+				bild.add(mrX);
+				layout1.putConstraint(SpringLayout.EAST, mrX, -100, SpringLayout.EAST, bild);
+				layout1.putConstraint(SpringLayout.SOUTH, mrX, -100, SpringLayout.SOUTH, bild);
 				frame.pack();
 //				bild.add(chips2);
 //				layout1.putConstraint(SpringLayout.EAST, chips2, -100, SpringLayout.EAST, bild);
@@ -570,12 +635,16 @@ public class MainWindow {
 		        	chips.add(zweix);
 		        	blackzahl.setText((Integer.toString(((MisterX) spieler).getBlackTickets())));
 		        	zweixzahl.setText((Integer.toString(((MisterX) spieler).getDoubleChips())));
+			        	
 		        }else{
 		        	chips.remove(blackzahl);
 		        	chips.remove(black);
 		        	chips.remove(zweixzahl);
 		        	chips.remove(zweix);
 		        }
+
+	        	pos.setText("Beginn: "+misterx.getStandort());
+				frame.pack();
 			}
 		});
 		
@@ -745,6 +814,8 @@ public class MainWindow {
 			spiel.bahnFahren(station, spieler, misterx, sonderchips);
 		}
 		
+		
+		//spiel.getLetzterXZug()
 		
 //		
 ////		nachbIterator = spieler.getStandort().getBusNachbarn().iterator();
