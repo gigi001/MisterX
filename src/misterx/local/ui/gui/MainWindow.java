@@ -47,12 +47,15 @@ public class MainWindow {
 	private Spieler ausg;
 	private Spieler spieler;
 	private String sonderchips = "1";
-	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+//	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	private int farbe = 1;
+	private int farbeladen;
 	private int i = -1;
 	private boolean XX = false;
 	private int verk;
 	private String[] kfz = new String[6];
+	private boolean aktb = false;
+	private boolean akt2 = false;
 	
 	private Station station;
 
@@ -90,6 +93,7 @@ public class MainWindow {
 		lepos.setBorder(BorderFactory.createTitledBorder("Letzte Position"));
 		JPanel mrX = new JPanel(new MigLayout(""));
 		mrX.setBorder(BorderFactory.createTitledBorder("Mister X"));
+		JPanel sp = new JPanel(new MigLayout(""));
 		
 		
 		JLabel namen = new JLabel("Name: ");
@@ -108,7 +112,7 @@ public class MainWindow {
 		rundenzahl.setFont(f1);
 		JLabel zug = new JLabel("nicht gefahren");
 		zug.setFont(f1);
-		JLabel pos = new JLabel("10.Runde: 55");
+		JLabel pos = new JLabel("Position");
 		pos.setFont(f1);
 		
 		
@@ -137,6 +141,8 @@ public class MainWindow {
 		neu.setFont(f2);
 		JButton laden = new JButton("Spiel laden");
 		laden.setFont(f2);
+		JButton speichern = new JButton("Spiel speichern");
+		speichern.setFont(f2);
 		
 		 
 		win.add(gewonnen);
@@ -221,31 +227,35 @@ public class MainWindow {
 		chips.add(black, "wrap");
 		chips.add(zweixzahl);
 		chips.add(zweix, ""); 
+		
+		
+		
+		sp.add(speichern);
 
 		
-		JPanel chips2 = new JPanel(new MigLayout(""));
-		
-		JPanel taxi2 = new JPanel(new MigLayout());
-		taxi2.add(new JLabel(new ImageIcon("images/taxi.png")));
+//		JPanel chips2 = new JPanel(new MigLayout(""));
+//		
+//		JPanel taxi2 = new JPanel(new MigLayout());
+//		taxi2.add(new JLabel(new ImageIcon("images/taxi.png")));
+//
+//		JPanel bus2 = new JPanel(new MigLayout());
+//		bus2.add(new JLabel(new ImageIcon("images/bus.png")));
+//
+//		JPanel bahn2 = new JPanel(new MigLayout());
+//		bahn2.add(new JLabel(new ImageIcon("images/bahn.png")));
 
-		JPanel bus2 = new JPanel(new MigLayout());
-		bus2.add(new JLabel(new ImageIcon("images/bus.png")));
-
-		JPanel bahn2 = new JPanel(new MigLayout());
-		bahn2.add(new JLabel(new ImageIcon("images/bahn.png")));
-
-		JPanel black2 = new JPanel(new MigLayout());
-		black2.add(new JLabel(new ImageIcon("images/black.png")));
-
-		JPanel zweix2 = new JPanel(new MigLayout());
-		zweix2.add(new JLabel(new ImageIcon("images/2x.png")));
-
-		chips2.setBorder(BorderFactory.createTitledBorder("sp2"));
-		chips2.add(taxi2, "");
-		chips2.add(bus2, "wrap");
-		chips2.add(bahn2, "");
-		chips2.add(black2, "wrap");
-		chips2.add(zweix2, ""); 
+//		JPanel black2 = new JPanel(new MigLayout());
+//		black2.add(new JLabel(new ImageIcon("images/black.png")));
+//
+//		JPanel zweix2 = new JPanel(new MigLayout());
+//		zweix2.add(new JLabel(new ImageIcon("images/2x.png")));
+//
+//		chips2.setBorder(BorderFactory.createTitledBorder("sp2"));
+//		chips2.add(taxi2, "");
+//		chips2.add(bus2, "wrap");
+//		chips2.add(bahn2, "");
+//		chips2.add(black2, "wrap");
+//		chips2.add(zweix2, ""); 
 		
 		
 		
@@ -260,6 +270,9 @@ public class MainWindow {
 		bild.setLayout(layout1);		
 		bild.add(panel);
 		
+//				bild.add(chips);
+//				layout1.putConstraint(SpringLayout.WEST, chips, -100, SpringLayout.WEST, bild);
+//				layout1.putConstraint(SpringLayout.NORTH, chips, 50, SpringLayout.NORTH, bild);
 		
 		
 		frame.add(bild);		
@@ -363,6 +376,11 @@ public class MainWindow {
 		        		}
 
 			        	aktionAusfuehren();
+
+			        	black.removeAll();
+			        	zweix.removeAll();
+			    		black.add(new JLabel(new ImageIcon("images/black.png")));
+			    		zweix.add(new JLabel(new ImageIcon("images/2x.png")));
 			        	
 			        	if(spieler.getName() == misterx.getName()){
 			        	
@@ -431,7 +449,7 @@ public class MainWindow {
 				        	bild.add(win);
 				        	layout1.putConstraint(SpringLayout.WEST, win, 150, SpringLayout.WEST, bild);
 					        layout1.putConstraint(SpringLayout.NORTH, win, 50, SpringLayout.NORTH, bild);
-					        if(Integer.toString(spiel.getXWin(spiel.getSpieler(), misterx)).equals(""+1)){
+					        if(Integer.toString(spiel.getXWin(spiel.getSpieler(), misterx)).equals(""+2)){
 					        	gewonnen.setText("Mister X wurde gefunden!");
 					        }
 					        if(Integer.toString(spiel.getXWin(spiel.getSpieler(), misterx)).equals(""+1)){
@@ -485,10 +503,28 @@ public class MainWindow {
 				layout1.putConstraint(SpringLayout.NORTH, chips, 50, SpringLayout.NORTH, bild);
 				frame.pack();
 				
-				System.out.println("HALLO");
+				System.out.println("Spiel wurde geladen");
 				ObjectPersistenceManager ladeManager = new ObjectPersistenceManager();
 				spiel = ladeManager.ladeSpiel("test");
 				xnr=spiel.getXnr();
+				
+				for(int i=0; i<frame.getWidth(); i++){
+					for(int j=0; j<frame.getHeight(); j++){
+						
+						int rgb = image.getRGB(i, j);
+				        Color c = new Color(rgb);
+				        farbeladen = c.getRed();
+				        System.out.println(spieler.getStandort().getName());
+//				        if(farbeladen+"" == spieler.getStandort().getName()){
+				        
+					        bild.add(spieler1);
+					        layout1.putConstraint(SpringLayout.WEST, spieler1, i-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler1, j-10, SpringLayout.NORTH, bild);
+		        	
+//				        }
+					        
+					}
+				}
 				
 			}
 		});
@@ -584,7 +620,7 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent a) {
 				
 				for (int j = 0; j < 5; j++) {
-					Station strasse = spiel.getStationByIndex(j);
+//					Station strasse = spiel.getStationByIndex(j);
 					//System.out.println();
 					//System.out.println(spiel.toString());
 					//System.out.println(strasse.getName());
@@ -608,11 +644,13 @@ public class MainWindow {
 				bild.add(mrX);
 				layout1.putConstraint(SpringLayout.EAST, mrX, -100, SpringLayout.EAST, bild);
 				layout1.putConstraint(SpringLayout.SOUTH, mrX, -100, SpringLayout.SOUTH, bild);
-				frame.pack();
+				bild.add(sp);
+				layout1.putConstraint(SpringLayout.EAST, sp, -100, SpringLayout.EAST, bild);
+				layout1.putConstraint(SpringLayout.SOUTH, sp, -60, SpringLayout.SOUTH, bild);
 //				bild.add(chips2);
 //				layout1.putConstraint(SpringLayout.EAST, chips2, -100, SpringLayout.EAST, bild);
 //				layout1.putConstraint(SpringLayout.NORTH, chips2, 300, SpringLayout.NORTH, bild);
-//				frame.pack();
+				frame.pack();
 				System.out.println();
 				System.out.println("Spiel wurde gestartet!");
 				System.out.println();
@@ -650,7 +688,92 @@ public class MainWindow {
 		
 		
 		
+		
+		black.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseClicked(MouseEvent m) {
+				MisterX misterx = (MisterX) spiel.getSpielerByIndex(xnr);
+				black.removeAll();
+				if(!aktb && misterx.getBlackTickets()>0){
+					black.add(new JLabel(new ImageIcon("images/blackakt.png")));
+					aktb = true;
+				}else{
+					black.add(new JLabel(new ImageIcon("images/black.png")));
+					aktb = false;
+				}
+				frame.pack();
+				
+				
+			}
+
+			
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+			@Override
+			public void mousePressed(MouseEvent arg0) {}
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}			
+		});
+		
+		
+		
+		
+		zweix.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseClicked(MouseEvent m) {
+				MisterX misterx = (MisterX) spiel.getSpielerByIndex(xnr);
+				zweix.removeAll();
+				if(!akt2 && misterx.getDoubleChips()>0){
+					zweix.add(new JLabel(new ImageIcon("images/2xakt.png")));
+					akt2 = true;
+				}else{
+					zweix.add(new JLabel(new ImageIcon("images/2x.png")));
+					akt2 = false;
+				}
+				frame.pack();
+				
+				
+			}
+
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+			@Override
+			public void mousePressed(MouseEvent arg0) {}
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}			
+		});
+		
+		
+		
+		
+		speichern.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent a) {
+				ObjectPersistenceManager objectPersistenceManager = new ObjectPersistenceManager();
+				objectPersistenceManager.speichereSpiel(spiel, "test");
+				
+				System.out.println("");
+				System.out.println("Spiel wurde gepeichert!");
+				System.out.println("");
+			}
+		});
+		
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	public void weiter(){
@@ -797,6 +920,20 @@ public class MainWindow {
 //		}
 //		
 //		System.out.println("test " +farbe + " "+ nachbar);
+		
+		
+		if(akt2){
+			sonderchips = "3";
+		}
+		if(aktb){
+			sonderchips = "2";
+			if(akt2){
+				sonderchips = "4";
+			}
+		}
+		
+		aktb = false;
+		akt2 = false;
 		
 		
 		if(verk == 1){

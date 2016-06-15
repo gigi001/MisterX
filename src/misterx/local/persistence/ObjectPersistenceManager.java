@@ -52,7 +52,7 @@ public class ObjectPersistenceManager implements PersistenceManager {
 	
 	
 	@Override
-	public void speichereSpiel(MisterXSpiel s,String datenQuelle){
+	public void speichereSpiel(MisterXSpiel s, String datenQuelle){
 		
 		try {
 			openForWriting("src/"+datenQuelle);

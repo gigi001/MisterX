@@ -37,10 +37,12 @@ public class Spiellogik implements Serializable {
 
 	public int getXWin(List<Spieler> spieler, Spieler misterx) {
 		for(int i=0; i<spieler.size();i++){
-			if(getRunde()>23 || spieler.get(i).getTaxiChips() < 1){
-				return gewonnen = 1;
-			}else if(spieler.get(i).getStandort() == misterx.getStandort() && spieler.get(i).getName() != misterx.getName()){
-				return gewonnen = 2;
+			if(spieler.get(i).getName() != misterx.getName()){
+				if(getRunde()>23 || spieler.get(i).getTaxiChips() < 1){
+					return gewonnen = 1;
+				}else if(spieler.get(i).getStandort() == misterx.getStandort()){// && spieler.get(i).getName() != misterx.getName()){
+					return gewonnen = 2;
+				}
 			}
 		}
 		return gewonnen = 0;
