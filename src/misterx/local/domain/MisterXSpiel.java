@@ -20,7 +20,15 @@ public class MisterXSpiel implements Serializable {
 	private StadtVerw sv = new StadtVerw();
 	private SpielerVerw spielerVW = new SpielerVerw();
 	private Spiellogik logik = new Spiellogik();
-	private int xnr;
+	private int xnr = -1;
+	private int farbe;
+	private boolean blackTicketAktiv;
+	private boolean zweimalTicketAktiv;
+	private int sonderchips;
+	private String[] kfz = new String[6];
+	private int verkehrsmittel;
+	private boolean spielbar = false;
+	private int dran = -1;
 	//private PersistenceManager pm = new FilePersistenceManager();
 	
 //	private List<Spieler> SpielerStand = new Vector<Spieler>();
@@ -71,6 +79,72 @@ public class MisterXSpiel implements Serializable {
 	}
 
 	
+	public void setFarbe(int farbe) {
+		this.farbe = farbe;
+	}
+	
+	public int getFarbe() {
+		return farbe;
+	}
+	
+	public void setAktb(boolean aktb) {
+		this.blackTicketAktiv = aktb;
+	}
+	
+	public void setAkt2(boolean akt2) {
+		this.zweimalTicketAktiv = akt2;
+	}
+	
+	public boolean getAktb() {
+		return blackTicketAktiv;
+	}
+	
+	public boolean getAkt2() {
+		return zweimalTicketAktiv;
+	}
+	
+	public void setSonderchips(int sonderchips) {
+		this.sonderchips = sonderchips;
+	}
+	
+	public int getSonderchips() {
+		return sonderchips;
+	}
+	
+	public void setKfz(String kfz, int l) {
+		this.kfz[l] = kfz;
+	}
+	
+	public String getKfz(int l) {
+		return kfz[l];
+	}
+	
+	public void setVerk(int verk) {
+		this.verkehrsmittel = verk;
+	}
+	
+	public int getVerk() {
+		return verkehrsmittel;
+	}
+	
+	public void setSpielbar(boolean spielbar) {
+		this.spielbar = spielbar;
+	}
+	
+	public boolean getSpielbar() {
+		return spielbar;
+	}
+	
+	public void setDran(int dran) {
+		this.dran = dran;
+	}
+	
+	public int getDran() {
+		return dran;
+	}
+	
+	
+	
 	public void taxiAbziehen(Spieler spieler, MisterX misterx){
 		logik.taxiAbziehen(spieler, misterx);
 	}
@@ -87,16 +161,16 @@ public class MisterXSpiel implements Serializable {
 //	public void taxiFahren(Iterator<Station> nachbTaxiIterator, String stationsausw, Spieler spieler, Spieler misterx, int l, String sonderchips) {
 //		logik.taxiFahren(nachbTaxiIterator, stationsausw, spieler, misterx, l, Integer.parseInt(sonderchips));
 //	}
-	public void taxiFahren(Station station, Spieler spieler, MisterX misterx, String sonderchips) {
-		logik.taxiFahren(station, spieler, misterx, Integer.parseInt(sonderchips));
+	public void taxiFahren(Station station, Spieler spieler, MisterX misterx) {
+		logik.taxiFahren(station, spieler, misterx, getSonderchips());
 	}
 	
-	public void busFahren(Station station, Spieler spieler, MisterX misterx, String sonderchips) {
-		logik.busFahren(station, spieler, misterx, Integer.parseInt(sonderchips));
+	public void busFahren(Station station, Spieler spieler, MisterX misterx) {
+		logik.busFahren(station, spieler, misterx, getSonderchips());
 	}
 	
-	public void bahnFahren(Station station, Spieler spieler, MisterX misterx, String sonderchips) {
-		logik.bahnFahren(station, spieler, misterx, Integer.parseInt(sonderchips));
+	public void bahnFahren(Station station, Spieler spieler, MisterX misterx) {
+		logik.bahnFahren(station, spieler, misterx, getSonderchips());
 	}
 	
 	

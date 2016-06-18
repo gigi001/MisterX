@@ -352,17 +352,17 @@ public class MisterXClientCUI {
 					Station station = nachbTaxiIterator.next();
 					if ((l+1) == Integer.parseInt(stationsausw)) {
 //						spiel.taxiFahren(nachbTaxiIterator, stationsausw, spieler, misterx, l, sonderchips);
-						spiel.taxiFahren(station, spieler, misterx, sonderchips);
+						spiel.taxiFahren(station, spieler, misterx);
 					}
 				}else if (nachbBusIterator.hasNext()) {
 					Station station = nachbBusIterator.next();
 					if ((l+1) == Integer.parseInt(stationsausw)) {
-						spiel.busFahren(station, spieler, misterx, sonderchips);	
+						spiel.busFahren(station, spieler, misterx);	
 					}
 				}else if (nachbBahnIterator.hasNext()) {
 					Station station = nachbBahnIterator.next();
 					if ((l+1) == Integer.parseInt(stationsausw)) {
-						spiel.bahnFahren(station, spieler, misterx, sonderchips);
+						spiel.bahnFahren(station, spieler, misterx);
 					}
 				}
 			}

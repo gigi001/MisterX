@@ -52,19 +52,7 @@ public class MainWindow implements Serializable{
 	 */
 	
 	private MisterXSpiel spiel = new MisterXSpiel();
-	private int xnr = -1;
 	private Spieler spieler;
-	private String sonderchips = "1";
-//	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	private int farbe = 1;
-	private int i = -1;
-	private boolean XX = false;
-	private int verk;
-	private String[] kfz = new String[6];
-	private boolean aktb = false;
-	private boolean akt2 = false;
-	
-	private Station station;
 
 	
 	public MainWindow() {
@@ -240,31 +228,6 @@ public class MainWindow implements Serializable{
 		sp.add(speichern);
 
 		
-//		JPanel chips2 = new JPanel(new MigLayout(""));
-//		
-//		JPanel taxi2 = new JPanel(new MigLayout());
-//		taxi2.add(new JLabel(new ImageIcon("images/taxi.png")));
-//
-//		JPanel bus2 = new JPanel(new MigLayout());
-//		bus2.add(new JLabel(new ImageIcon("images/bus.png")));
-//
-//		JPanel bahn2 = new JPanel(new MigLayout());
-//		bahn2.add(new JLabel(new ImageIcon("images/bahn.png")));
-
-//		JPanel black2 = new JPanel(new MigLayout());
-//		black2.add(new JLabel(new ImageIcon("images/black.png")));
-//
-//		JPanel zweix2 = new JPanel(new MigLayout());
-//		zweix2.add(new JLabel(new ImageIcon("images/2x.png")));
-//
-//		chips2.setBorder(BorderFactory.createTitledBorder("sp2"));
-//		chips2.add(taxi2, "");
-//		chips2.add(bus2, "wrap");
-//		chips2.add(bahn2, "");
-//		chips2.add(black2, "wrap");
-//		chips2.add(zweix2, ""); 
-		
-		
 		
 		SpringLayout layout1 = new SpringLayout();
 		layout1.putConstraint(SpringLayout.EAST, menü, -100, SpringLayout.EAST, bild);
@@ -312,11 +275,11 @@ public class MainWindow implements Serializable{
 				
 				int rgb = image.getRGB(a, b);
 		        Color c = new Color(rgb);
-		        farbe = c.getRed();
+		        spiel.setFarbe(c.getRed());
 		        
 		        boolean bo = false;
 		        
-		        if(!XX){
+		        if(!spiel.getSpielbar()){
 		        	bo = true;
 		        }else{
 		        	if(kontrolle()){
@@ -325,13 +288,12 @@ public class MainWindow implements Serializable{
 		        }
 
 	    		
-		        if(farbe != 255 && bo){
+		        if(spiel.getFarbe() != 255 && bo){
 		        		
 		        		
-		        	System.out.println("Station: " + farbe);
-		        	stationFeld.setText(Integer.toString(farbe));
-		        	System.out.println(i);
-			        if(i==-1 && !XX){
+		        	System.out.println("Station: " + spiel.getFarbe());
+		        	stationFeld.setText(Integer.toString(spiel.getFarbe()));
+			        if(spiel.getDran()==-1 && !spiel.getSpielbar()){
 			        	if(spiel.getLength() == 0){
 							bild.add(spieler1);
 					        layout1.putConstraint(SpringLayout.WEST, spieler1, a-10, SpringLayout.WEST, bild);
@@ -353,25 +315,25 @@ public class MainWindow implements Serializable{
 			        
 			        
 			        
-			        if(XX){
+			        if(spiel.getSpielbar()){
 
 
-			    		MisterX misterx = (MisterX) spiel.getSpielerByIndex(xnr);
+			    		MisterX misterx = (MisterX) spiel.getSpielerByIndex(spiel.getXnr());
 		        		
 		        				        		
-		        		if(i==0){
+		        		if(spiel.getDran()==0){
 		        			bild.remove(spieler1);
 		        			bild.add(spieler1);
 		        			layout1.putConstraint(SpringLayout.WEST, spieler1, a-10, SpringLayout.WEST, bild);
 					        layout1.putConstraint(SpringLayout.NORTH, spieler1, b-10, SpringLayout.NORTH, bild);
 		        		}
-		        		if(i==1){
+		        		if(spiel.getDran()==1){
 		        			bild.remove(spieler2);
 		        			bild.add(spieler2);
 		        			layout1.putConstraint(SpringLayout.WEST, spieler2, a-10, SpringLayout.WEST, bild);
 					        layout1.putConstraint(SpringLayout.NORTH, spieler2, b-10, SpringLayout.NORTH, bild);
 		        		}
-		        		if(i==2){
+		        		if(spiel.getDran()==2){
 		        			bild.remove(spieler3);
 		        			bild.add(spieler3);
 		        			layout1.putConstraint(SpringLayout.WEST, spieler3, a-10, SpringLayout.WEST, bild);
@@ -388,34 +350,35 @@ public class MainWindow implements Serializable{
 			        	if(spieler.getName() == misterx.getName()){
 			        	
 				        	for(int l=0; l<5; l++){
-				        		kfz[l]=kfz[l+1];
+				        		spiel.setKfz(spiel.getKfz(l+1), l);
+				        		//kfz[l]=kfz[l+1];
 				        	}
 				        	
 				        	if(spiel.getZeigen()){
-				        		kfz[5]=spiel.getLetzterXZug() + " zur " + misterx.getStandort();
+				        		spiel.setKfz(spiel.getLetzterXZug() + " zur " + misterx.getStandort(), 5);
 				        	}else{
-				        		kfz[5]=spiel.getLetzterXZug();
+				        		spiel.setKfz(spiel.getLetzterXZug(), 5);
 				        	}
 				        	
 				        	int nul=-1;
 				        	for(int l=0; l<5; l++){
-				        		if(kfz[l] == null){
+				        		if(spiel.getKfz(l) == null){
 				        			nul = l;
 				        		}
 				        	}
 
 				        	switch(nul){
-				        	case -1:zug.setText("<html>" + kfz[5]+"<br>"+kfz[4]+"<br>"+kfz[3]+"<br>"+kfz[2]+"<br>"+kfz[1]+"<br>"+kfz[0]+"</html>");
+				        	case -1:zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"<br>"+spiel.getKfz(3)+"<br>"+spiel.getKfz(2)+"<br>"+spiel.getKfz(1)+"<br>"+spiel.getKfz(0)+"</html>");
 				        	break;
-				        	case 0 :zug.setText("<html>" + kfz[5]+"<br>"+kfz[4]+"<br>"+kfz[3]+"<br>"+kfz[2]+"<br>"+kfz[1]+"</html>");
+				        	case 0 :zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"<br>"+spiel.getKfz(3)+"<br>"+spiel.getKfz(2)+"<br>"+spiel.getKfz(1)+"</html>");
 				        	break;
-				        	case 1 :zug.setText("<html>" + kfz[5]+"<br>"+kfz[4]+"<br>"+kfz[3]+"<br>"+kfz[2]+"</html>");
+				        	case 1 :zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"<br>"+spiel.getKfz(3)+"<br>"+spiel.getKfz(2)+"</html>");
 				        	break;
-				        	case 2 :zug.setText("<html>" + kfz[5]+"<br>"+kfz[4]+"<br>"+kfz[3]+"</html>");
+				        	case 2 :zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"<br>"+spiel.getKfz(3)+"</html>");
 				        	break;
-				        	case 3 :zug.setText("<html>" + kfz[5]+"<br>"+kfz[4]+"</html>");
+				        	case 3 :zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"</html>");
 				        	break;
-				        	case 4 :zug.setText("<html>" + kfz[5]+"</html>");
+				        	case 4 :zug.setText("<html>" + spiel.getKfz(5)+"</html>");
 				        	break;
 				        	}
 
@@ -458,7 +421,7 @@ public class MainWindow implements Serializable{
 					        if(Integer.toString(spiel.getXWin(spiel.getSpieler(), misterx)).equals(""+1)){
 					        	gewonnen.setText("Mister X ist entkommen!");
 					        }
-					        XX = false;
+					        spiel.setSpielbar(false);
 					        
 			        		frame.pack();
 				        }
@@ -510,7 +473,6 @@ public class MainWindow implements Serializable{
 //				 = ladeManager.ladeSpiel("test");
 				
 //				getMainWindow() = ladeManager.ladeSpiel("test");
-				xnr=spiel.getXnr();
 				
 				System.out.println("Spiel wurde geladen");
 				
@@ -551,10 +513,9 @@ public class MainWindow implements Serializable{
 				
 					
 
-				Integer stationsnr = farbe;
 				try{	
 					if(ok && stationFeld.getText() != "Karte klicken"){
-						Station station = spiel.getStationByIndex(stationsnr-1);
+						Station station = spiel.getStationByIndex(spiel.getFarbe()-1);
 						//System.out.println(station);
 						Spieler neuerSpieler = new Spieler(name);
 						neuerSpieler.setStandort(station);
@@ -572,7 +533,7 @@ public class MainWindow implements Serializable{
 //					System.out.println("Spieler mit dem Namen " + name + " existiert bereits.");
 				}
 				
-				if(xnr != -1 && spiel.getLength() > 1){
+				if(spiel.getXnr() != -1 && spiel.getLength() > 1){
 					starten.setEnabled(true);
 				}
 			}
@@ -592,18 +553,16 @@ public class MainWindow implements Serializable{
 				}
 
 				
-				String stationsnr = stationFeld.getText();
 				try{	
 					if(ok && stationFeld.getText() != "Karte klicken"){
-						Station station = spiel.getStationByIndex(Integer.parseInt(stationsnr)-1);
+						Station station = spiel.getStationByIndex(spiel.getFarbe()-1);
 						//System.out.println(station);
 						Spieler neuerSpieler = new MisterX(name);
 						neuerSpieler.setStandort(station);
 						spiel.spielerHinzufügen(neuerSpieler);
 						//System.out.println("Mister X mit dem Namen " + name + " wurde angelegt.");
 						System.out.println(neuerSpieler + " (Mister X)");
-						xnr=spiel.getLength()-1;
-						spiel.setXnr(xnr);
+						spiel.setXnr(spiel.getLength()-1);
 						
 						nameFeld.setText("");
 						stationFeld.setText("Karte klicken");
@@ -616,7 +575,7 @@ public class MainWindow implements Serializable{
 				System.out.println("Spieler mit dem Namen " + name + " existiert bereits.");	
 				}
 				
-				if(xnr != -1 && spiel.getLength() > 1){
+				if(spiel.getXnr() != -1 && spiel.getLength() > 1){
 					starten.setEnabled(true);
 				}
 			}
@@ -664,11 +623,11 @@ public class MainWindow implements Serializable{
 				System.out.println();
 				
 				//aktionAusfuehren();
-				XX = true;
+				spiel.setSpielbar(true);
 				weiter();
 //				i = 1;
 
-				MisterX misterx = (MisterX) spiel.getSpielerByIndex(xnr);
+				MisterX misterx = (MisterX) spiel.getSpielerByIndex(spiel.getXnr());
 				chips.setBorder(BorderFactory.createTitledBorder(spieler.getName()));
 		        taxizahl.setText((Integer.toString(spieler.getTaxiChips())));
 		        buszahl.setText((Integer.toString(spieler.getBusChips())));
@@ -701,14 +660,14 @@ public class MainWindow implements Serializable{
 			
 			@Override
 			public void mouseClicked(MouseEvent m) {
-				MisterX misterx = (MisterX) spiel.getSpielerByIndex(xnr);
+				MisterX misterx = (MisterX) spiel.getSpielerByIndex(spiel.getXnr());
 				black.removeAll();
-				if(!aktb && misterx.getBlackTickets()>0){
+				if(!spiel.getAktb() && misterx.getBlackTickets()>0){
 					black.add(new JLabel(new ImageIcon("images/blackakt.png")));
-					aktb = true;
+					spiel.setAktb(true);
 				}else{
 					black.add(new JLabel(new ImageIcon("images/black.png")));
-					aktb = false;
+					spiel.setAktb(false);
 				}
 				frame.pack();
 				
@@ -734,14 +693,14 @@ public class MainWindow implements Serializable{
 			
 			@Override
 			public void mouseClicked(MouseEvent m) {
-				MisterX misterx = (MisterX) spiel.getSpielerByIndex(xnr);
+				MisterX misterx = (MisterX) spiel.getSpielerByIndex(spiel.getXnr());
 				zweix.removeAll();
-				if(!akt2 && misterx.getDoubleChips()>0){
+				if(!spiel.getAkt2() && misterx.getDoubleChips()>0){
 					zweix.add(new JLabel(new ImageIcon("images/2xakt.png")));
-					akt2 = true;
+					spiel.setAkt2(true);
 				}else{
 					zweix.add(new JLabel(new ImageIcon("images/2x.png")));
-					akt2 = false;
+					spiel.setAkt2(false);
 				}
 				frame.pack();
 				
@@ -780,31 +739,25 @@ public class MainWindow implements Serializable{
 	
 	
 	
-	public MainWindow getMainWindow(){
-		return this;
-		
-	}
-	
-	
 	
 	public void weiter(){
 		
 
-		MisterX misterx = (MisterX) spiel.getSpielerByIndex(xnr);
+		MisterX misterx = (MisterX) spiel.getSpielerByIndex(spiel.getXnr());
 		
 		
-		if(Integer.parseInt(sonderchips) != 3 && Integer.parseInt(sonderchips) != 4){
-			i = (i+1) % spiel.getLength();
-			spieler = spiel.getSpielerByIndex(i);
+		if(spiel.getSonderchips() != 3 && spiel.getSonderchips() != 4){
+			spiel.setDran((spiel.getDran()+1) % spiel.getLength());
+			spieler = spiel.getSpielerByIndex(spiel.getDran());
 		}
 		
-		sonderchips = "1";
+		spiel.setSonderchips(1);
 		
 		
 		//speichern
 		
 		
-		if(i==0){
+		if(spiel.getDran()==0){
 			spiel.getNaechsteRunde();
 			System.out.println("Runde " + spiel.getRunde());
 		}
@@ -812,8 +765,8 @@ public class MainWindow implements Serializable{
 		
 		
 
-		if(xnr+1 < spiel.getLength()){
-			if(i == xnr+1){
+		if(spiel.getXnr()+1 < spiel.getLength()){
+			if(spiel.getDran() == spiel.getXnr()+1){
 				if(spiel.getLetzterXZug() != null){
 					System.out.println("Letztes Verkehrsmittel von Mister X: " + spiel.getLetzterXZug());
 				}		
@@ -822,7 +775,7 @@ public class MainWindow implements Serializable{
 				}
 			}
 		}else{
-			if(i == 0){
+			if(spiel.getDran() == 0){
 				if(spiel.getLetzterXZug() != null){
 					System.out.println("Letztes Verkehrsmittel von Mister X: " + spiel.getLetzterXZug());
 				}		
@@ -846,8 +799,8 @@ public class MainWindow implements Serializable{
 		//if(spieler.getTaxiChips()>0){
 			if(nachbIterator.hasNext()){
 				while (nachbIterator.hasNext()) {
-					if(nachbIterator.next().getName().equals(""+farbe)){
-						verk = 1;
+					if(nachbIterator.next().getName().equals(""+spiel.getFarbe())){
+						spiel.setVerk(1);
 						return true;
 					}
 				}
@@ -859,8 +812,8 @@ public class MainWindow implements Serializable{
 		if(spieler.getBusChips()>0){
 			if(nachbIterator.hasNext()){
 				while (nachbIterator.hasNext()) {
-					if(nachbIterator.next().getName().equals(""+farbe)){
-						verk = 2;
+					if(nachbIterator.next().getName().equals(""+spiel.getFarbe())){
+						spiel.setVerk(2);
 						return true;
 					}
 				}
@@ -871,8 +824,8 @@ public class MainWindow implements Serializable{
 		if(spieler.getBahnChips()>0){
 			if(nachbIterator.hasNext()){
 				while (nachbIterator.hasNext()) {
-					if(nachbIterator.next().getName().equals(""+farbe)){
-						verk = 3;
+					if(nachbIterator.next().getName().equals(""+spiel.getFarbe())){
+						spiel.setVerk(3);
 						return true;
 					}
 				}
@@ -888,7 +841,7 @@ public class MainWindow implements Serializable{
 	
 	public void aktionAusfuehren(){
 
-		MisterX misterx = (MisterX) spiel.getSpielerByIndex(xnr);
+		MisterX misterx = (MisterX) spiel.getSpielerByIndex(spiel.getXnr());
 		
 		
 		
@@ -933,33 +886,30 @@ public class MainWindow implements Serializable{
 //		System.out.println("test " +farbe + " "+ nachbar);
 		
 		
-		if(akt2){
-			sonderchips = "3";
+		if(spiel.getAkt2()){
+			spiel.setSonderchips(3);
 		}
-		if(aktb){
-			sonderchips = "2";
-			if(akt2){
-				sonderchips = "4";
+		if(spiel.getAktb()){
+			spiel.setSonderchips(2);
+			if(spiel.getAkt2()){
+				spiel.setSonderchips(4);
 			}
 		}
 		
-		aktb = false;
-		akt2 = false;
+		spiel.setAktb(false);
+		spiel.setAkt2(false);
 		
 		
-		if(verk == 1){
-			station = spiel.getStationByIndex(farbe-1);
-			spiel.taxiFahren(station, spieler, misterx, sonderchips);
+		if(spiel.getVerk() == 1){
+			spiel.taxiFahren(spiel.getStationByIndex(spiel.getFarbe()-1), spieler, misterx);
 		}
 
-		if(verk == 2){
-			station = spiel.getStationByIndex(farbe-1);
-			spiel.busFahren(station, spieler, misterx, sonderchips);
+		if(spiel.getVerk() == 2){
+			spiel.busFahren(spiel.getStationByIndex(spiel.getFarbe()-1), spieler, misterx);
 		}
 
-		if(verk == 3){
-			station = spiel.getStationByIndex(farbe-1);
-			spiel.bahnFahren(station, spieler, misterx, sonderchips);
+		if(spiel.getVerk() == 3){
+			spiel.bahnFahren(spiel.getStationByIndex(spiel.getFarbe()-1), spieler, misterx);
 		}
 		
 		
