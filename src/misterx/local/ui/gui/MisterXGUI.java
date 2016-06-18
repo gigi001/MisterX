@@ -1,7 +1,14 @@
 package misterx.local.ui.gui;
 
+import java.io.Serializable;
 
-public class MisterXGUI {
+public class MisterXGUI implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6504438308185216574L;
+	
 	
 	private MainWindow mainw = new MainWindow();
 	

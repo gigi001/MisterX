@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.Iterator;
 
 import javax.imageio.ImageIO;
@@ -40,16 +41,22 @@ import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
 import net.miginfocom.swing.MigLayout;
 
-public class MainWindow {
+public class MainWindow implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5769555048520234309L;
+	/**
+	 * 
+	 */
 	
 	private MisterXSpiel spiel = new MisterXSpiel();
 	private int xnr = -1;
-	private Spieler ausg;
 	private Spieler spieler;
 	private String sonderchips = "1";
 //	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	private int farbe = 1;
-	private int farbeladen;
 	private int i = -1;
 	private boolean XX = false;
 	private int verk;
@@ -60,7 +67,7 @@ public class MainWindow {
 	private Station station;
 
 	
-	public MainWindow(){
+	public MainWindow() {
 		try {
 			create();
 		} catch (IOException e) {
@@ -269,10 +276,6 @@ public class MainWindow {
 		bild.add(menü);
 		bild.setLayout(layout1);		
 		bild.add(panel);
-		
-//				bild.add(chips);
-//				layout1.putConstraint(SpringLayout.WEST, chips, -100, SpringLayout.WEST, bild);
-//				layout1.putConstraint(SpringLayout.NORTH, chips, 50, SpringLayout.NORTH, bild);
 		
 		
 		frame.add(bild);		
@@ -497,34 +500,39 @@ public class MainWindow {
 		laden.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent a) {
-				bild.remove(menü);
-				bild.add(chips);
-				layout1.putConstraint(SpringLayout.EAST, chips, -100, SpringLayout.EAST, bild);
-				layout1.putConstraint(SpringLayout.NORTH, chips, 50, SpringLayout.NORTH, bild);
-				frame.pack();
-				
-				System.out.println("Spiel wurde geladen");
+//				bild.remove(menü);
+//				bild.add(chips);
+//				layout1.putConstraint(SpringLayout.EAST, chips, -100, SpringLayout.EAST, bild);
+//				layout1.putConstraint(SpringLayout.NORTH, chips, 50, SpringLayout.NORTH, bild);
+//				frame.pack();
+		
 				ObjectPersistenceManager ladeManager = new ObjectPersistenceManager();
-				spiel = ladeManager.ladeSpiel("test");
+//				 = ladeManager.ladeSpiel("test");
+				
+//				getMainWindow() = ladeManager.ladeSpiel("test");
 				xnr=spiel.getXnr();
 				
-				for(int i=0; i<frame.getWidth(); i++){
-					for(int j=0; j<frame.getHeight(); j++){
-						
-						int rgb = image.getRGB(i, j);
-				        Color c = new Color(rgb);
-				        farbeladen = c.getRed();
-				        System.out.println(spieler.getStandort().getName());
-//				        if(farbeladen+"" == spieler.getStandort().getName()){
-				        
-					        bild.add(spieler1);
-					        layout1.putConstraint(SpringLayout.WEST, spieler1, i-10, SpringLayout.WEST, bild);
-					        layout1.putConstraint(SpringLayout.NORTH, spieler1, j-10, SpringLayout.NORTH, bild);
-		        	
-//				        }
-					        
-					}
-				}
+				System.out.println("Spiel wurde geladen");
+				
+				
+				
+//				for(int i=0; i<frame.getWidth(); i++){
+//					for(int j=0; j<frame.getHeight(); j++){
+//						
+//						int rgb = image.getRGB(i, j);
+//				        Color c = new Color(rgb);
+//				        farbeladen = c.getRed();
+//				        System.out.println(spieler.getStandort().getName());
+////				        if(farbeladen+"" == spieler.getStandort().getName()){
+//				        
+//					        bild.add(spieler1);
+//					        layout1.putConstraint(SpringLayout.WEST, spieler1, i-10, SpringLayout.WEST, bild);
+//					        layout1.putConstraint(SpringLayout.NORTH, spieler1, j-10, SpringLayout.NORTH, bild);
+//		        	
+////				        }
+//					        
+//					}
+//				}
 				
 			}
 		});
@@ -758,7 +766,7 @@ public class MainWindow {
 			@Override
 			public void actionPerformed(ActionEvent a) {
 				ObjectPersistenceManager objectPersistenceManager = new ObjectPersistenceManager();
-				objectPersistenceManager.speichereSpiel(spiel, "test");
+				objectPersistenceManager.speichereSpiel(MainWindow.this, "test");
 				
 				System.out.println("");
 				System.out.println("Spiel wurde gepeichert!");
@@ -772,7 +780,10 @@ public class MainWindow {
 	
 	
 	
-	
+	public MainWindow getMainWindow(){
+		return this;
+		
+	}
 	
 	
 	

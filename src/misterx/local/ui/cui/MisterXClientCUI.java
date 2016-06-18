@@ -35,7 +35,7 @@ public class MisterXClientCUI {
 		if(y == 2){
 			System.out.println("HALLO");
 			ObjectPersistenceManager ladeManager = new ObjectPersistenceManager();
-			spiel = ladeManager.ladeSpiel("test");
+			//spiel = ladeManager.ladeSpiel("test");
 			xnr=spiel.getXnr();
 			
 			
@@ -238,7 +238,7 @@ public class MisterXClientCUI {
 				String speichern = reader.readLine();
 				if(speichern.equals("y")){
 					ObjectPersistenceManager objectPersistenceManager = new ObjectPersistenceManager();
-					objectPersistenceManager.speichereSpiel(spiel, "test");
+	//				objectPersistenceManager.speichereSpiel(spiel, "test");
 					
 					System.out.println("");
 					System.out.println("Spiel wurde gepeichert!");
