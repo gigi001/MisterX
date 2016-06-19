@@ -29,6 +29,7 @@ public class MisterXSpiel implements Serializable {
 	private int verkehrsmittel;
 	private boolean spielbar = false;
 	private int dran = -1;
+	private int inRunden;
 	//private PersistenceManager pm = new FilePersistenceManager();
 	
 //	private List<Spieler> SpielerStand = new Vector<Spieler>();
@@ -143,6 +144,25 @@ public class MisterXSpiel implements Serializable {
 		return dran;
 	}
 	
+	public int getInRunden() {
+		if(logik.getRunde() < 24) {
+			inRunden = (24 - logik.getRunde());
+		}
+		if(logik.getRunde() < 18) {
+			inRunden = (18 - logik.getRunde());
+		}
+		if(logik.getRunde() < 13) {
+			inRunden = (13 - logik.getRunde());
+		}
+		if(logik.getRunde() < 8) {
+			inRunden = (8 - logik.getRunde());
+		}
+		if(logik.getRunde() < 3) {
+			inRunden = (3 - logik.getRunde());
+		}
+		
+		return inRunden;
+	}
 	
 	
 	public void taxiAbziehen(Spieler spieler, MisterX misterx){

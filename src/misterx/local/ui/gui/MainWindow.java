@@ -70,7 +70,7 @@ public class MainWindow implements Serializable{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocation(10,10);
 		frame.setSize(1600, 900);
-		frame.setLayout(new BorderLayout());
+		frame.setLayout(new MigLayout("insets 0"));
 		
 		Font f1 = new Font("Berlin Sans FB", Font.BOLD,20);
 		Font f2 = new Font("Berlin Sans FB", Font.ROMAN_BASELINE,16);
@@ -84,8 +84,8 @@ public class MainWindow implements Serializable{
 		JPanel runde = new JPanel(new MigLayout(""));
 		JPanel lezug = new JPanel(new MigLayout(""));
 		lezug.setBorder(BorderFactory.createTitledBorder("Letzte Verkehrsmittel"));
-		JPanel lepos = new JPanel(new MigLayout(""));
-		lepos.setBorder(BorderFactory.createTitledBorder("Letzte Position"));
+		JPanel zepos = new JPanel(new MigLayout(""));
+		zepos.setBorder(BorderFactory.createTitledBorder("Zeigt sich in"));
 		JPanel mrX = new JPanel(new MigLayout(""));
 		mrX.setBorder(BorderFactory.createTitledBorder("Mister X"));
 		JPanel sp = new JPanel(new MigLayout(""));
@@ -107,8 +107,8 @@ public class MainWindow implements Serializable{
 		rundenzahl.setFont(f1);
 		JLabel zug = new JLabel("nicht gefahren");
 		zug.setFont(f1);
-		JLabel pos = new JLabel("Position");
-		pos.setFont(f1);
+		JLabel zeige = new JLabel("Position");
+		zeige.setFont(f1);
 		
 		
 		String path1 = "images/karte.jpg";
@@ -144,12 +144,12 @@ public class MainWindow implements Serializable{
 		
 		runde.add(rundenzahl);
 		
-		mrX.add(lepos, "wrap");
-		mrX.add(lezug, "growx");
+		mrX.add(lezug, "wrap, growx, width 220:220:220");
+		mrX.add(zepos, "growx");
 		
 		lezug.add(zug);
 		
-		lepos.add(pos); 
+		zepos.add(zeige); 
 		
 		
 		hinzufügen.add(namen);
@@ -241,7 +241,7 @@ public class MainWindow implements Serializable{
 		bild.add(panel);
 		
 		
-		frame.add(bild);		
+		frame.add(bild, "width 500:1600:1600");		
 		frame.pack();
 		frame.setVisible(true);
 	
@@ -381,10 +381,12 @@ public class MainWindow implements Serializable{
 				        	case 4 :zug.setText("<html>" + spiel.getKfz(5)+"</html>");
 				        	break;
 				        	}
+				        	
 
-
-				        	if(spiel.getZeigen()){
-				        	pos.setText(spiel.getRunde()+".Runde: "+misterx.getStandort());
+				        	if(spiel.getInRunden() > 1){
+				        		zeige.setText(spiel.getInRunden() + " Runden");
+				        	}else{
+				        		zeige.setText(spiel.getInRunden() + " Runde");
 				        	}
 			        	}
 			        	
@@ -648,7 +650,7 @@ public class MainWindow implements Serializable{
 		        	chips.remove(zweix);
 		        }
 
-	        	pos.setText("Beginn: "+misterx.getStandort());
+	        	zeige.setText("3 Runden");
 				frame.pack();
 			}
 		});
