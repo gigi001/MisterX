@@ -30,10 +30,19 @@ public class MisterXSpiel implements Serializable {
 	private boolean spielbar = false;
 	private int dran = -1;
 	private int inRunden;
+	private Spieler spieler;
 	//private PersistenceManager pm = new FilePersistenceManager();
 	
 //	private List<Spieler> SpielerStand = new Vector<Spieler>();
 		
+	public void setSpielSpieler(Spieler spieler) {
+		this.spieler = spieler;
+	}
+	
+	public Spieler getSpielSpieler() {
+		return spieler;
+	}
+	
 	public void spielerHinzufügen(Spieler neuerspieler) throws SpielerExistiertBereitsException { 
 		 spielerVW.spielerHinzufügen(neuerspieler);
 	}

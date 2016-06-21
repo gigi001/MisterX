@@ -1,22 +1,16 @@
 package misterx.local.ui.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.Iterator;
 
@@ -30,7 +24,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-import javax.swing.text.html.ImageView;
 
 import misterx.local.domain.MisterXSpiel;
 import misterx.local.domain.exceptions.EingabeException;
@@ -52,8 +45,7 @@ public class MainWindow implements Serializable{
 	 */
 	
 	private MisterXSpiel spiel = new MisterXSpiel();
-	private Spieler spieler;
-
+	//private Spieler spieler;
 	
 	public MainWindow() {
 		try {
@@ -70,7 +62,7 @@ public class MainWindow implements Serializable{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocation(10,10);
 		frame.setSize(1600, 900);
-		frame.setLayout(new MigLayout("insets 0"));
+		frame.setLayout(new GridLayout(1,1));
 		
 		Font f1 = new Font("Berlin Sans FB", Font.BOLD,20);
 		Font f2 = new Font("Berlin Sans FB", Font.ROMAN_BASELINE,16);
@@ -115,7 +107,7 @@ public class MainWindow implements Serializable{
 		ImageIcon icon = new ImageIcon(path1);
 //		Image image = Toolkit.getDefaultToolkit().getImage(path1);
 //		ImageView iView = new ImageView(image);
-		JLabel bild = new JLabel(icon);		
+		Bg bild = new Bg();		
 		JLabel spieler1 = new JLabel(new ImageIcon("images/Spieler1.png"));
 		JLabel spieler2 = new JLabel(new ImageIcon("images/Spieler2.png"));
 		JLabel spieler3 = new JLabel(new ImageIcon("images/Spieler3.png"));
@@ -237,12 +229,14 @@ public class MainWindow implements Serializable{
 		
 		//width 500:1600:1600
 		bild.add(menü);
-		bild.setLayout(layout1);		
+		bild.setLayout(layout1);	
 		bild.add(panel);
 		
+		Dimension dim1 = new Dimension(200, 200);
 		
-		frame.add(bild, "width 500:1600:1600");		
-		frame.pack();
+		frame.add(bild);
+		frame.setMinimumSize(dim1);
+		//frame.pack();
 		frame.setVisible(true);
 	
 		
@@ -736,7 +730,6 @@ public class MainWindow implements Serializable{
 		});
 		
 	}
-	
 	
 	
 	
