@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import misterx.local.domain.MisterXSpiel;
+import misterx.local.ui.gui.MainWindow;
 import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
 
@@ -19,6 +20,7 @@ public interface PersistenceManager {
 	public MisterXSpiel ladeSpiel(String datenQuelle) throws IOException;
 	
 	public void  speichereSpiel(MisterXSpiel s, String datenQuelle) throws IOException;
+
 
 	
 }

@@ -1,7 +1,7 @@
 package misterx.local.ui.gui;
 
 
-public class MisterXGUI {
+public class MisterXGUI{
 	
 	private MainWindow mainw = new MainWindow();
 	

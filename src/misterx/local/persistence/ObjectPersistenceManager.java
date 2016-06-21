@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 import misterx.local.domain.MisterXSpiel;
+import misterx.local.ui.gui.MainWindow;
 import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
 
@@ -52,11 +53,11 @@ public class ObjectPersistenceManager implements PersistenceManager {
 	
 	
 	@Override
-	public void speichereSpiel(MisterXSpiel s,String datenQuelle){
+	public void speichereSpiel(MisterXSpiel spiel,String datenQuelle){
 		
 		try {
 			openForWriting("src/"+datenQuelle);
-			outputStream.writeObject(s);
+			outputStream.writeObject(spiel);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

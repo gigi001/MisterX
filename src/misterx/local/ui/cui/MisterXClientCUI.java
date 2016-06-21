@@ -35,7 +35,7 @@ public class MisterXClientCUI {
 		if(y == 2){
 			System.out.println("HALLO");
 			ObjectPersistenceManager ladeManager = new ObjectPersistenceManager();
-			spiel = ladeManager.ladeSpiel("test");
+			//spiel = ladeManager.ladeSpiel("test");
 			xnr=spiel.getXnr();
 			
 			
@@ -238,7 +238,7 @@ public class MisterXClientCUI {
 				String speichern = reader.readLine();
 				if(speichern.equals("y")){
 					ObjectPersistenceManager objectPersistenceManager = new ObjectPersistenceManager();
-					objectPersistenceManager.speichereSpiel(spiel, "test");
+	//				objectPersistenceManager.speichereSpiel(spiel, "test");
 					
 					System.out.println("");
 					System.out.println("Spiel wurde gepeichert!");
@@ -352,17 +352,17 @@ public class MisterXClientCUI {
 					Station station = nachbTaxiIterator.next();
 					if ((l+1) == Integer.parseInt(stationsausw)) {
 //						spiel.taxiFahren(nachbTaxiIterator, stationsausw, spieler, misterx, l, sonderchips);
-						spiel.taxiFahren(station, spieler, misterx, sonderchips);
+						spiel.taxiFahren(station, spieler, misterx);
 					}
 				}else if (nachbBusIterator.hasNext()) {
 					Station station = nachbBusIterator.next();
 					if ((l+1) == Integer.parseInt(stationsausw)) {
-						spiel.busFahren(station, spieler, misterx, sonderchips);	
+						spiel.busFahren(station, spieler, misterx);	
 					}
 				}else if (nachbBahnIterator.hasNext()) {
 					Station station = nachbBahnIterator.next();
 					if ((l+1) == Integer.parseInt(stationsausw)) {
-						spiel.bahnFahren(station, spieler, misterx, sonderchips);
+						spiel.bahnFahren(station, spieler, misterx);
 					}
 				}
 			}

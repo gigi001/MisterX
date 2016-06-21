@@ -1,22 +1,16 @@
 package misterx.local.ui.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Iterator;
 
 import javax.imageio.ImageIO;
@@ -29,7 +23,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-import javax.swing.text.html.ImageView;
 
 import misterx.local.domain.MisterXSpiel;
 import misterx.local.domain.exceptions.EingabeException;
@@ -40,23 +33,12 @@ import misterx.local.valueobjekts.Spieler;
 import misterx.local.valueobjekts.Station;
 import net.miginfocom.swing.MigLayout;
 
-public class MainWindow {
+public class MainWindow{
+	
 	
 	private MisterXSpiel spiel = new MisterXSpiel();
-	private int xnr = -1;
-	private Spieler ausg;
-	private Spieler spieler;
-	private String sonderchips = "1";
-	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	private int farbe = 1;
-	private int i = -1;
-	private boolean XX = false;
-	private int verk;
 	
-	private Station station;
-
-	
-	public MainWindow(){
+	public MainWindow() {
 		try {
 			create();
 		} catch (IOException e) {
@@ -71,7 +53,7 @@ public class MainWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocation(10,10);
 		frame.setSize(1600, 900);
-		frame.setLayout(new BorderLayout());
+		frame.setLayout(new GridLayout(1,1));
 		
 		Font f1 = new Font("Berlin Sans FB", Font.BOLD,20);
 		Font f2 = new Font("Berlin Sans FB", Font.ROMAN_BASELINE,16);
@@ -83,7 +65,14 @@ public class MainWindow {
 		menü.setBorder(BorderFactory.createTitledBorder("Menü"));
 		JPanel win = new JPanel(new MigLayout(""));
 		JPanel runde = new JPanel(new MigLayout(""));
-		JPanel lStation = new JPanel(new MigLayout(""));
+		JPanel lezug = new JPanel(new MigLayout(""));
+		lezug.setBorder(BorderFactory.createTitledBorder("Letzte Verkehrsmittel"));
+		JPanel zepos = new JPanel(new MigLayout(""));
+		zepos.setBorder(BorderFactory.createTitledBorder("Zeigt sich in"));
+		JPanel mrX = new JPanel(new MigLayout(""));
+		mrX.setBorder(BorderFactory.createTitledBorder("Mister X"));
+		JPanel sp = new JPanel(new MigLayout(""));
+		
 		
 		JLabel namen = new JLabel("Name: ");
 		namen.setFont(f2);
@@ -97,19 +86,28 @@ public class MainWindow {
 		stationFeld.setFont(f2);
 		JLabel gewonnen = new JLabel("win");
 		gewonnen.setFont(f1);
-		JLabel rundenzahl = new JLabel("Runde:");
+		JLabel rundenzahl = new JLabel("los gehts!");
 		rundenzahl.setFont(f1);
-		JLabel lSt = new JLabel("l.Runde");
-		rundenzahl.setFont(f1);
+		JLabel zug = new JLabel();
+		updateZugLabel(zug);
+		zug.setFont(f1);
+		JLabel zeige = new JLabel("Position");
+		zeige.setFont(f1);
+		
 		
 		String path1 = "images/karte.jpg";
 		ImageIcon icon = new ImageIcon(path1);
 //		Image image = Toolkit.getDefaultToolkit().getImage(path1);
 //		ImageView iView = new ImageView(image);
-		JLabel bild = new JLabel(icon);		
+		Bg bild = new Bg();		
 		JLabel spieler1 = new JLabel(new ImageIcon("images/Spieler1.png"));
 		JLabel spieler2 = new JLabel(new ImageIcon("images/Spieler2.png"));
 		JLabel spieler3 = new JLabel(new ImageIcon("images/Spieler3.png"));
+		JLabel spieler4 = new JLabel(new ImageIcon("images/Spieler4.png"));
+		JLabel spieler5 = new JLabel(new ImageIcon("images/Spieler5.png"));
+		JLabel spieler6 = new JLabel(new ImageIcon("images/Spieler6.png"));
+		JLabel spieler7 = new JLabel(new ImageIcon("images/Spieler7.png"));
+		JLabel spieler8 = new JLabel(new ImageIcon("images/Spieler8.png"));
 
 		BufferedImage image = ImageIO.read(new File("images/punkte.png"));
 		
@@ -127,13 +125,20 @@ public class MainWindow {
 		neu.setFont(f2);
 		JButton laden = new JButton("Spiel laden");
 		laden.setFont(f2);
+		JButton speichern = new JButton("Spiel speichern");
+		speichern.setFont(f2);
 		
 		 
 		win.add(gewonnen);
 		
 		runde.add(rundenzahl);
 		
-		lStation.add(lSt);
+		mrX.add(lezug, "wrap, growx, width 220:220:220");
+		mrX.add(zepos, "growx");
+		
+		lezug.add(zug);
+		
+		zepos.add(zeige); 
 		
 		
 		hinzufügen.add(namen);
@@ -183,6 +188,7 @@ public class MainWindow {
 		JPanel zweix = new JPanel(new MigLayout());
 		zweix.add(new JLabel(new ImageIcon("images/2x.png")));
 		
+		
 		JLabel taxizahl = new JLabel("0");
 		taxizahl.setFont(f1);
 		JLabel buszahl = new JLabel("0");
@@ -205,32 +211,11 @@ public class MainWindow {
 		chips.add(black, "wrap");
 		chips.add(zweixzahl);
 		chips.add(zweix, ""); 
-
 		
-		JPanel chips2 = new JPanel(new MigLayout(""));
 		
-		JPanel taxi2 = new JPanel(new MigLayout());
-		taxi2.add(new JLabel(new ImageIcon("images/taxi.png")));
-
-		JPanel bus2 = new JPanel(new MigLayout());
-		bus2.add(new JLabel(new ImageIcon("images/bus.png")));
-
-		JPanel bahn2 = new JPanel(new MigLayout());
-		bahn2.add(new JLabel(new ImageIcon("images/bahn.png")));
-
-		JPanel black2 = new JPanel(new MigLayout());
-		black2.add(new JLabel(new ImageIcon("images/black.png")));
-
-		JPanel zweix2 = new JPanel(new MigLayout());
-		zweix2.add(new JLabel(new ImageIcon("images/2x.png")));
-
-		chips2.setBorder(BorderFactory.createTitledBorder("sp2"));
-		chips2.add(taxi2, "");
-		chips2.add(bus2, "wrap");
-		chips2.add(bahn2, "");
-		chips2.add(black2, "wrap");
-		chips2.add(zweix2, ""); 
 		
+		sp.add(speichern);
+
 		
 		
 		SpringLayout layout1 = new SpringLayout();
@@ -241,12 +226,13 @@ public class MainWindow {
 		
 		//width 500:1600:1600
 		bild.add(menü);
-		bild.setLayout(layout1);		
+		bild.setLayout(layout1);	
 		bild.add(panel);
 		
 		
+		frame.add(bild);
+		frame.setMinimumSize(new Dimension(1620, 950));
 		
-		frame.add(bild);		
 		frame.pack();
 		frame.setVisible(true);
 	
@@ -280,11 +266,11 @@ public class MainWindow {
 				
 				int rgb = image.getRGB(a, b);
 		        Color c = new Color(rgb);
-		        farbe = c.getRed();
+		        spiel.setFarbe(c.getRed());
 		        
 		        boolean bo = false;
 		        
-		        if(!XX){
+		        if(!spiel.getSpielbar()){
 		        	bo = true;
 		        }else{
 		        	if(kontrolle()){
@@ -293,13 +279,12 @@ public class MainWindow {
 		        }
 
 	    		
-		        if(farbe != 255 && bo){
+		        if(spiel.getFarbe() != 255 && bo){
 		        		
 		        		
-		        	System.out.println("Station: " + farbe);
-		        	stationFeld.setText(Integer.toString(farbe));
-		        	System.out.println(i);
-			        if(i==-1 && !XX){
+		        	System.out.println("Station: " + spiel.getFarbe());
+		        	stationFeld.setText(Integer.toString(spiel.getFarbe()));
+			        if(spiel.getDran()==-1 && !spiel.getSpielbar()){
 			        	if(spiel.getLength() == 0){
 							bild.add(spieler1);
 					        layout1.putConstraint(SpringLayout.WEST, spieler1, a-10, SpringLayout.WEST, bild);
@@ -315,53 +300,136 @@ public class MainWindow {
 					        layout1.putConstraint(SpringLayout.WEST, spieler3, a-10, SpringLayout.WEST, bild);
 					        layout1.putConstraint(SpringLayout.NORTH, spieler3, b-10, SpringLayout.NORTH, bild);
 			        	}
-			        	
+			        	if(spiel.getLength() == 3){
+		        			bild.add(spieler4);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler4, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler4, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getLength() == 4){
+		        			bild.add(spieler5);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler5, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler5, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getLength() == 5){
+		        			bild.add(spieler6);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler6, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler6, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getLength() == 6){
+		        			bild.add(spieler7);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler7, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler7, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getLength() == 7){
+		        			bild.add(spieler8);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler8, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler8, b-10, SpringLayout.NORTH, bild);
+		        		}
 		        	}
 			        
 			        
 			        
 			        
-			        if(XX){
+			        if(spiel.getSpielbar()){
 
 
-			    		MisterX misterx = (MisterX) spiel.getSpielerByIndex(xnr);
+			    		MisterX misterx = (MisterX) spiel.getSpielerByIndex(spiel.getXnr());
 		        		
 		        				        		
-		        		if(i==0){
+		        		if(spiel.getDran()==0){
 		        			bild.remove(spieler1);
 		        			bild.add(spieler1);
 		        			layout1.putConstraint(SpringLayout.WEST, spieler1, a-10, SpringLayout.WEST, bild);
 					        layout1.putConstraint(SpringLayout.NORTH, spieler1, b-10, SpringLayout.NORTH, bild);
 		        		}
-		        		if(i==1){
+		        		if(spiel.getDran()==1){
 		        			bild.remove(spieler2);
 		        			bild.add(spieler2);
 		        			layout1.putConstraint(SpringLayout.WEST, spieler2, a-10, SpringLayout.WEST, bild);
 					        layout1.putConstraint(SpringLayout.NORTH, spieler2, b-10, SpringLayout.NORTH, bild);
 		        		}
-		        		if(i==2){
+		        		if(spiel.getDran()==2){
 		        			bild.remove(spieler3);
 		        			bild.add(spieler3);
 		        			layout1.putConstraint(SpringLayout.WEST, spieler3, a-10, SpringLayout.WEST, bild);
 					        layout1.putConstraint(SpringLayout.NORTH, spieler3, b-10, SpringLayout.NORTH, bild);
 		        		}
+		        		if(spiel.getDran()==3){
+		        			bild.remove(spieler4);
+		        			bild.add(spieler4);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler4, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler4, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getDran()==4){
+		        			bild.remove(spieler5);
+		        			bild.add(spieler5);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler5, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler5, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getDran()==5){
+		        			bild.remove(spieler6);
+		        			bild.add(spieler6);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler6, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler6, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getDran()==6){
+		        			bild.remove(spieler7);
+		        			bild.add(spieler7);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler7, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler7, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getDran()==7){
+		        			bild.remove(spieler8);
+		        			bild.add(spieler8);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler8, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler8, b-10, SpringLayout.NORTH, bild);
+		        		}
 
 			        	aktionAusfuehren();
 
+			        	black.removeAll();
+			        	zweix.removeAll();
+			    		black.add(new JLabel(new ImageIcon("images/black.png")));
+			    		zweix.add(new JLabel(new ImageIcon("images/2x.png")));
+			        	
+			        	if(spiel.getSpielSpieler().getName() == misterx.getName()){
+			        	
+				        	for(int l=0; l<5; l++){
+				        		spiel.setKfz(spiel.getKfz(l+1), l);
+				        		//kfz[l]=kfz[l+1];
+				        	}
+				        	
+				        	if(spiel.getZeigen()){
+				        		spiel.setKfz(spiel.getLetzterXZug() + " zur " + misterx.getStandort(), 5);
+				        	}else{
+				        		spiel.setKfz(spiel.getLetzterXZug(), 5);
+				        	}
+				        	
+				        	updateZugLabel(zug);
+				        	
+
+				        	if(spiel.getInRunden() > 1){
+				        		zeige.setText(spiel.getInRunden() + " Runden");
+				        	}else{
+				        		zeige.setText(spiel.getInRunden() + " Runde");
+				        	}
+			        	}
+			        	
 			        	weiter();
-						chips.setBorder(BorderFactory.createTitledBorder(spieler.getName()));
+						chips.setBorder(BorderFactory.createTitledBorder(spiel.getSpielSpieler().getName()));
 						rundenzahl.setText("Runde: " + Integer.toString(spiel.getRunde()));
-				        taxizahl.setText((Integer.toString(spieler.getTaxiChips())));
-				        buszahl.setText((Integer.toString(spieler.getBusChips())));
-				        bahnzahl.setText((Integer.toString(spieler.getBahnChips())));
+				        taxizahl.setText((Integer.toString(spiel.getSpielSpieler().getTaxiChips())));
+				        buszahl.setText((Integer.toString(spiel.getSpielSpieler().getBusChips())));
+				        bahnzahl.setText((Integer.toString(spiel.getSpielSpieler().getBahnChips())));
 				        
-				        if(spieler.getName() == misterx.getName()){
+				        if(spiel.getSpielSpieler().getName() == misterx.getName()){
 				        	chips.add(blackzahl);
 				        	chips.add(black, "wrap");
 				        	chips.add(zweixzahl);
 				        	chips.add(zweix);
-				        	blackzahl.setText((Integer.toString(((MisterX) spieler).getBlackTickets())));
-				        	zweixzahl.setText((Integer.toString(((MisterX) spieler).getDoubleChips())));
+				        	blackzahl.setText((Integer.toString(((MisterX) spiel.getSpielSpieler()).getBlackTickets())));
+				        	zweixzahl.setText((Integer.toString(((MisterX) spiel.getSpielSpieler()).getDoubleChips())));
+				        	
 				        }else{
 				        	chips.remove(blackzahl);
 				        	chips.remove(black);
@@ -374,13 +442,13 @@ public class MainWindow {
 				        	bild.add(win);
 				        	layout1.putConstraint(SpringLayout.WEST, win, 150, SpringLayout.WEST, bild);
 					        layout1.putConstraint(SpringLayout.NORTH, win, 50, SpringLayout.NORTH, bild);
-					        if(Integer.toString(spiel.getXWin(spiel.getSpieler(), misterx)).equals(""+1)){
+					        if(Integer.toString(spiel.getXWin(spiel.getSpieler(), misterx)).equals(""+2)){
 					        	gewonnen.setText("Mister X wurde gefunden!");
 					        }
 					        if(Integer.toString(spiel.getXWin(spiel.getSpieler(), misterx)).equals(""+1)){
 					        	gewonnen.setText("Mister X ist entkommen!");
 					        }
-					        XX = false;
+					        spiel.setSpielbar(false);
 					        
 			        		frame.pack();
 				        }
@@ -394,8 +462,7 @@ public class MainWindow {
 			        
 		        }
 		        
-			}
-			
+			}			
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {}
@@ -422,16 +489,123 @@ public class MainWindow {
 		laden.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent a) {
+		
+				ObjectPersistenceManager ladeManager = new ObjectPersistenceManager();
+//				 = ladeManager.ladeSpiel("test");
+//				MisterXSpiel geladenesSpiel = ladeManager.ladeSpiel("test");
+				spiel = ladeManager.ladeSpiel("test");
+				//spiel = geladenesSpiel.spiel;
+				
+//				getMainWindow() = ladeManager.ladeSpiel("test");
+				
+				
+				bild.add(spieler1);
+				layout1.putConstraint(SpringLayout.WEST, spieler1, spiel.getSp1Loc().x, SpringLayout.WEST, bild);
+				layout1.putConstraint(SpringLayout.NORTH, spieler1, spiel.getSp1Loc().y, SpringLayout.NORTH, bild);
+				bild.add(spieler2);
+				layout1.putConstraint(SpringLayout.WEST, spieler2, spiel.getSp2Loc().x, SpringLayout.WEST, bild);
+				layout1.putConstraint(SpringLayout.NORTH, spieler2, spiel.getSp2Loc().y, SpringLayout.NORTH, bild);
+				if(spiel.getSp3Loc() != null){
+					bild.add(spieler3);
+					layout1.putConstraint(SpringLayout.WEST, spieler3, spiel.getSp3Loc().x, SpringLayout.WEST, bild);
+					layout1.putConstraint(SpringLayout.NORTH, spieler3, spiel.getSp3Loc().y, SpringLayout.NORTH, bild);
+				}
+				if(spiel.getSp4Loc() != null){
+					bild.add(spieler4);
+					layout1.putConstraint(SpringLayout.WEST, spieler3, spiel.getSp4Loc().x, SpringLayout.WEST, bild);
+					layout1.putConstraint(SpringLayout.NORTH, spieler3, spiel.getSp4Loc().y, SpringLayout.NORTH, bild);
+				}
+				if(spiel.getSp5Loc() != null){
+					bild.add(spieler5);
+					layout1.putConstraint(SpringLayout.WEST, spieler3, spiel.getSp5Loc().x, SpringLayout.WEST, bild);
+					layout1.putConstraint(SpringLayout.NORTH, spieler3, spiel.getSp5Loc().y, SpringLayout.NORTH, bild);
+				}
+				if(spiel.getSp6Loc() != null){
+					bild.add(spieler6);
+					layout1.putConstraint(SpringLayout.WEST, spieler3, spiel.getSp6Loc().x, SpringLayout.WEST, bild);
+					layout1.putConstraint(SpringLayout.NORTH, spieler3, spiel.getSp6Loc().y, SpringLayout.NORTH, bild);
+				}
+				if(spiel.getSp7Loc() != null){
+					bild.add(spieler7);
+					layout1.putConstraint(SpringLayout.WEST, spieler3, spiel.getSp7Loc().x, SpringLayout.WEST, bild);
+					layout1.putConstraint(SpringLayout.NORTH, spieler3, spiel.getSp7Loc().y, SpringLayout.NORTH, bild);
+				}
+				if(spiel.getSp8Loc() != null){
+					bild.add(spieler8);
+					layout1.putConstraint(SpringLayout.WEST, spieler3, spiel.getSp8Loc().x, SpringLayout.WEST, bild);
+					layout1.putConstraint(SpringLayout.NORTH, spieler3, spiel.getSp8Loc().y, SpringLayout.NORTH, bild);
+				}
+				
 				bild.remove(menü);
 				bild.add(chips);
 				layout1.putConstraint(SpringLayout.EAST, chips, -100, SpringLayout.EAST, bild);
 				layout1.putConstraint(SpringLayout.NORTH, chips, 50, SpringLayout.NORTH, bild);
+				bild.add(runde);
+				layout1.putConstraint(SpringLayout.EAST, runde, -100, SpringLayout.EAST, bild);
+				layout1.putConstraint(SpringLayout.NORTH, runde, 10, SpringLayout.NORTH, bild);
+				
+				
+				bild.add(mrX);
+				layout1.putConstraint(SpringLayout.EAST, mrX, -100, SpringLayout.EAST, bild);
+				layout1.putConstraint(SpringLayout.SOUTH, mrX, -100, SpringLayout.SOUTH, bild);
+				bild.add(sp);
+				layout1.putConstraint(SpringLayout.EAST, sp, -100, SpringLayout.EAST, bild);
+				layout1.putConstraint(SpringLayout.SOUTH, sp, -60, SpringLayout.SOUTH, bild);
+				
+				
+				if(spiel.getInRunden() > 1){
+	        		zeige.setText(spiel.getInRunden() + " Runden");
+	        	}else{
+	        		zeige.setText(spiel.getInRunden() + " Runde");
+	        	}
+				
+				updateZugLabel(zug);
+				MisterX misterx = (MisterX) spiel.getSpielerByIndex(spiel.getXnr());
+				rundenzahl.setText("Runde: " + Integer.toString(spiel.getRunde()));
+				chips.setBorder(BorderFactory.createTitledBorder(spiel.getSpielSpieler().getName()));
+		        taxizahl.setText((Integer.toString(spiel.getSpielSpieler().getTaxiChips())));
+		        buszahl.setText((Integer.toString(spiel.getSpielSpieler().getBusChips())));
+		        bahnzahl.setText((Integer.toString(spiel.getSpielSpieler().getBahnChips())));
+		        
+		        if(spiel.getSpielSpieler().getName() == misterx.getName()){
+		        	chips.add(blackzahl);
+		        	chips.add(black, "wrap");
+		        	chips.add(zweixzahl);
+		        	chips.add(zweix);
+		        	blackzahl.setText((Integer.toString(((MisterX) spiel.getSpielSpieler()).getBlackTickets())));
+		        	zweixzahl.setText((Integer.toString(((MisterX) spiel.getSpielSpieler()).getDoubleChips())));
+			        	
+		        }else{
+		        	chips.remove(blackzahl);
+		        	chips.remove(black);
+		        	chips.remove(zweixzahl);
+		        	chips.remove(zweix);
+		        }
+				
+
 				frame.pack();
 				
-				System.out.println("HALLO");
-				ObjectPersistenceManager ladeManager = new ObjectPersistenceManager();
-				spiel = ladeManager.ladeSpiel("test");
-				xnr=spiel.getXnr();
+				System.out.println("Spiel wurde geladen");
+				
+				
+				
+//				for(int i=0; i<frame.getWidth(); i++){
+//					for(int j=0; j<frame.getHeight(); j++){
+//						
+//						int rgb = image.getRGB(i, j);
+//				        Color c = new Color(rgb);
+//				        farbeladen = c.getRed();
+//				        System.out.println(spieler.getStandort().getName());
+////				        if(farbeladen+"" == spieler.getStandort().getName()){
+//				        
+//					        bild.add(spieler1);
+//					        layout1.putConstraint(SpringLayout.WEST, spieler1, i-10, SpringLayout.WEST, bild);
+//					        layout1.putConstraint(SpringLayout.NORTH, spieler1, j-10, SpringLayout.NORTH, bild);
+//		        	
+////				        }
+//					        
+//					}
+//				}
 				
 			}
 		});
@@ -450,10 +624,9 @@ public class MainWindow {
 				
 					
 
-				Integer stationsnr = farbe;
 				try{	
 					if(ok && stationFeld.getText() != "Karte klicken"){
-						Station station = spiel.getStationByIndex(stationsnr-1);
+						Station station = spiel.getStationByIndex(spiel.getFarbe()-1);
 						//System.out.println(station);
 						Spieler neuerSpieler = new Spieler(name);
 						neuerSpieler.setStandort(station);
@@ -471,7 +644,7 @@ public class MainWindow {
 //					System.out.println("Spieler mit dem Namen " + name + " existiert bereits.");
 				}
 				
-				if(xnr != -1 && spiel.getLength() > 1){
+				if(spiel.getXnr() != -1 && spiel.getLength() > 1){
 					starten.setEnabled(true);
 				}
 			}
@@ -491,18 +664,16 @@ public class MainWindow {
 				}
 
 				
-				String stationsnr = stationFeld.getText();
 				try{	
 					if(ok && stationFeld.getText() != "Karte klicken"){
-						Station station = spiel.getStationByIndex(Integer.parseInt(stationsnr)-1);
+						Station station = spiel.getStationByIndex(spiel.getFarbe()-1);
 						//System.out.println(station);
 						Spieler neuerSpieler = new MisterX(name);
 						neuerSpieler.setStandort(station);
 						spiel.spielerHinzufügen(neuerSpieler);
 						//System.out.println("Mister X mit dem Namen " + name + " wurde angelegt.");
 						System.out.println(neuerSpieler + " (Mister X)");
-						xnr=spiel.getLength()-1;
-						spiel.setXnr(xnr);
+						spiel.setXnr(spiel.getLength()-1);
 						
 						nameFeld.setText("");
 						stationFeld.setText("Karte klicken");
@@ -515,7 +686,7 @@ public class MainWindow {
 				System.out.println("Spieler mit dem Namen " + name + " existiert bereits.");	
 				}
 				
-				if(xnr != -1 && spiel.getLength() > 1){
+				if(spiel.getXnr() != -1 && spiel.getLength() > 1){
 					starten.setEnabled(true);
 				}
 			}
@@ -527,7 +698,7 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent a) {
 				
 				for (int j = 0; j < 5; j++) {
-					Station strasse = spiel.getStationByIndex(j);
+//					Station strasse = spiel.getStationByIndex(j);
 					//System.out.println();
 					//System.out.println(spiel.toString());
 					//System.out.println(strasse.getName());
@@ -540,68 +711,187 @@ public class MainWindow {
 				layout1.putConstraint(SpringLayout.EAST, chips, -100, SpringLayout.EAST, bild);
 				layout1.putConstraint(SpringLayout.NORTH, chips, 50, SpringLayout.NORTH, bild);
 				bild.add(runde);
-				rundenzahl.setText("los gehts");
 				layout1.putConstraint(SpringLayout.EAST, runde, -100, SpringLayout.EAST, bild);
 				layout1.putConstraint(SpringLayout.NORTH, runde, 10, SpringLayout.NORTH, bild);
-				frame.pack();
+//				bild.add(lepos);
+//				layout1.putConstraint(SpringLayout.EAST, lepos, -100, SpringLayout.EAST, bild);
+//				layout1.putConstraint(SpringLayout.SOUTH, lepos, -50, SpringLayout.SOUTH, bild);				
+//				bild.add(lezug);
+//				layout1.putConstraint(SpringLayout.EAST, lezug, -100, SpringLayout.EAST, bild);
+//				layout1.putConstraint(SpringLayout.SOUTH, lezug, -100, SpringLayout.SOUTH, bild);
+				bild.add(mrX);
+				layout1.putConstraint(SpringLayout.EAST, mrX, -100, SpringLayout.EAST, bild);
+				layout1.putConstraint(SpringLayout.SOUTH, mrX, -100, SpringLayout.SOUTH, bild);
+				bild.add(sp);
+				layout1.putConstraint(SpringLayout.EAST, sp, -100, SpringLayout.EAST, bild);
+				layout1.putConstraint(SpringLayout.SOUTH, sp, -60, SpringLayout.SOUTH, bild);
 //				bild.add(chips2);
 //				layout1.putConstraint(SpringLayout.EAST, chips2, -100, SpringLayout.EAST, bild);
 //				layout1.putConstraint(SpringLayout.NORTH, chips2, 300, SpringLayout.NORTH, bild);
-//				frame.pack();
+				frame.pack();
 				System.out.println();
 				System.out.println("Spiel wurde gestartet!");
 				System.out.println();
 				
 				//aktionAusfuehren();
-				XX = true;
+				spiel.setSpielbar(true);
 				weiter();
 //				i = 1;
 
-				MisterX misterx = (MisterX) spiel.getSpielerByIndex(xnr);
-				chips.setBorder(BorderFactory.createTitledBorder(spieler.getName()));
-		        taxizahl.setText((Integer.toString(spieler.getTaxiChips())));
-		        buszahl.setText((Integer.toString(spieler.getBusChips())));
-		        bahnzahl.setText((Integer.toString(spieler.getBahnChips())));
+				MisterX misterx = (MisterX) spiel.getSpielerByIndex(spiel.getXnr());
+				chips.setBorder(BorderFactory.createTitledBorder(spiel.getSpielSpieler().getName()));
+		        taxizahl.setText((Integer.toString(spiel.getSpielSpieler().getTaxiChips())));
+		        buszahl.setText((Integer.toString(spiel.getSpielSpieler().getBusChips())));
+		        bahnzahl.setText((Integer.toString(spiel.getSpielSpieler().getBahnChips())));
 		        
-		        if(spieler.getName() == misterx.getName()){
+		        if(spiel.getSpielSpieler().getName() == misterx.getName()){
 		        	chips.add(blackzahl);
 		        	chips.add(black, "wrap");
 		        	chips.add(zweixzahl);
 		        	chips.add(zweix);
-		        	blackzahl.setText((Integer.toString(((MisterX) spieler).getBlackTickets())));
-		        	zweixzahl.setText((Integer.toString(((MisterX) spieler).getDoubleChips())));
+		        	blackzahl.setText((Integer.toString(((MisterX) spiel.getSpielSpieler()).getBlackTickets())));
+		        	zweixzahl.setText((Integer.toString(((MisterX) spiel.getSpielSpieler()).getDoubleChips())));
+			        	
 		        }else{
 		        	chips.remove(blackzahl);
 		        	chips.remove(black);
 		        	chips.remove(zweixzahl);
 		        	chips.remove(zweix);
 		        }
+
+	        	zeige.setText("3 Runden");
+				frame.pack();
 			}
 		});
 		
 		
 		
+		
+		black.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseClicked(MouseEvent m) {
+				MisterX misterx = (MisterX) spiel.getSpielerByIndex(spiel.getXnr());
+				black.removeAll();
+				if(!spiel.getAktb() && misterx.getBlackTickets()>0){
+					black.add(new JLabel(new ImageIcon("images/blackakt.png")));
+					spiel.setAktb(true);
+				}else{
+					black.add(new JLabel(new ImageIcon("images/black.png")));
+					spiel.setAktb(false);
+				}
+				frame.pack();
+				
+				
+			}
+
+			
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+			@Override
+			public void mousePressed(MouseEvent arg0) {}
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}			
+		});
+		
+		
+		
+		
+		zweix.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseClicked(MouseEvent m) {
+				MisterX misterx = (MisterX) spiel.getSpielerByIndex(spiel.getXnr());
+				zweix.removeAll();
+				if(!spiel.getAkt2() && misterx.getDoubleChips()>0){
+					zweix.add(new JLabel(new ImageIcon("images/2xakt.png")));
+					spiel.setAkt2(true);
+				}else{
+					zweix.add(new JLabel(new ImageIcon("images/2x.png")));
+					spiel.setAkt2(false);
+				}
+				frame.pack();
+				
+				
+			}
+
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+			@Override
+			public void mousePressed(MouseEvent arg0) {}
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}			
+		});
+		
+		
+		
+		
+		speichern.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent a) {
+//				Point point = new Point();
+//				point.
+				spiel.setSp1Loc(spieler1.getLocation());
+				spiel.setSp2Loc(spieler2.getLocation());
+				if(spieler3.getX()>0){
+					spiel.setSp3Loc(spieler3.getLocation());
+				}
+				if(spieler4.getX()>0){
+					spiel.setSp4Loc(spieler4.getLocation());
+				}
+				if(spieler5.getX()>0){
+					spiel.setSp5Loc(spieler5.getLocation());
+				}
+				if(spieler6.getX()>0){
+					spiel.setSp6Loc(spieler6.getLocation());
+				}
+				if(spieler7.getX()>0){
+					spiel.setSp7Loc(spieler7.getLocation());
+				}
+				if(spieler8.getX()>0){
+					spiel.setSp8Loc(spieler8.getLocation());
+				}
+				
+				
+				ObjectPersistenceManager objectPersistenceManager = new ObjectPersistenceManager();
+				objectPersistenceManager.speichereSpiel(spiel, "test");
+				
+				System.out.println("");
+				System.out.println("Spiel wurde gepeichert!");
+				System.out.println("");
+			}
+		});
+		
 	}
+	
+	
+	
 	
 	
 	public void weiter(){
 		
 
-		MisterX misterx = (MisterX) spiel.getSpielerByIndex(xnr);
+		MisterX misterx = (MisterX) spiel.getSpielerByIndex(spiel.getXnr());
 		
 		
-		if(Integer.parseInt(sonderchips) != 3 && Integer.parseInt(sonderchips) != 4){
-			i = (i+1) % spiel.getLength();
-			spieler = spiel.getSpielerByIndex(i);
+		if(spiel.getSonderchips() != 3 && spiel.getSonderchips() != 4){
+			spiel.setDran((spiel.getDran()+1) % spiel.getLength());
+			spiel.setSpielSpieler(spiel.getSpielerByIndex(spiel.getDran()));
 		}
 		
-		sonderchips = "1";
+		spiel.setSonderchips(1);
 		
 		
 		//speichern
 		
 		
-		if(i==0){
+		if(spiel.getDran()==0){
 			spiel.getNaechsteRunde();
 			System.out.println("Runde " + spiel.getRunde());
 		}
@@ -609,8 +899,8 @@ public class MainWindow {
 		
 		
 
-		if(xnr+1 < spiel.getLength()){
-			if(i == xnr+1){
+		if(spiel.getXnr()+1 < spiel.getLength()){
+			if(spiel.getDran() == spiel.getXnr()+1){
 				if(spiel.getLetzterXZug() != null){
 					System.out.println("Letztes Verkehrsmittel von Mister X: " + spiel.getLetzterXZug());
 				}		
@@ -619,7 +909,7 @@ public class MainWindow {
 				}
 			}
 		}else{
-			if(i == 0){
+			if(spiel.getDran() == 0){
 				if(spiel.getLetzterXZug() != null){
 					System.out.println("Letztes Verkehrsmittel von Mister X: " + spiel.getLetzterXZug());
 				}		
@@ -630,7 +920,7 @@ public class MainWindow {
 		}
 		
 
-		System.out.println(spieler.getName() + " ist an der Reihe");
+		System.out.println(spiel.getSpielSpieler().getName() + " ist an der Reihe");
 	}
 	
 	
@@ -639,12 +929,12 @@ public class MainWindow {
 	public boolean kontrolle(){
 
 
-		Iterator<Station> nachbIterator = spieler.getStandort().getTaxiNachbarn().iterator();
+		Iterator<Station> nachbIterator = spiel.getSpielSpieler().getStandort().getTaxiNachbarn().iterator();
 		//if(spieler.getTaxiChips()>0){
 			if(nachbIterator.hasNext()){
 				while (nachbIterator.hasNext()) {
-					if(nachbIterator.next().getName().equals(""+farbe)){
-						verk = 1;
+					if(nachbIterator.next().getName().equals(""+spiel.getFarbe())){
+						spiel.setVerk(1);
 						return true;
 					}
 				}
@@ -652,24 +942,24 @@ public class MainWindow {
 		//}
 
 		
-		nachbIterator = spieler.getStandort().getBusNachbarn().iterator();
-		if(spieler.getBusChips()>0){
+		nachbIterator = spiel.getSpielSpieler().getStandort().getBusNachbarn().iterator();
+		if(spiel.getSpielSpieler().getBusChips()>0){
 			if(nachbIterator.hasNext()){
 				while (nachbIterator.hasNext()) {
-					if(nachbIterator.next().getName().equals(""+farbe)){
-						verk = 2;
+					if(nachbIterator.next().getName().equals(""+spiel.getFarbe())){
+						spiel.setVerk(2);
 						return true;
 					}
 				}
 			}
 		}
 		
-		nachbIterator = spieler.getStandort().getBahnNachbarn().iterator();
-		if(spieler.getBahnChips()>0){
+		nachbIterator = spiel.getSpielSpieler().getStandort().getBahnNachbarn().iterator();
+		if(spiel.getSpielSpieler().getBahnChips()>0){
 			if(nachbIterator.hasNext()){
 				while (nachbIterator.hasNext()) {
-					if(nachbIterator.next().getName().equals(""+farbe)){
-						verk = 3;
+					if(nachbIterator.next().getName().equals(""+spiel.getFarbe())){
+						spiel.setVerk(3);
 						return true;
 					}
 				}
@@ -685,7 +975,7 @@ public class MainWindow {
 	
 	public void aktionAusfuehren(){
 
-		MisterX misterx = (MisterX) spiel.getSpielerByIndex(xnr);
+		MisterX misterx = (MisterX) spiel.getSpielerByIndex(spiel.getXnr());
 		
 		
 		
@@ -700,7 +990,7 @@ public class MainWindow {
 //		
 		
 		
-		if(spieler.getTaxiChips()==0 && spieler.getBusChips()==0 && spieler.getBahnChips()==0){
+		if(spiel.getSpielSpieler().getTaxiChips()==0 && spiel.getSpielSpieler().getBusChips()==0 && spiel.getSpielSpieler().getBahnChips()==0){
 			System.out.println("Spiel zuende!");
 		}
 		
@@ -730,21 +1020,34 @@ public class MainWindow {
 //		System.out.println("test " +farbe + " "+ nachbar);
 		
 		
-		if(verk == 1){
-			station = spiel.getStationByIndex(farbe-1);
-			spiel.taxiFahren(station, spieler, misterx, sonderchips);
+		if(spiel.getAkt2()){
+			spiel.setSonderchips(3);
 		}
-
-		if(verk == 2){
-			station = spiel.getStationByIndex(farbe-1);
-			spiel.busFahren(station, spieler, misterx, sonderchips);
-		}
-
-		if(verk == 3){
-			station = spiel.getStationByIndex(farbe-1);
-			spiel.bahnFahren(station, spieler, misterx, sonderchips);
+		if(spiel.getAktb()){
+			spiel.setSonderchips(2);
+			if(spiel.getAkt2()){
+				spiel.setSonderchips(4);
+			}
 		}
 		
+		spiel.setAktb(false);
+		spiel.setAkt2(false);
+		
+		
+		if(spiel.getVerk() == 1){
+			spiel.taxiFahren(spiel.getStationByIndex(spiel.getFarbe()-1), spiel.getSpielSpieler(), misterx);
+		}
+
+		if(spiel.getVerk() == 2){
+			spiel.busFahren(spiel.getStationByIndex(spiel.getFarbe()-1), spiel.getSpielSpieler(), misterx);
+		}
+
+		if(spiel.getVerk() == 3){
+			spiel.bahnFahren(spiel.getStationByIndex(spiel.getFarbe()-1), spiel.getSpielSpieler(), misterx);
+		}
+		
+		
+		//spiel.getLetzterXZug()
 		
 //		
 ////		nachbIterator = spieler.getStandort().getBusNachbarn().iterator();
@@ -795,7 +1098,7 @@ public class MainWindow {
 //			}
 //		}
 		
-		System.out.println("Du stehst nun an der " + spieler.getStandort());
+		System.out.println("Du stehst nun an der " + spiel.getSpielSpieler().getStandort());
 		System.out.println();
 		
 		
@@ -838,6 +1141,30 @@ public class MainWindow {
         return true;
     }
 
+	private void updateZugLabel(JLabel zug) {
+		int nul=-1;
+		for(int l=0; l<6; l++){
+			if(spiel.getKfz(l) == null){
+				nul = l;
+			}
+		}
+
+		switch(nul){
+		case -1:zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"<br>"+spiel.getKfz(3)+"<br>"+spiel.getKfz(2)+"<br>"+spiel.getKfz(1)+"<br>"+spiel.getKfz(0)+"</html>");
+		break;
+		case 0 :zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"<br>"+spiel.getKfz(3)+"<br>"+spiel.getKfz(2)+"<br>"+spiel.getKfz(1)+"</html>");
+		break;
+		case 1 :zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"<br>"+spiel.getKfz(3)+"<br>"+spiel.getKfz(2)+"</html>");
+		break;
+		case 2 :zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"<br>"+spiel.getKfz(3)+"</html>");
+		break;
+		case 3 :zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"</html>");
+		break;
+		case 4 :zug.setText("<html>" + spiel.getKfz(5)+"</html>");
+		break;
+		default: zug.setText("nicht gefahren");
+		}
+	}
 
 
 
