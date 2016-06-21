@@ -25,7 +25,7 @@ public class Bg extends JPanel {
 		image = icon.getImage();
 		super.paintComponent(g);
 		if(image != null){
-			g.drawImage(image, 0, 0,this.getWidth(),this.getHeight(), null);
+			g.drawImage(image, 0, 0,1600,900, null);
 		}
 		
 	}

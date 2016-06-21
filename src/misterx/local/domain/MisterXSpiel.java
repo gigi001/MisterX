@@ -1,5 +1,6 @@
 package misterx.local.domain;
 
+import java.awt.Point;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
@@ -31,15 +32,66 @@ public class MisterXSpiel implements Serializable {
 	private int dran = -1;
 	private int inRunden;
 	private Spieler spieler;
-	private int sp1X;
-	private int sp1Y;
+	private Point point1;
+	private Point point2;
+	private Point point3;
+	private Point point4;
+	private Point point5;
+	private Point point6;
+	private Point point7;
+	private Point point8;
 	//private PersistenceManager pm = new FilePersistenceManager();
 	
 //	private List<Spieler> SpielerStand = new Vector<Spieler>();
 		
-	public void setSp1Pos(int x, int y) {
-		this.sp1X = x;
-		this.sp1Y = y;
+	public void setSp1Loc(Point point) {
+		this.point1 = point;
+	}
+	public void setSp2Loc(Point point) {
+		this.point2 = point;
+	}
+	public void setSp3Loc(Point point) {
+		this.point3 = point;
+	}
+	public void setSp4Loc(Point point) {
+		this.point4 = point;
+	}
+	public void setSp5Loc(Point point) {
+		this.point5 = point;
+	}
+	public void setSp6Loc(Point point) {
+		this.point6 = point;
+	}
+	public void setSp7Loc(Point point) {
+		this.point7 = point;
+	}
+	public void setSp8Loc(Point point) {
+		this.point8 = point;
+	}
+	
+	public Point getSp1Loc() {
+		return point1;
+	}
+	public Point getSp2Loc() {
+		return point2;
+	}
+	public Point getSp3Loc() {
+		return point3;
+	}
+	public Point getSp4Loc() {
+		return point4;
+	}
+	public Point getSp5Loc() {
+		return point5;
+	}
+	public Point getSp6Loc() {
+		return point6;
+	}
+	public Point getSp7Loc() {
+		return point7;
+	}
+	public Point getSp8Loc() {
+		return point8;
 	}
 	
 	

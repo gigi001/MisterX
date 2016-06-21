@@ -494,11 +494,13 @@ public class StadtVerw implements Serializable{
 				meineStationen.add(s134);
 				meineStationen.add(s135);
 				
-		// Erstes Feld
+				// Erstes Feld
 
 				s1.addTaxiNachbar(s3);
 				s1.addTaxiNachbar(s6);
+				s1.addTaxiNachbar(s12);
 				s1.addBusNachbar(s4);
+				s1.addBusNachbar(s16);
 				s1.addBusNachbar(s19);
 				s1.addBahnNachbar(s4);
 				s1.addBahnNachbar(s44);
@@ -680,7 +682,7 @@ public class StadtVerw implements Serializable{
 
 				s50.addTaxiNachbar(s49);
 				s50.addTaxiNachbar(s51);
-			        s50.addTaxiNachbar(s67);
+			    s50.addTaxiNachbar(s67);
 				s50.addTaxiNachbar(s80);
 
 				s51.addTaxiNachbar(s36);
@@ -705,7 +707,7 @@ public class StadtVerw implements Serializable{
 				s53.addBahnNachbar(s44);
 				s53.addBahnNachbar(s108);
 
-//		 		Zweites Feld
+		// Zweites Feld
 
 				s12.addTaxiNachbar(s1);
 				s12.addTaxiNachbar(s11);
@@ -749,7 +751,7 @@ public class StadtVerw implements Serializable{
 				s27.addTaxiNachbar(s26);
 				s27.addTaxiNachbar(s28);
 				s27.addTaxiNachbar(s58);
-				s27.addBusNachbar(s16);
+				s27.addBusNachbar(s25);
 				s27.addBusNachbar(s29);
 				s27.addBusNachbar(s71);
 			
@@ -803,6 +805,7 @@ public class StadtVerw implements Serializable{
 				s54.addBusNachbar(s16);		
 				s54.addBusNachbar(s56);
 				s54.addBusNachbar(s82);
+				s54.addBahnNachbar(s1);
 				s54.addBahnNachbar(s88);
 				s54.addBahnNachbar(s119);
 
@@ -843,7 +846,7 @@ public class StadtVerw implements Serializable{
 				s61.addTaxiNachbar(s44);
 				s61.addTaxiNachbar(s62);
 				s61.addTaxiNachbar(s64);
-				s61.addTaxiNachbar(s76);
+				
 
 				s62.addTaxiNachbar(s60);
 				s62.addTaxiNachbar(s61);
@@ -933,7 +936,7 @@ public class StadtVerw implements Serializable{
 
 
 				s47.addTaxiNachbar(s46);
-				s47.addTaxiNachbar(s63);
+				s47.addTaxiNachbar(s64);
 				s47.addTaxiNachbar(s66);
 
 				s63.addTaxiNachbar(s62);
@@ -1127,7 +1130,7 @@ public class StadtVerw implements Serializable{
 				s135.addTaxiNachbar(s129);
 				s135.addTaxiNachbar(s134);
 				s135.addBusNachbar(s108);
-				s135.addBusNachbar(s130);
+				s135.addBusNachbar(s132);
 
 
 
@@ -1140,7 +1143,9 @@ public class StadtVerw implements Serializable{
 				s69.addTaxiNachbar(s56);
 				s69.addTaxiNachbar(s68);
 				s69.addTaxiNachbar(s70);
-				s69.addTaxiNachbar(s73);
+				s69.addTaxiNachbar(s83);
+				s69.addBusNachbar(s56);
+				s69.addBusNachbar(s100);
 
 				s70.addTaxiNachbar(s69);
 				s70.addTaxiNachbar(s71);
@@ -1218,8 +1223,8 @@ public class StadtVerw implements Serializable{
 				s103.addTaxiNachbar(s113);
 				s103.addTaxiNachbar(s114);
 				s103.addBusNachbar(s93);
+				s103.addBusNachbar(s111);
 				s103.addBusNachbar(s114);
-				s103.addBusNachbar(s119);
 				s103.addBusNachbar(s123);
 
 				s109.addTaxiNachbar(s100);
@@ -1237,10 +1242,13 @@ public class StadtVerw implements Serializable{
 				s111.addTaxiNachbar(s110);
 				s111.addTaxiNachbar(s112);
 				s111.addTaxiNachbar(s121);
+				s111.addBusNachbar(s90);
+				s111.addBusNachbar(s103);
+				s111.addBusNachbar(s119);
 
 				s112.addTaxiNachbar(s102);
 				s112.addTaxiNachbar(s111);
-				s112.addTaxiNachbar(s113);
+				s112.addTaxiNachbar(s123);
 
 				s113.addTaxiNachbar(s103);
 				s113.addTaxiNachbar(s123);
@@ -1279,6 +1287,8 @@ public class StadtVerw implements Serializable{
 				s124.addTaxiNachbar(s113);
 				s124.addTaxiNachbar(s123);
 				s124.addTaxiNachbar(s130);
+
+
 
 		
 		

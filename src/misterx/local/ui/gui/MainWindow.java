@@ -115,6 +115,11 @@ public class MainWindow implements Serializable{
 		JLabel spieler1 = new JLabel(new ImageIcon("images/Spieler1.png"));
 		JLabel spieler2 = new JLabel(new ImageIcon("images/Spieler2.png"));
 		JLabel spieler3 = new JLabel(new ImageIcon("images/Spieler3.png"));
+		JLabel spieler4 = new JLabel(new ImageIcon("images/Spieler4.png"));
+		JLabel spieler5 = new JLabel(new ImageIcon("images/Spieler5.png"));
+		JLabel spieler6 = new JLabel(new ImageIcon("images/Spieler6.png"));
+		JLabel spieler7 = new JLabel(new ImageIcon("images/Spieler7.png"));
+		JLabel spieler8 = new JLabel(new ImageIcon("images/Spieler8.png"));
 
 		BufferedImage image = ImageIO.read(new File("images/punkte.png"));
 		
@@ -236,11 +241,10 @@ public class MainWindow implements Serializable{
 		bild.setLayout(layout1);	
 		bild.add(panel);
 		
-		Dimension dim1 = new Dimension(200, 200);
 		
 		frame.add(bild);
-		frame.setMinimumSize(dim1);
-		frame.setPreferredSize(new Dimension(1620, 950));
+		frame.setMinimumSize(new Dimension(1620, 950));
+		
 		frame.pack();
 		frame.setVisible(true);
 	
@@ -296,9 +300,7 @@ public class MainWindow implements Serializable{
 			        	if(spiel.getLength() == 0){
 							bild.add(spieler1);
 					        layout1.putConstraint(SpringLayout.WEST, spieler1, a-10, SpringLayout.WEST, bild);
-					        contstraints.add(new Constraint(SpringLayout.WEST, spieler1, a-10, SpringLayout.WEST, bild));
 					        layout1.putConstraint(SpringLayout.NORTH, spieler1, b-10, SpringLayout.NORTH, bild);
-					        contstraints.add(new Constraint(SpringLayout.NORTH, spieler1, b-10, SpringLayout.NORTH, bild));
 			        	}
 			        	if(spiel.getLength() == 1){
 			        		bild.add(spieler2);
@@ -310,7 +312,31 @@ public class MainWindow implements Serializable{
 					        layout1.putConstraint(SpringLayout.WEST, spieler3, a-10, SpringLayout.WEST, bild);
 					        layout1.putConstraint(SpringLayout.NORTH, spieler3, b-10, SpringLayout.NORTH, bild);
 			        	}
-			        	
+			        	if(spiel.getLength() == 3){
+		        			bild.add(spieler4);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler4, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler4, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getLength() == 4){
+		        			bild.add(spieler5);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler5, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler5, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getLength() == 5){
+		        			bild.add(spieler6);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler6, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler6, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getLength() == 6){
+		        			bild.add(spieler7);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler7, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler7, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getLength() == 7){
+		        			bild.add(spieler8);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler8, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler8, b-10, SpringLayout.NORTH, bild);
+		        		}
 		        	}
 			        
 			        
@@ -339,6 +365,36 @@ public class MainWindow implements Serializable{
 		        			bild.add(spieler3);
 		        			layout1.putConstraint(SpringLayout.WEST, spieler3, a-10, SpringLayout.WEST, bild);
 					        layout1.putConstraint(SpringLayout.NORTH, spieler3, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getDran()==3){
+		        			bild.remove(spieler4);
+		        			bild.add(spieler4);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler4, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler4, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getDran()==4){
+		        			bild.remove(spieler5);
+		        			bild.add(spieler5);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler5, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler5, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getDran()==5){
+		        			bild.remove(spieler6);
+		        			bild.add(spieler6);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler6, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler6, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getDran()==6){
+		        			bild.remove(spieler7);
+		        			bild.add(spieler7);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler7, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler7, b-10, SpringLayout.NORTH, bild);
+		        		}
+		        		if(spiel.getDran()==7){
+		        			bild.remove(spieler8);
+		        			bild.add(spieler8);
+		        			layout1.putConstraint(SpringLayout.WEST, spieler8, a-10, SpringLayout.WEST, bild);
+					        layout1.putConstraint(SpringLayout.NORTH, spieler8, b-10, SpringLayout.NORTH, bild);
 		        		}
 
 			        	aktionAusfuehren();
@@ -455,13 +511,47 @@ public class MainWindow implements Serializable{
 //				getMainWindow() = ladeManager.ladeSpiel("test");
 				
 				
+				bild.add(spieler1);
+				layout1.putConstraint(SpringLayout.WEST, spieler1, spiel.getSp1Loc().x, SpringLayout.WEST, bild);
+				layout1.putConstraint(SpringLayout.NORTH, spieler1, spiel.getSp1Loc().y, SpringLayout.NORTH, bild);
+				bild.add(spieler2);
+				layout1.putConstraint(SpringLayout.WEST, spieler2, spiel.getSp2Loc().x, SpringLayout.WEST, bild);
+				layout1.putConstraint(SpringLayout.NORTH, spieler2, spiel.getSp2Loc().y, SpringLayout.NORTH, bild);
+				if(spiel.getSp3Loc() != null){
+					bild.add(spieler3);
+					layout1.putConstraint(SpringLayout.WEST, spieler3, spiel.getSp3Loc().x, SpringLayout.WEST, bild);
+					layout1.putConstraint(SpringLayout.NORTH, spieler3, spiel.getSp3Loc().y, SpringLayout.NORTH, bild);
+				}
+				if(spiel.getSp4Loc() != null){
+					bild.add(spieler4);
+					layout1.putConstraint(SpringLayout.WEST, spieler3, spiel.getSp4Loc().x, SpringLayout.WEST, bild);
+					layout1.putConstraint(SpringLayout.NORTH, spieler3, spiel.getSp4Loc().y, SpringLayout.NORTH, bild);
+				}
+				if(spiel.getSp5Loc() != null){
+					bild.add(spieler5);
+					layout1.putConstraint(SpringLayout.WEST, spieler3, spiel.getSp5Loc().x, SpringLayout.WEST, bild);
+					layout1.putConstraint(SpringLayout.NORTH, spieler3, spiel.getSp5Loc().y, SpringLayout.NORTH, bild);
+				}
+				if(spiel.getSp6Loc() != null){
+					bild.add(spieler6);
+					layout1.putConstraint(SpringLayout.WEST, spieler3, spiel.getSp6Loc().x, SpringLayout.WEST, bild);
+					layout1.putConstraint(SpringLayout.NORTH, spieler3, spiel.getSp6Loc().y, SpringLayout.NORTH, bild);
+				}
+				if(spiel.getSp7Loc() != null){
+					bild.add(spieler7);
+					layout1.putConstraint(SpringLayout.WEST, spieler3, spiel.getSp7Loc().x, SpringLayout.WEST, bild);
+					layout1.putConstraint(SpringLayout.NORTH, spieler3, spiel.getSp7Loc().y, SpringLayout.NORTH, bild);
+				}
+				if(spiel.getSp8Loc() != null){
+					bild.add(spieler8);
+					layout1.putConstraint(SpringLayout.WEST, spieler3, spiel.getSp8Loc().x, SpringLayout.WEST, bild);
+					layout1.putConstraint(SpringLayout.NORTH, spieler3, spiel.getSp8Loc().y, SpringLayout.NORTH, bild);
+				}
 				
-
 				bild.remove(menü);
 				bild.add(chips);
 				layout1.putConstraint(SpringLayout.EAST, chips, -100, SpringLayout.EAST, bild);
 				layout1.putConstraint(SpringLayout.NORTH, chips, 50, SpringLayout.NORTH, bild);
-				frame.pack();
 				bild.add(runde);
 				layout1.putConstraint(SpringLayout.EAST, runde, -100, SpringLayout.EAST, bild);
 				layout1.putConstraint(SpringLayout.NORTH, runde, 10, SpringLayout.NORTH, bild);
@@ -504,7 +594,8 @@ public class MainWindow implements Serializable{
 		        	chips.remove(zweix);
 		        }
 				
-				
+
+				frame.pack();
 				
 				System.out.println("Spiel wurde geladen");
 				
@@ -758,7 +849,27 @@ public class MainWindow implements Serializable{
 			public void actionPerformed(ActionEvent a) {
 //				Point point = new Point();
 //				point.
-//				spiel.setSp1Pos(spieler1.getLocation());
+				spiel.setSp1Loc(spieler1.getLocation());
+				spiel.setSp2Loc(spieler2.getLocation());
+				if(spieler3.getX()>0){
+					spiel.setSp3Loc(spieler3.getLocation());
+				}
+				if(spieler4.getX()>0){
+					spiel.setSp4Loc(spieler4.getLocation());
+				}
+				if(spieler5.getX()>0){
+					spiel.setSp5Loc(spieler5.getLocation());
+				}
+				if(spieler6.getX()>0){
+					spiel.setSp6Loc(spieler6.getLocation());
+				}
+				if(spieler7.getX()>0){
+					spiel.setSp7Loc(spieler7.getLocation());
+				}
+				if(spieler8.getX()>0){
+					spiel.setSp8Loc(spieler8.getLocation());
+				}
+				
 				
 				ObjectPersistenceManager objectPersistenceManager = new ObjectPersistenceManager();
 				objectPersistenceManager.speichereSpiel(spiel, "test");
