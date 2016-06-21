@@ -17,9 +17,10 @@ public interface PersistenceManager {
 	
 	public boolean close();
 		
-	public MainWindow ladeSpiel(String datenQuelle) throws IOException;
+	public MisterXSpiel ladeSpiel(String datenQuelle) throws IOException;
 	
-	public void  speichereSpiel(MainWindow s, String datenQuelle) throws IOException;
+	public void  speichereSpiel(MisterXSpiel s, String datenQuelle) throws IOException;
+
 
 	
 }

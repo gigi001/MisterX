@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -13,6 +14,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -45,7 +48,7 @@ public class MainWindow implements Serializable{
 	 */
 	
 	private MisterXSpiel spiel = new MisterXSpiel();
-	//private Spieler spieler;
+	private List<Constraint> contstraints = new Vector<>();
 	
 	public MainWindow() {
 		try {
@@ -97,7 +100,8 @@ public class MainWindow implements Serializable{
 		gewonnen.setFont(f1);
 		JLabel rundenzahl = new JLabel("los gehts!");
 		rundenzahl.setFont(f1);
-		JLabel zug = new JLabel("nicht gefahren");
+		JLabel zug = new JLabel();
+		updateZugLabel(zug);
 		zug.setFont(f1);
 		JLabel zeige = new JLabel("Position");
 		zeige.setFont(f1);
@@ -236,7 +240,8 @@ public class MainWindow implements Serializable{
 		
 		frame.add(bild);
 		frame.setMinimumSize(dim1);
-		//frame.pack();
+		frame.setPreferredSize(new Dimension(1620, 950));
+		frame.pack();
 		frame.setVisible(true);
 	
 		
@@ -291,7 +296,9 @@ public class MainWindow implements Serializable{
 			        	if(spiel.getLength() == 0){
 							bild.add(spieler1);
 					        layout1.putConstraint(SpringLayout.WEST, spieler1, a-10, SpringLayout.WEST, bild);
+					        contstraints.add(new Constraint(SpringLayout.WEST, spieler1, a-10, SpringLayout.WEST, bild));
 					        layout1.putConstraint(SpringLayout.NORTH, spieler1, b-10, SpringLayout.NORTH, bild);
+					        contstraints.add(new Constraint(SpringLayout.NORTH, spieler1, b-10, SpringLayout.NORTH, bild));
 			        	}
 			        	if(spiel.getLength() == 1){
 			        		bild.add(spieler2);
@@ -341,7 +348,7 @@ public class MainWindow implements Serializable{
 			    		black.add(new JLabel(new ImageIcon("images/black.png")));
 			    		zweix.add(new JLabel(new ImageIcon("images/2x.png")));
 			        	
-			        	if(spieler.getName() == misterx.getName()){
+			        	if(spiel.getSpielSpieler().getName() == misterx.getName()){
 			        	
 				        	for(int l=0; l<5; l++){
 				        		spiel.setKfz(spiel.getKfz(l+1), l);
@@ -354,27 +361,7 @@ public class MainWindow implements Serializable{
 				        		spiel.setKfz(spiel.getLetzterXZug(), 5);
 				        	}
 				        	
-				        	int nul=-1;
-				        	for(int l=0; l<5; l++){
-				        		if(spiel.getKfz(l) == null){
-				        			nul = l;
-				        		}
-				        	}
-
-				        	switch(nul){
-				        	case -1:zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"<br>"+spiel.getKfz(3)+"<br>"+spiel.getKfz(2)+"<br>"+spiel.getKfz(1)+"<br>"+spiel.getKfz(0)+"</html>");
-				        	break;
-				        	case 0 :zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"<br>"+spiel.getKfz(3)+"<br>"+spiel.getKfz(2)+"<br>"+spiel.getKfz(1)+"</html>");
-				        	break;
-				        	case 1 :zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"<br>"+spiel.getKfz(3)+"<br>"+spiel.getKfz(2)+"</html>");
-				        	break;
-				        	case 2 :zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"<br>"+spiel.getKfz(3)+"</html>");
-				        	break;
-				        	case 3 :zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"</html>");
-				        	break;
-				        	case 4 :zug.setText("<html>" + spiel.getKfz(5)+"</html>");
-				        	break;
-				        	}
+				        	updateZugLabel(zug);
 				        	
 
 				        	if(spiel.getInRunden() > 1){
@@ -385,19 +372,19 @@ public class MainWindow implements Serializable{
 			        	}
 			        	
 			        	weiter();
-						chips.setBorder(BorderFactory.createTitledBorder(spieler.getName()));
+						chips.setBorder(BorderFactory.createTitledBorder(spiel.getSpielSpieler().getName()));
 						rundenzahl.setText("Runde: " + Integer.toString(spiel.getRunde()));
-				        taxizahl.setText((Integer.toString(spieler.getTaxiChips())));
-				        buszahl.setText((Integer.toString(spieler.getBusChips())));
-				        bahnzahl.setText((Integer.toString(spieler.getBahnChips())));
+				        taxizahl.setText((Integer.toString(spiel.getSpielSpieler().getTaxiChips())));
+				        buszahl.setText((Integer.toString(spiel.getSpielSpieler().getBusChips())));
+				        bahnzahl.setText((Integer.toString(spiel.getSpielSpieler().getBahnChips())));
 				        
-				        if(spieler.getName() == misterx.getName()){
+				        if(spiel.getSpielSpieler().getName() == misterx.getName()){
 				        	chips.add(blackzahl);
 				        	chips.add(black, "wrap");
 				        	chips.add(zweixzahl);
 				        	chips.add(zweix);
-				        	blackzahl.setText((Integer.toString(((MisterX) spieler).getBlackTickets())));
-				        	zweixzahl.setText((Integer.toString(((MisterX) spieler).getDoubleChips())));
+				        	blackzahl.setText((Integer.toString(((MisterX) spiel.getSpielSpieler()).getBlackTickets())));
+				        	zweixzahl.setText((Integer.toString(((MisterX) spiel.getSpielSpieler()).getDoubleChips())));
 				        	
 				        }else{
 				        	chips.remove(blackzahl);
@@ -431,8 +418,7 @@ public class MainWindow implements Serializable{
 			        
 		        }
 		        
-			}
-			
+			}			
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {}
@@ -459,16 +445,66 @@ public class MainWindow implements Serializable{
 		laden.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent a) {
-//				bild.remove(menü);
-//				bild.add(chips);
-//				layout1.putConstraint(SpringLayout.EAST, chips, -100, SpringLayout.EAST, bild);
-//				layout1.putConstraint(SpringLayout.NORTH, chips, 50, SpringLayout.NORTH, bild);
-//				frame.pack();
 		
 				ObjectPersistenceManager ladeManager = new ObjectPersistenceManager();
 //				 = ladeManager.ladeSpiel("test");
+//				MisterXSpiel geladenesSpiel = ladeManager.ladeSpiel("test");
+				spiel = ladeManager.ladeSpiel("test");
+				//spiel = geladenesSpiel.spiel;
 				
 //				getMainWindow() = ladeManager.ladeSpiel("test");
+				
+				
+				
+
+				bild.remove(menü);
+				bild.add(chips);
+				layout1.putConstraint(SpringLayout.EAST, chips, -100, SpringLayout.EAST, bild);
+				layout1.putConstraint(SpringLayout.NORTH, chips, 50, SpringLayout.NORTH, bild);
+				frame.pack();
+				bild.add(runde);
+				layout1.putConstraint(SpringLayout.EAST, runde, -100, SpringLayout.EAST, bild);
+				layout1.putConstraint(SpringLayout.NORTH, runde, 10, SpringLayout.NORTH, bild);
+				
+				
+				bild.add(mrX);
+				layout1.putConstraint(SpringLayout.EAST, mrX, -100, SpringLayout.EAST, bild);
+				layout1.putConstraint(SpringLayout.SOUTH, mrX, -100, SpringLayout.SOUTH, bild);
+				bild.add(sp);
+				layout1.putConstraint(SpringLayout.EAST, sp, -100, SpringLayout.EAST, bild);
+				layout1.putConstraint(SpringLayout.SOUTH, sp, -60, SpringLayout.SOUTH, bild);
+				
+				
+				if(spiel.getInRunden() > 1){
+	        		zeige.setText(spiel.getInRunden() + " Runden");
+	        	}else{
+	        		zeige.setText(spiel.getInRunden() + " Runde");
+	        	}
+				
+				updateZugLabel(zug);
+				MisterX misterx = (MisterX) spiel.getSpielerByIndex(spiel.getXnr());
+				rundenzahl.setText("Runde: " + Integer.toString(spiel.getRunde()));
+				chips.setBorder(BorderFactory.createTitledBorder(spiel.getSpielSpieler().getName()));
+		        taxizahl.setText((Integer.toString(spiel.getSpielSpieler().getTaxiChips())));
+		        buszahl.setText((Integer.toString(spiel.getSpielSpieler().getBusChips())));
+		        bahnzahl.setText((Integer.toString(spiel.getSpielSpieler().getBahnChips())));
+		        
+		        if(spiel.getSpielSpieler().getName() == misterx.getName()){
+		        	chips.add(blackzahl);
+		        	chips.add(black, "wrap");
+		        	chips.add(zweixzahl);
+		        	chips.add(zweix);
+		        	blackzahl.setText((Integer.toString(((MisterX) spiel.getSpielSpieler()).getBlackTickets())));
+		        	zweixzahl.setText((Integer.toString(((MisterX) spiel.getSpielSpieler()).getDoubleChips())));
+			        	
+		        }else{
+		        	chips.remove(blackzahl);
+		        	chips.remove(black);
+		        	chips.remove(zweixzahl);
+		        	chips.remove(zweix);
+		        }
+				
+				
 				
 				System.out.println("Spiel wurde geladen");
 				
@@ -624,18 +660,18 @@ public class MainWindow implements Serializable{
 //				i = 1;
 
 				MisterX misterx = (MisterX) spiel.getSpielerByIndex(spiel.getXnr());
-				chips.setBorder(BorderFactory.createTitledBorder(spieler.getName()));
-		        taxizahl.setText((Integer.toString(spieler.getTaxiChips())));
-		        buszahl.setText((Integer.toString(spieler.getBusChips())));
-		        bahnzahl.setText((Integer.toString(spieler.getBahnChips())));
+				chips.setBorder(BorderFactory.createTitledBorder(spiel.getSpielSpieler().getName()));
+		        taxizahl.setText((Integer.toString(spiel.getSpielSpieler().getTaxiChips())));
+		        buszahl.setText((Integer.toString(spiel.getSpielSpieler().getBusChips())));
+		        bahnzahl.setText((Integer.toString(spiel.getSpielSpieler().getBahnChips())));
 		        
-		        if(spieler.getName() == misterx.getName()){
+		        if(spiel.getSpielSpieler().getName() == misterx.getName()){
 		        	chips.add(blackzahl);
 		        	chips.add(black, "wrap");
 		        	chips.add(zweixzahl);
 		        	chips.add(zweix);
-		        	blackzahl.setText((Integer.toString(((MisterX) spieler).getBlackTickets())));
-		        	zweixzahl.setText((Integer.toString(((MisterX) spieler).getDoubleChips())));
+		        	blackzahl.setText((Integer.toString(((MisterX) spiel.getSpielSpieler()).getBlackTickets())));
+		        	zweixzahl.setText((Integer.toString(((MisterX) spiel.getSpielSpieler()).getDoubleChips())));
 			        	
 		        }else{
 		        	chips.remove(blackzahl);
@@ -720,8 +756,12 @@ public class MainWindow implements Serializable{
 		speichern.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent a) {
+//				Point point = new Point();
+//				point.
+//				spiel.setSp1Pos(spieler1.getLocation());
+				
 				ObjectPersistenceManager objectPersistenceManager = new ObjectPersistenceManager();
-				objectPersistenceManager.speichereSpiel(MainWindow.this, "test");
+				objectPersistenceManager.speichereSpiel(spiel, "test");
 				
 				System.out.println("");
 				System.out.println("Spiel wurde gepeichert!");
@@ -743,7 +783,7 @@ public class MainWindow implements Serializable{
 		
 		if(spiel.getSonderchips() != 3 && spiel.getSonderchips() != 4){
 			spiel.setDran((spiel.getDran()+1) % spiel.getLength());
-			spieler = spiel.getSpielerByIndex(spiel.getDran());
+			spiel.setSpielSpieler(spiel.getSpielerByIndex(spiel.getDran()));
 		}
 		
 		spiel.setSonderchips(1);
@@ -781,7 +821,7 @@ public class MainWindow implements Serializable{
 		}
 		
 
-		System.out.println(spieler.getName() + " ist an der Reihe");
+		System.out.println(spiel.getSpielSpieler().getName() + " ist an der Reihe");
 	}
 	
 	
@@ -790,7 +830,7 @@ public class MainWindow implements Serializable{
 	public boolean kontrolle(){
 
 
-		Iterator<Station> nachbIterator = spieler.getStandort().getTaxiNachbarn().iterator();
+		Iterator<Station> nachbIterator = spiel.getSpielSpieler().getStandort().getTaxiNachbarn().iterator();
 		//if(spieler.getTaxiChips()>0){
 			if(nachbIterator.hasNext()){
 				while (nachbIterator.hasNext()) {
@@ -803,8 +843,8 @@ public class MainWindow implements Serializable{
 		//}
 
 		
-		nachbIterator = spieler.getStandort().getBusNachbarn().iterator();
-		if(spieler.getBusChips()>0){
+		nachbIterator = spiel.getSpielSpieler().getStandort().getBusNachbarn().iterator();
+		if(spiel.getSpielSpieler().getBusChips()>0){
 			if(nachbIterator.hasNext()){
 				while (nachbIterator.hasNext()) {
 					if(nachbIterator.next().getName().equals(""+spiel.getFarbe())){
@@ -815,8 +855,8 @@ public class MainWindow implements Serializable{
 			}
 		}
 		
-		nachbIterator = spieler.getStandort().getBahnNachbarn().iterator();
-		if(spieler.getBahnChips()>0){
+		nachbIterator = spiel.getSpielSpieler().getStandort().getBahnNachbarn().iterator();
+		if(spiel.getSpielSpieler().getBahnChips()>0){
 			if(nachbIterator.hasNext()){
 				while (nachbIterator.hasNext()) {
 					if(nachbIterator.next().getName().equals(""+spiel.getFarbe())){
@@ -851,7 +891,7 @@ public class MainWindow implements Serializable{
 //		
 		
 		
-		if(spieler.getTaxiChips()==0 && spieler.getBusChips()==0 && spieler.getBahnChips()==0){
+		if(spiel.getSpielSpieler().getTaxiChips()==0 && spiel.getSpielSpieler().getBusChips()==0 && spiel.getSpielSpieler().getBahnChips()==0){
 			System.out.println("Spiel zuende!");
 		}
 		
@@ -896,15 +936,15 @@ public class MainWindow implements Serializable{
 		
 		
 		if(spiel.getVerk() == 1){
-			spiel.taxiFahren(spiel.getStationByIndex(spiel.getFarbe()-1), spieler, misterx);
+			spiel.taxiFahren(spiel.getStationByIndex(spiel.getFarbe()-1), spiel.getSpielSpieler(), misterx);
 		}
 
 		if(spiel.getVerk() == 2){
-			spiel.busFahren(spiel.getStationByIndex(spiel.getFarbe()-1), spieler, misterx);
+			spiel.busFahren(spiel.getStationByIndex(spiel.getFarbe()-1), spiel.getSpielSpieler(), misterx);
 		}
 
 		if(spiel.getVerk() == 3){
-			spiel.bahnFahren(spiel.getStationByIndex(spiel.getFarbe()-1), spieler, misterx);
+			spiel.bahnFahren(spiel.getStationByIndex(spiel.getFarbe()-1), spiel.getSpielSpieler(), misterx);
 		}
 		
 		
@@ -959,7 +999,7 @@ public class MainWindow implements Serializable{
 //			}
 //		}
 		
-		System.out.println("Du stehst nun an der " + spieler.getStandort());
+		System.out.println("Du stehst nun an der " + spiel.getSpielSpieler().getStandort());
 		System.out.println();
 		
 		
@@ -1002,6 +1042,30 @@ public class MainWindow implements Serializable{
         return true;
     }
 
+	private void updateZugLabel(JLabel zug) {
+		int nul=-1;
+		for(int l=0; l<6; l++){
+			if(spiel.getKfz(l) == null){
+				nul = l;
+			}
+		}
+
+		switch(nul){
+		case -1:zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"<br>"+spiel.getKfz(3)+"<br>"+spiel.getKfz(2)+"<br>"+spiel.getKfz(1)+"<br>"+spiel.getKfz(0)+"</html>");
+		break;
+		case 0 :zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"<br>"+spiel.getKfz(3)+"<br>"+spiel.getKfz(2)+"<br>"+spiel.getKfz(1)+"</html>");
+		break;
+		case 1 :zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"<br>"+spiel.getKfz(3)+"<br>"+spiel.getKfz(2)+"</html>");
+		break;
+		case 2 :zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"<br>"+spiel.getKfz(3)+"</html>");
+		break;
+		case 3 :zug.setText("<html>" + spiel.getKfz(5)+"<br>"+spiel.getKfz(4)+"</html>");
+		break;
+		case 4 :zug.setText("<html>" + spiel.getKfz(5)+"</html>");
+		break;
+		default: zug.setText("nicht gefahren");
+		}
+	}
 
 
 

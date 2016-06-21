@@ -31,10 +31,20 @@ public class MisterXSpiel implements Serializable {
 	private int dran = -1;
 	private int inRunden;
 	private Spieler spieler;
+	private int sp1X;
+	private int sp1Y;
 	//private PersistenceManager pm = new FilePersistenceManager();
 	
 //	private List<Spieler> SpielerStand = new Vector<Spieler>();
 		
+	public void setSp1Pos(int x, int y) {
+		this.sp1X = x;
+		this.sp1Y = y;
+	}
+	
+	
+	
+	
 	public void setSpielSpieler(Spieler spieler) {
 		this.spieler = spieler;
 	}

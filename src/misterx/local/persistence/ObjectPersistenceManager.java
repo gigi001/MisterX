@@ -53,11 +53,11 @@ public class ObjectPersistenceManager implements PersistenceManager {
 	
 	
 	@Override
-	public void speichereSpiel(MainWindow s,String datenQuelle){
+	public void speichereSpiel(MisterXSpiel spiel,String datenQuelle){
 		
 		try {
 			openForWriting("src/"+datenQuelle);
-			outputStream.writeObject(s);
+			outputStream.writeObject(spiel);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,11 +73,11 @@ public class ObjectPersistenceManager implements PersistenceManager {
 			}	
 		}		
 	@Override
-	public  MainWindow ladeSpiel(String datenQuelle){
-		MainWindow spiel= null;
+	public  MisterXSpiel ladeSpiel(String datenQuelle){
+		MisterXSpiel spiel= null;
 		try {
 			openForReading("src/"+datenQuelle);
-				spiel = (MainWindow)inputStream.readObject();
+				spiel = (MisterXSpiel)inputStream.readObject();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
