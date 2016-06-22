@@ -35,7 +35,7 @@ public class MisterXClientCUI {
 		if(y == 2){
 			System.out.println("HALLO");
 			ObjectPersistenceManager ladeManager = new ObjectPersistenceManager();
-			spiel = ladeManager.ladeSpiel("test");
+			//spiel = ladeManager.ladeSpiel("test");
 			xnr=spiel.getXnr();
 			
 			
@@ -81,7 +81,7 @@ public class MisterXClientCUI {
 						System.err.println(eex.getMessage());
 					}
 				} while (!ok);
-				//<-
+
 				for (int i= 0; i<5; i++){					
 					//Station strasse = spiel.getStationByIndex(i);
 					System.out.println("Nr: " + (i+1)+ "   " + spiel.getStationByIndex(i));
@@ -230,20 +230,24 @@ public class MisterXClientCUI {
 			sonderchips = "1";
 			
 			if(i == 0){
-				spiel.getNaechsteRunde();
-				System.out.println("Runde " + spiel.getRunde());
+				//spiel.getNaechsteRunde();
+				//System.out.println("Runde " + spiel.getRunde());
 				
 				System.out.println("Spiel Speichern? (y/n)");
 //				BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 				String speichern = reader.readLine();
 				if(speichern.equals("y")){
 					ObjectPersistenceManager objectPersistenceManager = new ObjectPersistenceManager();
-					objectPersistenceManager.speichereSpiel(spiel, "test");
+	//				objectPersistenceManager.speichereSpiel(spiel, "test");
 					
 					System.out.println("");
 					System.out.println("Spiel wurde gepeichert!");
 					System.out.println("");
 				}
+				
+				spiel.getNaechsteRunde();
+				System.out.println("Runde " + spiel.getRunde());
+				
 			}
 			
 			if(xnr+1 < spiel.getLength()){
@@ -348,17 +352,17 @@ public class MisterXClientCUI {
 					Station station = nachbTaxiIterator.next();
 					if ((l+1) == Integer.parseInt(stationsausw)) {
 //						spiel.taxiFahren(nachbTaxiIterator, stationsausw, spieler, misterx, l, sonderchips);
-						spiel.taxiFahren(station, spieler, misterx, sonderchips);
+						spiel.taxiFahren(station, spieler, misterx);
 					}
 				}else if (nachbBusIterator.hasNext()) {
 					Station station = nachbBusIterator.next();
 					if ((l+1) == Integer.parseInt(stationsausw)) {
-						spiel.busFahren(station, spieler, misterx, sonderchips);	
+						spiel.busFahren(station, spieler, misterx);	
 					}
 				}else if (nachbBahnIterator.hasNext()) {
 					Station station = nachbBahnIterator.next();
 					if ((l+1) == Integer.parseInt(stationsausw)) {
-						spiel.bahnFahren(station, spieler, misterx, sonderchips);
+						spiel.bahnFahren(station, spieler, misterx);
 					}
 				}
 			}
@@ -385,7 +389,6 @@ public class MisterXClientCUI {
 	
 
 
-	
 	
 	public boolean isAlpha(String text) throws EingabeException {
         for (char c : text.toCharArray()) {

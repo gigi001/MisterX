@@ -19,8 +19,8 @@ public class Spieler implements Serializable{
 	public Spieler(String name) {
 		this.name = name;
 		taxiChips=3;
-		busChips=2;
-		bahnChips=3;
+		busChips=20;
+		bahnChips=4;
 	}
 	
 	

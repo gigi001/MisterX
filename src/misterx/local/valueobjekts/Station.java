@@ -44,7 +44,7 @@ public class Station  implements Serializable{
 		this.bahnNachbarn = bahnNachbarn;
 	}
 	
-	public void addBahnNachbarn(Station bahnNachbar) {
+	public void addBahnNachbar(Station bahnNachbar) {
 		bahnNachbarn.add(bahnNachbar);
 	}
 	
